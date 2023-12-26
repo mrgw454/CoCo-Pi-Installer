@@ -148,6 +148,17 @@ else
     tar xzvf /home/pi/CoCo-Pi-Installer/mame-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
+
+    tar xzvf /home/pi/CoCo-Pi-Installer/Pictures.tar.gz -C /
+    pcmanfm --wallpaper-mode=color
+    pcmanfm --wallpaper-mode=center
+    pcmanfm --set-wallpaper /home/pi/Pictures/CoCo-Pi\ 4x3\ black.png
+
+    tar xzvf /home/pi/CoCo-Pi-Installer/Desktop.tar.gz -C /
+
+    tar xzvf /home/pi/CoCo-Pi-Installer/fonts.tar.gz -C /
+    fc-cache -f -v
 
     cp /home/pi/CoCo-Pi-Installer/cocopi-release.txt $HOME
     cat /home/pi/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc
