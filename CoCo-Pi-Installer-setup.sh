@@ -167,6 +167,10 @@ else
     sudo systemctl enable ssh
     sudo systemctl start ssh
 
+    # remove ssh warning messages
+    sudo mv /etc/profile.d/sshpwd.sh /etc/profile.d/sshpwd.sh.disable
+    sudo mv /etc/xdg/lxsession/LXDE-pi/sshpwd.sh /etc/xdg/lxsession/LXDE-pi/sshpwd.sh.disable
+
     cp /home/pi/CoCo-Pi-Installer/cocopi-release.txt $HOME
 
     # add CoCo-Pi related environment settings to .bashrc for user pi
