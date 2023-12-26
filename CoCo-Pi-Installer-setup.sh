@@ -133,6 +133,13 @@ else
     echo
     cp /home/pi/CoCo-Pi-Installer
 
+    git init
+    git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
+    git fetch
+    git reset --hard origin/master
+    git pull origin master
+    git config --global pull.ff only
+
     git fetch --all
     git reset --hard origin/master
     git pull origin master
