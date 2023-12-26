@@ -131,7 +131,7 @@ if grep -q "$fix" $file; then
 else
     echo Applying fix $fix...
     echo
-    cp /home/pi/CoCo-Pi-Installer
+    cd /home/pi/CoCo-Pi-Installer
 
     git init
     git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
