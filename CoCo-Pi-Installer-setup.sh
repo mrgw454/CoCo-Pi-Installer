@@ -144,12 +144,14 @@ else
     git reset --hard origin/master
     git pull origin master
 
+    # install core CoCo-Pi scripts and menus
     tar xzvf /home/pi/CoCo-Pi-Installer/select-project-build-scripts.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/mame-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
 
+    # set backgroup wallpaper for CoCo-Pi
     tar xzvf /home/pi/CoCo-Pi-Installer/Pictures.tar.gz -C /
     pcmanfm --wallpaper-mode=color
     pcmanfm --wallpaper-mode=center
@@ -157,10 +159,17 @@ else
 
     tar xzvf /home/pi/CoCo-Pi-Installer/Desktop.tar.gz -C /
 
+    # install additional fonts related to CoCo-Pi
     tar xzvf /home/pi/CoCo-Pi-Installer/fonts.tar.gz -C /
     fc-cache -f -v
 
+    # enable ssh server
+    sudo systemctl enable ssh
+    sudo systemctl start ssh
+
     cp /home/pi/CoCo-Pi-Installer/cocopi-release.txt $HOME
+
+    # add CoCo-Pi related environment settings to .bashrc for user pi
     cat /home/pi/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc
     source $HOME/.bashrc
 
