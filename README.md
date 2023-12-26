@@ -14,3 +14,5 @@ Size: 2,732MB
 
 At this time, I've only begun my initial testing on a Raspberry Pi 5 (8 GB) platform.  This is not meant for use just yet - I'll be populating the repository over the next few weeks and update this README.md when things are ready.
 
+More information about the CoCo-Pi Project can be found here:
+https://coco-pi.com/
