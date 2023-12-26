@@ -1,0 +1,62 @@
+# start of Coco-Pi modifications
+
+# detect model of Raspberry Pi
+RPI=`cat /proc/device-tree/model | cut -c14-16`
+
+ if [[ "$RPI" == "5 M" ]]; then
+        TITLE="RPi5"
+ fi
+
+ if [[ "$RPI" == "400" ]]; then
+        TITLE="RPi400"
+ fi
+
+ if [[ "$RPI" == "4 M" ]]; then
+        TITLE="RPi4"
+ fi
+
+ if [[ "$RPI" == "3 M" ]]; then
+        TITLE="RPi3"
+ fi
+
+echo $TITLE > $HOME/rpi-model.txt
+
+# fix for the 'dialog' command when using a Putty client
+export NCURSES_NO_UTF8_ACS=1
+
+# fix for screen permission issue
+export SCREENDIR=$HOME/.screen
+
+# path settings
+PATH=/home/pi/.local/bin:$PATH:/home/pi/.mame:/opt/mame:/home/pi/.xroar:/home/pi/scripts
+
+# add path for CC6303 compiler
+export PATH=/opt/cc68/bin:$PATH
+
+# add path for cc65 compiler
+export PATH=/home/pi/source/cc65/bin:$PATH
+
+# add path for xa65 compiler
+export PATH=/home/pi/source/xa65/xa:$PATH
+
+# add z88dk library
+export PATH=${PATH}:${HOME}/source/z88dk/bin
+export ZCCCFG=${HOME}/source/z88dk/lib/config
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+
+# add support for pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# add path for VICE emulator
+export PATH=$HOME/source/vice/trunk/vice/src:$PATH
+
+# launch CoCo-Pi menu if on local console only
+if [ "$TERM" = linux ]; then
+  cd $HOME/.mame
+  menu
+else
+  echo
+  neofetch
+fi
