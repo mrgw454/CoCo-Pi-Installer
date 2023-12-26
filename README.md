@@ -5,7 +5,8 @@ The CoCo-Pi Installer will add the CoCo-Pi components (i.e. menus, launch script
 
 https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit
 
-(Use this image for now):\n
+(Use this image for now):
+
 https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64-full.img.xz
 
 Release date: December 5th 2023
