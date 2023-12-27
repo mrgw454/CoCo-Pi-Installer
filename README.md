@@ -7,7 +7,7 @@ https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit
 
 
 
-(Use this image for now):
+You will need to use this specific image (for now) as this is what I'm developing with and testing on:
 
 https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64-full.img.xz
 
@@ -17,8 +17,8 @@ Kernel version: 6.1
 Debian version: 12 (bookworm)
 Size: 2,732MB
 
-At this time, I've only begun my initial testing on a Raspberry Pi 5 (8 GB) platform.  This is not meant for use just yet - I'll be populating the repository over the next few weeks and update this README.md when things are ready.
+At this time, I've only begun my initial testing on a Raspberry Pi 5 (8 GB) and Raspberry Pi 4 (8 GB) platform.  This is not meant for general consumption use just yet.  I'll be populating the repository over the next few weeks and update this README.md when things are ready.
 
-More information about the CoCo-Pi Project can be found here:
+More information about the regular CoCo-Pi Project can be found here:
 
 https://coco-pi.com/
