@@ -172,8 +172,11 @@ else
     sudo mv /etc/xdg/lxsession/LXDE-pi/sshpwd.sh /etc/xdg/lxsession/LXDE-pi/sshpwd.sh.disable
 
     cp /home/pi/CoCo-Pi-Installer/cocopi-release.txt $HOME
+    cp /home/pi/CoCo-Pi-Installer/.wgetrc $HOME
 
     # add CoCo-Pi related environment settings to .bashrc for user pi
+    echo >> $HOME/.bashrc
+    echo >> $HOME/.bashrc
     cat /home/pi/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc
     source $HOME/.bashrc
 

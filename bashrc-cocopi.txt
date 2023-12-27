@@ -1,5 +1,3 @@
-
-
 # start of Coco-Pi modifications
 
 # detect model of Raspberry Pi
