@@ -31,7 +31,7 @@ For those early adopters that would like to try this out now, here are the basic
 File system on SD card will automatically be expanded after your first reboot.  No need to perform that step manually any longer.
 
 7. Log into Raspberry Pi OS.
-8. DO NOT CLONE this repository.  You only need to download a single file (Downloads folder is fine):
+8. DO NOT CLONE this repository.  You only need to download a single file (Downloads folder is fine):<br/>
     https://github.com/mrgw454/CoCo-Pi-Installer/blob/master/CoCo-Pi-Installer-setup.sh
 
 9. Open a terminal, change directories to where you downloaded the file and type the following commands:<br/>
