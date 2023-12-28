@@ -49,7 +49,7 @@ File system on SD card will automatically be expanded after your first reboot.  
     select-project-build.sh
     A menu of projects to compile and install will be presented.  I suggest starting with lwtools, toolshed and gcc6809.  Having these projects installed first will allow successful building of other projects.
 
-The rest of this should be familiar.  The same CoCo-Pi Menus are there (for lanuching emulators, downloading software, etc.).  I'm sure you will encounter issues/bugs.
+The rest of this should be familiar.  The same CoCo-Pi Menus are there (for launching emulators, downloading software, etc.).  I'm sure you will encounter issues/bugs.
 
 This method of obtaining and using CoCo-Pi is a big departure from a "ready to go" SD card image.  Due to nature of the Raspebrry Pi OS (and the packages / settings it uses) this method of installing CoCo-Pi may still need to be tied specific version(s) of the Raspberry Pi OS.
 
