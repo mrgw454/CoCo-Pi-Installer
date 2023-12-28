@@ -150,12 +150,13 @@ else
     tar xzvf /home/pi/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/source.tar.gz -C /
 
     # set backgroup wallpaper for CoCo-Pi
     tar xzvf /home/pi/CoCo-Pi-Installer/Pictures.tar.gz -C /
     pcmanfm --wallpaper-mode=color
-    pcmanfm --wallpaper-mode=center
-    pcmanfm --set-wallpaper /home/pi/Pictures/CoCo-Pi\ 4x3\ black.png
+    pcmanfm --wallpaper-mode=stretch
+    pcmanfm --set-wallpaper /home/pi/Pictures/CoCo-Pi\ 16x9\ black.png
 
     tar xzvf /home/pi/CoCo-Pi-Installer/Desktop.tar.gz -C /
 
