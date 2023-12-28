@@ -9,13 +9,13 @@ https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit
 
 You will need to use this specific image (for now) as this is what I'm developing with and testing on:
 
-https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64-full.img.xz
+https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64-full.img.xz<br/>
 
-Release date: December 5th 2023
+```Release date: December 5th 2023
 System: 64-bit
 Kernel version: 6.1
 Debian version: 12 (bookworm)
-Size: 2,732MB
+Size: 2,732MB```
 
 At this time, I've only begun my initial testing on a Raspberry Pi 5 (8 GB) and Raspberry Pi 4 (8 GB) platform.  This is not meant for general consumption use just yet.  I'll be populating the repository over the next few weeks and update this README.md when things are ready.
 
