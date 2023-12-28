@@ -44,7 +44,7 @@ File system on SD card will automatically be expanded after your first reboot.  
     `./CoCo-Pi-apt-packages-to-install.sh`<br/>
     When this part is complete, REBOOT Raspberry Pi.<br/>
 
-11. Log back into Rasperry Pi, open a terminal and type the following commands:<br/>
+11. Log back into Rasperry Pi, open a terminal and type the following command:<br/>
     `select-project-build.sh`<br/><br/>
     A menu of projects to compile and install will be presented.  I suggest starting with lwtools, toolshed and gcc6809.  Having these projects installed first will allow successful building of other projects.<br/><br/>
 
