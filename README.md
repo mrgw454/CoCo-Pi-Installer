@@ -34,16 +34,16 @@ File system on SD card will automatically be expanded after your first reboot.  
 8. DO NOT CLONE this repository.  You only need to download a single file (Downloads folder is fine):
     https://github.com/mrgw454/CoCo-Pi-Installer/blob/master/CoCo-Pi-Installer-setup.sh
 
-9. Open a terminal, change directories to where you downloaded the file and type the following commands:
+9. Open a terminal, change directories to where you downloaded the file and type the following commands:<br/>
 
-   chmod a+x CoCo-Pi-Installer-setup.sh
-   ./CoCo-Pi-Installer-setup.sh
-   When this part is complete, REBOOT Raspberry Pi.
+   chmod a+x CoCo-Pi-Installer-setup.sh<br/>
+   ./CoCo-Pi-Installer-setup.sh<br/>
+   When this part is complete, REBOOT Raspberry Pi.<br/>
 
-10. Log back into Raspberry Pi, open a terminal and type the following commands:
-    cd $HOME/source
-    ./CoCo-Pi-apt-packages-to-install.sh
-    When this part is complete, REBOOT Raspberry Pi. 
+10. Log back into Raspberry Pi, open a terminal and type the following commands:<br/>
+    cd $HOME/source<br/>
+    ./CoCo-Pi-apt-packages-to-install.sh<br/>
+    When this part is complete, REBOOT Raspberry Pi.<br/>
 
 11. Log back into Rasperry Pi, open a terminal and type the following commands:
     select-project-build.sh
