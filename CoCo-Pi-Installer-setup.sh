@@ -150,7 +150,9 @@ else
     tar xzvf /home/pi/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/misc-files.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/source.tar.gz -C /
+
 
     # set backgroup wallpaper for CoCo-Pi
     tar xzvf /home/pi/CoCo-Pi-Installer/Pictures.tar.gz -C /
