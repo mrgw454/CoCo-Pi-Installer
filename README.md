@@ -36,7 +36,7 @@ File system on SD card will automatically be expanded after your first reboot.  
 
 9. Open a terminal, change directories to where you downloaded the file and type the following commands:<br/>
 
-   chmod a+x CoCo-Pi-Installer-setup.sh<br/>
+   `chmod a+x CoCo-Pi-Installer-setup.sh`<br/>
    `./CoCo-Pi-Installer-setup.sh`<br/>
    When this part is complete, REBOOT Raspberry Pi.<br/>
 
