@@ -37,16 +37,16 @@ File system on SD card will automatically be expanded after your first reboot.  
 9. Open a terminal, change directories to where you downloaded the file and type the following commands:<br/>
 
    chmod a+x CoCo-Pi-Installer-setup.sh<br/>
-   ./CoCo-Pi-Installer-setup.sh<br/>
+   `./CoCo-Pi-Installer-setup.sh`<br/>
    When this part is complete, REBOOT Raspberry Pi.<br/>
 
 10. Log back into Raspberry Pi, open a terminal and type the following commands:<br/>
-    cd $HOME/source<br/>
-    ./CoCo-Pi-apt-packages-to-install.sh<br/>
+    `cd $HOME/source`<br/>
+    `./CoCo-Pi-apt-packages-to-install.sh`<br/>
     When this part is complete, REBOOT Raspberry Pi.<br/>
 
 11. Log back into Rasperry Pi, open a terminal and type the following commands:<br/>
-    select-project-build.sh<br/>
+    `select-project-build.sh`<br/>
     A menu of projects to compile and install will be presented.  I suggest starting with lwtools, toolshed and gcc6809.  Having these projects installed first will allow successful building of other projects.<br/>
 
 The rest of this should be familiar.  The same CoCo-Pi Menus are there (for launching emulators, downloading software, etc.).  I'm sure you will encounter issues/bugs.
