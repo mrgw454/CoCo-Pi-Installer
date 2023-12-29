@@ -70,7 +70,7 @@ tar czvf xroar-menus.tar.gz /home/pi/.xroar
 tar czvf trs80gp-menus.tar.gz /home/pi/.trs80gp
 
 tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs /home/pi/pyDriveWire/config/pydrivewirerc-daemon /home/pi/pyDriveWire/*.sh /home/pi/DriveWire4/*.sh /home/pi/DriveWire4/config.xml
-tar czvf source.tar.gz /home/pi/source/new_windows.zip
+tar czvf source.tar.gz /home/pi/source/new_windows.zip /media/share1/source
 
 # capture .bashrc modifications for CoCo-Pi
 grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt
