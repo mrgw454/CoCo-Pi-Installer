@@ -54,6 +54,7 @@ else
 
 fi
 
+pyenv global pypy2.7-7.3.11
 
 echo
 echo
