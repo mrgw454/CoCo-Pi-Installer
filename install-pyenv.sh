@@ -17,6 +17,7 @@ fi
 
 # check if pyenv entires exist in .bashrc file
 if grep -q PYENV_ROOT $HOME/.bashrc; then
+	source $HOME/.bashrc
 	echo pyenv entries found in $HOME/.bashrc .  Skipping...
 	echo
 else
@@ -35,6 +36,8 @@ EOF
 	rm /tmp/np
 	echo
 	echo
+
+	source $HOME/.bashrc
 fi
 
 # check if correct version of python2 is installed for pyenv
