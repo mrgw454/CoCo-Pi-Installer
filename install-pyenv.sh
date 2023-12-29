@@ -50,14 +50,14 @@ else
 
 	source $HOME/.bashrc
 
-	pyenv install pypy2.7-7.3.11
+	$HOME/.pyenv/bin/pyenv install pypy2.7-7.3.11
 	echo
 	echo
 	source $HOME/.bashrc
 
 fi
 
-pyenv global pypy2.7-7.3.11
+$HOME/.pyenv/bin/pyenv global pypy2.7-7.3.11
 
 echo
 echo
