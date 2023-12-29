@@ -53,6 +53,16 @@ if [ -f misc-files.tar.gz ]; then
 fi
 
 
+if [ -f pyDriveWire-files.tar.gz ]; then
+	rm pyDriveWire-files.tar.gz
+fi
+
+
+if [ -f DriveWire-files.tar.gz ]; then
+	rm DriveWire-files.tar.gz
+fi
+
+
 if [ -f source.tar.gz ]; then
 	rm source.tar.gz
 fi
@@ -69,7 +79,9 @@ tar czvf mame-menus.tar.gz /home/pi/.mame
 tar czvf xroar-menus.tar.gz /home/pi/.xroar
 tar czvf trs80gp-menus.tar.gz /home/pi/.trs80gp
 
-tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs /home/pi/pyDriveWire/config/pydrivewirerc-daemon /home/pi/pyDriveWire/*.sh /home/pi/DriveWire4/*.sh /home/pi/DriveWire4/config.xml
+tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs
+tar czvf pyDriveWire-files.tar.gz /home/pi/pyDriveWire/config/pydrivewirerc-daemon /home/pi/pyDriveWire/*.sh
+tar czvf DriveWire-files.tar.gz /home/pi/DriveWire4/*.sh /home/pi/DriveWire4/config.xml
 tar czvf source.tar.gz /home/pi/source/new_windows.zip /media/share1/source
 
 # capture .bashrc modifications for CoCo-Pi
