@@ -44,6 +44,9 @@ if [ -d $HOME/.pyenv/versions/pypy2.7-7.3.11 ]; then
 else
 	echo correct verion of python2 does not exist in ~/.pyenv/versions folder.  Installing...
 	echo
+
+	source $HOME/.bashrc
+
 	pyenv install pypy2.7-7.3.11
 	echo
 	echo

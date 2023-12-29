@@ -201,6 +201,8 @@ else
     echo Applying fix $fix...
     echo
     cd /home/pi/CoCo-Pi-Installer
+    sudo apt -y install pyenv
+
     ./install-pyenv.sh
 
     cd $HOME
