@@ -131,8 +131,8 @@ if grep -q "$fix" $file; then
 else
     echo Applying fix $fix...
     echo
-    cd /home/pi/CoCo-Pi-Installer
 
+    cd /home/pi/CoCo-Pi-Installer
     git init
     git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
     git fetch
@@ -143,6 +143,20 @@ else
     git fetch --all
     git reset --hard origin/master
     git pull origin master
+
+
+    cd /home/pi
+    git init
+    git remote add origin https://github.com/mrgw454/CoCo-Pi-64bit-Bookworm.git
+    git fetch
+    git reset --hard origin/master
+    git pull origin master
+    git config --global pull.ff only
+
+    git fetch --all
+    git reset --hard origin/master
+    git pull origin master
+
 
     # install core CoCo-Pi scripts and menus
     tar xzvf /home/pi/CoCo-Pi-Installer/select-project-build-scripts.tar.gz -C /
