@@ -8,6 +8,41 @@ read -p "Press any key to continue or [CTRL-C] to abort..." -n1 -s
 echo
 echo
 
+# validate Raspberry Pi OS and architecture is compatible before proceeding
+version_check=$(cat /etc/os-release | grep VERSION= | cut -d'"' -f 2)
+#echo $version_check
+
+if [ "$version_check" != "12 (bookworm)" ]; then
+	echo The version of Raspberry Pi OS is not compatible with this installer.
+	echo
+	echo You must use this version:
+	echo https://downloads.raspberrypi.com/raspios_full_armhf/images/raspios_full_armhf-2023-12-06/2023-12-05-raspios-bookworm-armhf-full.img.xz
+	echo
+	echo Aborting.
+	echo
+	echo
+	exit 1
+else
+	systemtype=$(dpkg --print-architecture)
+
+	if [ $systemtype != arm32 ]; then
+		echo The version of Raspberry Pi OS is not compatible with this installer.
+		echo
+		echo "You must use the arm64 (64 bit) and not 32 bit version (architecture type)."
+		echo
+		echo Aborting.
+		echo
+		echo 
+		exit 1
+	else
+		echo The version of Raspberry Pi OS you have is compatible with this installer.  Proceeding.
+		echo
+		echo
+	fi
+
+fi
+
+
 backupdate=$(date +"%Y%m%d_%H%M%S")
 
 # create base folders
