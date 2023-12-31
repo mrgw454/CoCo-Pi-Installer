@@ -25,7 +25,7 @@ if [ "$version_check" != "12 (bookworm)" ]; then
 else
 	systemtype=$(dpkg --print-architecture)
 
-	if [ $systemtype != arm32 ]; then
+	if [ $systemtype != arm64 ]; then
 		echo The version of Raspberry Pi OS is not compatible with this installer.
 		echo
 		echo "You must use the arm64 (64 bit) and not 32 bit version (architecture type)."
