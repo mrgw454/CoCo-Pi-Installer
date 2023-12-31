@@ -43,6 +43,11 @@ if [ -f xroar-menus.tar.gz ]; then
 fi
 
 
+if [ -f ovcc-menus.tar.gz ]; then
+	rm ovcc-menus.tar.gz
+fi
+
+
 if [ -f trs80gp-menus.tar.gz ]; then
 	rm trs80gp-menus.tar.gz
 fi
@@ -77,6 +82,7 @@ tar czvf fonts.tar.gz /home/pi/.fonts
 
 tar czvf mame-menus.tar.gz /home/pi/.mame
 tar czvf xroar-menus.tar.gz /home/pi/.xroar
+tar czvf ovcc-menus.tar.gz /home/pi/.ovcc/*.rom /home/pi/.ovcc/*.sh /home/pi/.ovcc/*.ini /home/pi/.ovcc/ini/*
 tar czvf trs80gp-menus.tar.gz /home/pi/.trs80gp
 
 tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs

@@ -197,6 +197,7 @@ else
     tar xzvf /home/pi/CoCo-Pi-Installer/select-project-build-scripts.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/mame-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/ovcc-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/misc-files.tar.gz -C /
