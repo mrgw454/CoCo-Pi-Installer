@@ -79,6 +79,46 @@ else
 fi
 
 
+if [ ! -d /media/share1/SDC ]; then
+	mkdir /media/share1/SDC
+	echo Adding /media/share1/SDC folder
+	echo
+else
+	echo /media/share1/SDC folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/SDC-dragon ]; then
+	mkdir /media/share1/SDC-dragon
+	echo Adding /media/share1/SDC-dragon folder
+	echo
+else
+	echo /media/share1/SDC-dragon folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/cassette ]; then
+	mkdir /media/share1/cassette
+	echo Adding /media/share1/cassette folder
+	echo
+else
+	echo /media/share1/cassette folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/cassette-dragon ]; then
+	mkdir /media/share1/cassette-dragon
+	echo Adding /media/share1/cassette-dragon folder
+	echo
+else
+	echo /media/share1/cassette-dragon folder exists
+	echo
+fi
+
+
 if [ ! -d $HOME/CoCo-Pi-Installer ]; then
 	mkdir $HOME/CoCo-Pi-Installer
 	echo Adding $HOME/CoCo-Pi-Installer folder
