@@ -261,6 +261,9 @@ else
     tar xzvf /home/pi/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/scripts.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/misc-files.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/lwwire-files.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/tcpser-files.tar.gz -C /
+    tar xzvf /home/pi/CoCo-Pi-Installer/carts.tar.gz -C /
     tar xzvf /home/pi/CoCo-Pi-Installer/source.tar.gz -C /
 
 
