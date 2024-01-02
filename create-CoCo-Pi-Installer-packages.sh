@@ -85,7 +85,7 @@ tar czvf xroar-menus.tar.gz /home/pi/.xroar
 tar czvf ovcc-menus.tar.gz /home/pi/.ovcc/*.rom /home/pi/.ovcc/*.sh /home/pi/.ovcc/*.ini /home/pi/.ovcc/ini/*
 tar czvf trs80gp-menus.tar.gz /home/pi/.trs80gp
 
-tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs
+tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.irssi /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs
 tar czvf pyDriveWire-files.tar.gz /home/pi/pyDriveWire/config/pydrivewirerc-daemon /home/pi/pyDriveWire/*.sh
 tar czvf DriveWire-files.tar.gz /home/pi/DriveWire4/*.sh /home/pi/DriveWire4/config.xml
 tar czvf source.tar.gz /home/pi/source/new_windows.zip /media/share1/source
