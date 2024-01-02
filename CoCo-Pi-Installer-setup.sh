@@ -129,6 +129,16 @@ else
 fi
 
 
+if [ ! -d /media/share1/MCX ]; then
+	mkdir /media/share1/MCX
+	echo Adding /media/share1/MCX folder
+	echo
+else
+	echo /media/share1/MCX folder exists
+	echo
+fi
+
+
 if [ ! -d $HOME/CoCo-Pi-Installer ]; then
 	mkdir $HOME/CoCo-Pi-Installer
 	echo Adding $HOME/CoCo-Pi-Installer folder
