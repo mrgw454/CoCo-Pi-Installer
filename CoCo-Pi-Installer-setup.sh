@@ -79,6 +79,16 @@ else
 fi
 
 
+if [ ! -d /media/share1/carts ]; then
+	mkdir /media/share1/carts
+	echo Adding /media/share1/carts folder
+	echo
+else
+	echo /media/share1/carts folder exists
+	echo
+fi
+
+
 if [ ! -d /media/share1/SDC ]; then
 	mkdir /media/share1/SDC
 	echo Adding /media/share1/SDC folder
