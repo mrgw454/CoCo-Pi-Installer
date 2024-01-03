@@ -103,7 +103,7 @@ tar czvf trs80gp-menus.tar.gz /home/pi/.trs80gp
 tar czvf misc-files.tar.gz /etc/samba/smb.conf /home/pi/.vim /home/pi/.wgetrc /home/pi/.irssi /home/pi/.config/geany/geany.conf /home/pi/.config/geany/filedefs
 tar czvf pyDriveWire-files.tar.gz /home/pi/pyDriveWire/config/pydrivewirerc-daemon /home/pi/pyDriveWire/*.sh
 tar czvf DriveWire-files.tar.gz /home/pi/DriveWire4/*.sh /home/pi/DriveWire4/config.xml
-tar czvf lwwire-files.tar.gz /home/pi/lwwire/*.sh
+tar czvf lwwire-files.tar.gz /home/pi/lwwire/*.sh /home/pi/lwwire/serserv /home/pi/lwwire/tcpserv
 tar czvf tcpser-files.tar.gz /home/pi/tcpser/*.sh
 
 tar czvf carts.tar.gz /media/share1/carts
