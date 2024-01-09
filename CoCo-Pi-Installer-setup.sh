@@ -32,7 +32,7 @@ else
 		echo
 		echo Aborting.
 		echo
-		echo 
+		echo
 		exit 1
 	else
 		echo The version of Raspberry Pi OS you have is compatible with this installer.  Proceeding.
