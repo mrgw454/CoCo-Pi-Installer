@@ -158,9 +158,10 @@ echo
     tar xzvf $HOME/CoCo-Pi-Installer/fonts.tar.gz -C /
     fc-cache -f -v
 
-    # add user to dialout group
+    # add user to dialout and plugdev groups
     userid=$(whoami)
     sudo usermod -a -G dialout $userid
+    sudo usermod -a -G plugdev $userid
 
     cp $HOME/CoCo-Pi-Installer/cocopi-release.txt $HOME
 
@@ -177,6 +178,20 @@ echo
 cd $HOME/CoCo-Pi-Installer
 
 ./install-pyenv.sh
+
+# required to allow some pip3 packages to be installed
+if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
+	sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled
+fi
+
+
+# add repository for Visual Studio Code
+sudo apt -y install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+
 
 cd $HOME
 
