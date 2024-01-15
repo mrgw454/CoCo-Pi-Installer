@@ -24,18 +24,10 @@ else
 	echo pyenv entries not found in $HOME/.bashrc .  Adding...
 	echo
 
-cat >/tmp/np <<EOF
-# pyenv setup for pyDriveWire
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-EOF
-
-	cat /tmp/np >> ~/.bashrc
-	source ~/.bashrc
-	rm /tmp/np
-	echo
-	echo
+	if [ -f $HOME/CoCo-Pi-Installer/pyenv-bashrc-cocopi.txt ]; then
+		cat $HOME/CoCo-Pi-Installer/pyenv-bashrc-cocopi.txt >> $HOME/.bashrc
+		source $HOME/.bashrc
+	fi
 
 	source $HOME/.bashrc
 fi

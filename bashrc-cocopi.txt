@@ -1,23 +1,34 @@
 # start of Coco-Pi modifications
 
+systemtype=$(dpkg --print-architecture)
+
 # detect model of Raspberry Pi
-RPI=`cat /proc/device-tree/model | cut -c14-16`
+if [ -f /proc/device-tree/model ]; then
 
- if [[ "$RPI" == "5 M" ]]; then
-        TITLE="RPi5"
- fi
+	RPI=`cat /proc/device-tree/model | cut -c14-16`
 
- if [[ "$RPI" == "400" ]]; then
-        TITLE="RPi400"
- fi
+	if [[ "$RPI" == "5 M" ]]; then
+		TITLE="RPi5"
+	fi
 
- if [[ "$RPI" == "4 M" ]]; then
-        TITLE="RPi4"
- fi
+	if [[ "$RPI" == "400" ]]; then
+		TITLE="RPi400"
+	fi
 
- if [[ "$RPI" == "3 M" ]]; then
-        TITLE="RPi3"
- fi
+	if [[ "$RPI" == "4 M" ]]; then
+		TITLE="RPi4"
+	fi
+
+	if [[ "$RPI" == "3 M" ]]; then
+		TITLE="RPi3"
+	fi
+
+else
+
+	# for non ARM based systems
+	TITLE=$(lscpu | grep 'Model name' | cut -f 2 -d ":" | awk '{$1=$1}1')
+
+fi
 
 echo $TITLE > $HOME/rpi-model.txt
 
@@ -28,29 +39,55 @@ export NCURSES_NO_UTF8_ACS=1
 export SCREENDIR=$HOME/.screen
 
 # path settings
-PATH=/home/pi/.local/bin:$PATH:/home/pi/.mame:/opt/mame:/home/pi/.xroar:/home/pi/scripts
+PATH=$HOME/.local/bin:$PATH:$HOME/.mame:/opt/mame:$HOME/.xroar:$HOME/scripts
 
 # add path for CC6303 compiler
 export PATH=/opt/cc68/bin:$PATH
-
-# add path for cc65 compiler
-export PATH=/home/pi/source/cc65/bin:$PATH
-
-# add path for xa65 compiler
-export PATH=/home/pi/source/xa65/xa:$PATH
-
-# add z88dk library
-export PATH=${PATH}:${HOME}/source/z88dk/bin
-export ZCCCFG=${HOME}/source/z88dk/lib/config
-eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
 
 # add support for pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+export ACLOCAL_PATH=/usr/share/aclocal
+
+
+# START of non-CoCo related environment variables
+
+# add path for cc65 compiler
+export PATH=$HOME/source/cc65/bin:$PATH
+
+# add tms9900-gcc compiler (for TI-99/4a)
+export PATH=$HOME/source/tms9900-gcc/tms9900-gcc/bin:$PATH
+
+# add libti99 library location (for TI-99/4a)
+export LIBTI99=$HOME/source/libti99
+
+# add path for atari800 emulator
+export PATH=$HOME/.atari800:$PATH
+
+# add path for sdltrs emulator
+export PATH=$HOME/.sdltrs:$PATH
+
+# add path for xa65 assembler
+export PATH=$HOME/source/xa65/xa:$PATH
+
+# add path for xa65 compiler
+export PATH=$HOME/source/xa65/xa:$PATH
+
 # add path for VICE emulator
 export PATH=$HOME/source/vice/trunk/vice/src:$PATH
+
+# add path for Coleco emulator
+export PATH=$HOME/.coleco:$PATH
+
+# add z88dk library
+export PATH=${PATH}:${HOME}/source/z88dk/bin
+export ZCCCFG=${HOME}/source/z88dk/lib/config
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+
+# END of non-CoCo related environment variables
+
 
 # launch CoCo-Pi menu if on local console only
 if [ "$TERM" = linux ]; then
@@ -59,4 +96,23 @@ if [ "$TERM" = linux ]; then
 else
   echo
   neofetch
+fi
+
+# START of WSL2 specific
+kernel=$(uname -a)
+
+if echo "$kernel" | grep -q "WSL"; then
+
+        # for vscode
+        export DONT_PROMPT_WSL_INSTALL=Y
+
+        echo
+        echo "Use RIGHT mouse button or [SHIFT][CTRL][V] to paste inside this terminal."
+        echo
+        echo Current terminal size: $COLUMNS columns, $LINES lines.
+        echo
+
+        # add distro name to PS1 prompt
+        PS1="$(echo "[${WSL_DISTRO_NAME}]") ${PS1} "
+
 fi
