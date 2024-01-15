@@ -184,6 +184,10 @@ if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
 	sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled
 fi
 
+# add respository for Google Chrome
+curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg >> /dev/null
+echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
 
 # add repository for Visual Studio Code
 sudo apt -y install wget gpg
