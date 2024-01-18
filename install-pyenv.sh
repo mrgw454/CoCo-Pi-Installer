@@ -51,6 +51,12 @@ fi
 
 $HOME/.pyenv/bin/pyenv global pypy2.7-7.3.11
 
+# set up symbolic link for system instgalled python3
+if [ -L /usr/bin/python3 ]; then
+        sudo ln -s /usr/bin/python3 /usr/bin/python
+fi
+
+
 echo
 echo
 echo Done!
