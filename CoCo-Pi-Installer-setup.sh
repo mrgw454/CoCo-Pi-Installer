@@ -68,6 +68,10 @@ echo Compatible operating system and system architecture detected.  Proceeding w
 echo
 echo
 
+read -p "Press any key to continue or [CTRL-C] to abort..." -n1 -s
+echo
+echo
+
 backupdate=$(date +"%Y%m%d_%H%M%S")
 
 # create base folders
@@ -186,6 +190,20 @@ fi
 echo
 
 
+# set up CoCo-Pi-Installer github repo
+cd $HOME/CoCo-Pi-Installer
+git init
+git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
+git fetch
+git reset --hard origin/master
+git pull origin master
+git config --global pull.ff only
+
+git fetch --all
+git reset --hard origin/master
+git pull origin master
+
+
 # for Raspberry Pi only
 if [ "$systemtype" = "arm64" ]; then
 
@@ -229,20 +247,6 @@ if [ "$systemtype" = "arm64" ]; then
 	pcmanfm --set-wallpaper /home/pi/Pictures/CoCo-Pi\ 16x9\ black.png
 
 fi
-
-
-# set up CoCo-Pi-Installer github repo
-cd $HOME/CoCo-Pi-Installer
-git init
-git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
-git fetch
-git reset --hard origin/master
-git pull origin master
-git config --global pull.ff only
-
-git fetch --all
-git reset --hard origin/master
-git pull origin master
 
 
 # extract core CoCo-Pi scripts and menus
