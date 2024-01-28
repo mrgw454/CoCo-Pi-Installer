@@ -220,6 +220,14 @@ if [ "$systemtype" = "arm64" ]; then
 		fi
 
 	fi
+
+
+	# set backgroup wallpaper for CoCo-Pi
+	tar xzvf /home/pi/CoCo-Pi-Installer/Pictures.tar.gz -C /
+	pcmanfm --wallpaper-mode=color
+	pcmanfm --wallpaper-mode=stretch
+	pcmanfm --set-wallpaper /home/pi/Pictures/CoCo-Pi\ 16x9\ black.png
+
 fi
 
 
@@ -266,6 +274,12 @@ echo >> $HOME/.bashrc
 echo >> $HOME/.bashrc
 cat $HOME/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc
 source $HOME/.bashrc
+
+tar xzvf /home/pi/CoCo-Pi-Installer/Desktop.tar.gz -C /
+
+# enable ssh server
+sudo systemctl enable ssh
+sudo systemctl start ssh
 
 # add user to dialout and plugdev groups
 userid=$(whoami)
