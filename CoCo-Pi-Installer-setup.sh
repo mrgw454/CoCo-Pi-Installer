@@ -292,7 +292,7 @@ else
 
     cp /home/pi/CoCo-Pi-Installer/cocopi-release.txt $HOME
 
-    # add CoCo-Pi related environment settings to .bashrc for user pi
+    # add CoCo-Pi related environment settings to .bashrc
     echo >> $HOME/.bashrc
     echo >> $HOME/.bashrc
     cat /home/pi/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc

@@ -44,9 +44,10 @@ backupdate=$(date +"%Y%m%d_%H%M%S")
 
 # create base folders
 if [ ! -d /media/share1 ]; then
-	echo "Please make sure /media/share1 path exists (and is writable) for current user before continuing!"
-	echo
-	read -p "Press any key to continue... " -n1 -s
+	userid=$(whoami)
+	sudo mkdir -p /media/share1
+	sudo chown $userid:$userid /media/share1
+	echo Adding /media/share1 folder
 	echo
 else
 	echo /media/share1 folder exists
@@ -60,6 +61,16 @@ if [ ! -d /media/share1/carts ]; then
 	echo
 else
 	echo /media/share1/carts folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/source ]; then
+	mkdir /media/share1/source
+	echo Adding /media/share1/source folder
+	echo
+else
+	echo /media/share1/source folder exists
 	echo
 fi
 
@@ -139,39 +150,39 @@ echo
     git pull origin master
 
     # install core CoCo-Pi scripts and menus
-    tar xzvf $HOME/CoCo-Pi-Installer/select-project-build-scripts.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/scripts.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/misc-files.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/lwwire-files.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/tcpser-files.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/carts.tar.gz -C /
-    tar xzvf $HOME/CoCo-Pi-Installer/source.tar.gz -C /
+    tar xzvf $HOME/CoCo-Pi-Installer/Desktop.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/Pictures.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/scripts.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/source.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz -C $HOME
 
+    tar xzvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C $HOME
 
-    tar xzvf $HOME/CoCo-Pi-Installer/Desktop.tar.gz -C /
+    tar xzvf $HOME/CoCo-Pi-Installer/lwwire-files.tar.gz -C $HOME
+    tar xzvf $HOME/CoCo-Pi-Installer/tcpser-files.tar.gz -C $HOME
 
     # install additional fonts related to CoCo-Pi
-    tar xzvf $HOME/CoCo-Pi-Installer/fonts.tar.gz -C /
+    tar xzvf $HOME/CoCo-Pi-Installer/fonts.tar.gz -C $HOME
     fc-cache -f -v
 
-    # add user to dialout and plugdev groups
-    userid=$(whoami)
-    sudo usermod -a -G dialout $userid
-    sudo usermod -a -G plugdev $userid
+    tar xzvf $HOME/CoCo-Pi-Installer/media-share1.tar.gz -C /
+    sudo tar xzvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz -C /
 
     cp $HOME/CoCo-Pi-Installer/cocopi-release.txt $HOME
 
-    # add CoCo-Pi related environment settings to .bashrc for user pi
+    # add CoCo-Pi related environment settings to .bashrc
     echo >> $HOME/.bashrc
     echo >> $HOME/.bashrc
     cat $HOME/CoCo-Pi-Installer/bashrc-cocopi.txt >> $HOME/.bashrc
     source $HOME/.bashrc
 
-    cd $HOME
+    # add user to dialout and plugdev groups
+    userid=$(whoami)
+    sudo usermod -a -G dialout $userid
+    sudo usermod -a -G plugdev $userid
 
 
 # install pyenv to add python2
@@ -183,19 +194,6 @@ cd $HOME/CoCo-Pi-Installer
 if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
 	sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled
 fi
-
-# add respository for Google Chrome
-curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg >> /dev/null
-echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
-
-
-# add repository for Visual Studio Code
-sudo apt -y install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-
 
 cd $HOME
 
