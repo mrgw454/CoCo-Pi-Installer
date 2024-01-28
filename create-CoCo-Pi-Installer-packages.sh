@@ -52,7 +52,6 @@ if [ -f pyDriveWire-files.tar.gz ]; then
 	rm pyDriveWire-files.tar.gz
 fi
 
-
 if [ -f DriveWire-files.tar.gz ]; then
 	rm DriveWire-files.tar.gz
 fi
@@ -60,7 +59,6 @@ fi
 if [ -f lwwire-files.tar.gz ]; then
 	rm lwwire-files.tar.gz
 fi
-
 
 if [ -f tcpser-files.tar.gz ]; then
 	rm tcpser-files.tar.gz
@@ -102,7 +100,7 @@ if [ ! -d /media/share1 ]; then
 	sudo chown $userid:$userid
 fi
 
-tar czvf $HOME/CoCo-Pi-Installer/media-share1.tar.gz /media/share1/carts /media/share1/source
+tar czvf $HOME/CoCo-Pi-Installer/media-share1.tar.gz /media/share1/carts /media/share1/source /media/share1/software /media/share1/samples
 tar czvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz /etc/samba/smb.conf
 #tar czvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz /etc/samba/smb.conf /etc/network/interfaces
 
