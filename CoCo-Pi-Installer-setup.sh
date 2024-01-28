@@ -177,6 +177,36 @@ else
 fi
 
 
+if [ ! -d /media/share1/DW4 ]; then
+	mkdir /media/share1/DW4
+	echo Adding /media/share1/DW4 folder
+	echo
+else
+	echo /media/share1/DW4 folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/EMU ]; then
+	mkdir /media/share1/EMU
+	echo Adding /media/share1/EMU folder
+	echo
+else
+	echo /media/share1/EMU folder exists
+	echo
+fi
+
+
+if [ ! -d /media/share1/software ]; then
+	mkdir /media/share1/software
+	echo Adding /media/share1/software folder
+	echo
+else
+	echo /media/share1/software folder exists
+	echo
+fi
+
+
 if [ ! -d $HOME/CoCo-Pi-Installer ]; then
 	mkdir $HOME/CoCo-Pi-Installer
 	echo Adding $HOME/CoCo-Pi-Installer folder
