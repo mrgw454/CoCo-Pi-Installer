@@ -221,6 +221,12 @@ echo
 
 
 # set up CoCo-Pi-Installer github repo
+# remove cdrom repo (if it exists)
+sudo sed -i '/cdrom/d' /etc/apt/sources.list
+sudo apt update
+# install git
+sudo apt -y install git
+
 cd $HOME/CoCo-Pi-Installer
 git init
 git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
@@ -277,6 +283,16 @@ if [ "$systemtype" = "arm64" ]; then
 	pcmanfm --wallpaper-mode=stretch
 	pcmanfm --set-wallpaper $HOME/Pictures/CoCo-Pi\ 16x9\ black.png
 
+fi
+
+
+# for amd64 platforms only
+if [ "$systemtype" = "amd64" ]; then
+	# enable RDP support
+	# use Remmina for RDP client in Linux
+	# must be logged out of local workstation to remotely connect
+	sudo apt -y install xrdp tigervnc-standalone-server
+	systemctl enable xrdp
 fi
 
 
