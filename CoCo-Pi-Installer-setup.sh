@@ -73,7 +73,8 @@ echo
 echo
 
 # check for sudo access
-if userid=[ $userid != "pi" ]; then
+userid=$(whoami)
+if userid [ $userid != "pi" ]; then
 	echo "You must make sure the user ID you run this script as has sudo access.  To enable this access,"
 	echo "exit this script and follow these steps:"
 	echo
