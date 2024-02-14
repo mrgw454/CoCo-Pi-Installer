@@ -72,6 +72,24 @@ read -p "Press any key to continue or [CTRL-C] to abort..." -n1 -s
 echo
 echo
 
+# check for sudo access
+if userid=[ $userid != "pi" ]; then
+	echo "You must make sure the user ID you run this script as has sudo access.  To enable this access,"
+	echo "exit this script and follow these steps:"
+	echo
+	echo "su -"
+	echo "usermod -aG sudo $userid"
+	echo
+	echo "Reboot workstation and relaunch this script."
+	echo
+	echo "If you need to do this, press [CTRL][c] to cancel this script and run those commands, otherwise"
+	echo
+	read -p "Press any key to continue..." -n1 -s
+	echo
+	echo
+fi
+
+
 backupdate=$(date +"%Y%m%d_%H%M%S")
 
 # create base folders
