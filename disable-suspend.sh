@@ -7,11 +7,11 @@ if [ ! -f /etc/systemd/sleep.conf.d/nosuspend.conf ]; then
 	echo
 	sudo mkdir -p /etc/systemd/sleep.conf.d
 
-	echo "[Sleep]" > nosuspend.conf
-	echo "AllowSuspend=no" >> nosuspend.conf
-	echo "AllowHibernation=no" >> nosuspend.conf
-	echo "AllowSuspendThenHibernate=no" >> nosuspend.conf
-	echo "AllowHybridSleep=no" >> nosuspend.conf
+	echo "[Sleep]" > /etc/systemd/sleep.conf.d/nosuspend.conf
+	echo "AllowSuspend=no" >> /etc/systemd/sleep.conf.d/nosuspend.conf
+	echo "AllowHibernation=no" >> /etc/systemd/sleep.conf.d/nosuspend.conf
+	echo "AllowSuspendThenHibernate=no" >> /etc/systemd/sleep.conf.d/nosuspend.conf
+	echo "AllowHybridSleep=no" >> /etc/systemd/sleep.conf.d/nosuspend.conf
 	echo
 	echo Please reboot your workstation.
 	echo
