@@ -76,7 +76,7 @@ export PATH=$HOME/source/xa65/xa:$PATH
 export PATH=$HOME/source/xa65/xa:$PATH
 
 # add path for VICE emulator
-export PATH=$HOME/source/vice/trunk/vice/src:$PATH
+export PATH=$HOME/.vice/bin:$PATH
 
 # add path for Coleco emulator
 export PATH=$HOME/.coleco:$PATH
