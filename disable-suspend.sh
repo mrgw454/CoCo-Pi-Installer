@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# this is used to prevent laptops from suspending even when the setting has been disabled in the normal configuration setting
 # https://forums.debian.net/viewtopic.php?t=156005
 
 if [ ! -f /etc/systemd/sleep.conf.d/nosuspend.conf ]; then

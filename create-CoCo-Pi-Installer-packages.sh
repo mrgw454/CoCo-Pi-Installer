@@ -79,7 +79,7 @@ cd $HOME
 tar czvf $HOME/CoCo-Pi-Installer/Desktop.tar.gz Desktop
 tar czvf $HOME/CoCo-Pi-Installer/Pictures.tar.gz Pictures
 tar czvf $HOME/CoCo-Pi-Installer/scripts.tar.gz scripts
-tar czvf $HOME/CoCo-Pi-Installer/source.tar.gz source/new_windows.zip source/*.sh
+tar czvf $HOME/CoCo-Pi-Installer/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak
 tar czvf $HOME/CoCo-Pi-Installer/fonts.tar.gz .fonts
 tar czvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
 
