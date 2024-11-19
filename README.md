@@ -4,14 +4,9 @@ Experimental installer for the CoCo-Pi (64 bit) distribution
 The CoCo-Pi Installer will add the CoCo-Pi components (i.e. menus, launch scripts, emulators, development tools, etc.) to Raspberry Pi 3 B+, 4, 400, or 5 platform.  In addition, it's been expanded to allow installation
 on X86_64 (amd64) based systems (including WSL2).
 
-Current testing has been using the following OS image for the Raspberry Pi:
+Current testing has been done using OS a current image for the Raspberry Pi ("Raspberry Pi OS with desktop and recommended software" 64bit version recommended):
 
-https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2023-12-06/2023-12-05-raspios-bookworm-arm64-full.img.xz<br/>
-
-
-... and this one for amd64 based systems:
-
-https://cdimage.debian.org/debian-cd/current/amd64/bt-dvd/debian-12.4.0-amd64-DVD-1.iso.torrent<br/>
+https://www.raspberrypi.com/software/operating-systems/<br/>
 
 
 Keep in mind, things are in a heavy state of flux and it's not really meant for general consumption use just yet.  I'll be populating the repository over the next few weeks and update this README.md when things are ready.
