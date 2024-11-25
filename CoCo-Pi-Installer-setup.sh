@@ -349,6 +349,11 @@ source $HOME/.bashrc
 sudo systemctl enable ssh
 sudo systemctl start ssh
 
+# disable ssh login warning
+if [ -f /etc/xdg/lxsession/LXDE-pi/sshpwd.sh ]; then
+	sudo rm /etc/xdg/lxsession/LXDE-pi/sshpwd.sh
+fi
+
 # add user to dialout and plugdev groups
 userid=$(whoami)
 sudo usermod -a -G dialout $userid
