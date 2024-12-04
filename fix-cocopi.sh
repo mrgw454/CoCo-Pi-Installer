@@ -52,6 +52,17 @@ fi
 
 echo
 
+
+# set up symbolic link for fix-cocopi.sh script
+if [ -f $HOME/scripts/fix-cocopi.sh ]; then
+        rm $HOME/scripts/fix-cocopi.sh
+fi
+
+if [ ! -L $HOME/scripts/fix-cocopi.sh ]; then
+        ln -s $HOME/CoCo-Pi-Installer/fix-cocopi.sh $HOME/scripts/fix-cocopi.sh
+fi
+
+
 # set hotfixes file
 file="$HOME/update/cocopi-fixes.txt"
 # create the file if it doesn't exist
