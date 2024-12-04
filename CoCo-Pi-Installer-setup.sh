@@ -339,6 +339,15 @@ sudo tar xzvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz -C /
 
 cp $HOME/CoCo-Pi-Installer/cocopi-release.txt $HOME
 
+# set up symbolic link for fix-cocopi.sh script
+if [ -f $HOME/scripts/fix-cocopi.sh ]; then
+	rm $HOME/scripts/fix-cocopi.sh
+fi
+
+if [ ! -L $HOME/scripts/fix-cocopi.sh ]; then
+        ln -s $HOME/CoCo-Pi-Installer/fix-cocopi.sh $HOME/scripts/fix-cocopi.sh
+fi
+
 # add CoCo-Pi related environment settings to .bashrc
 echo >> $HOME/.bashrc
 echo >> $HOME/.bashrc
