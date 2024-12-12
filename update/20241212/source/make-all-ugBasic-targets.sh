@@ -39,4 +39,4 @@ make threads=$cores target=d32 clean compiler
 sudo cp $HOME/source/ugbasic/ugbc/exe/ugbc.d32 /usr/local/bin
 
 make threads=$cores target=d64 clean compiler
-sudo cp $HOME/source/ugbasic-beta/ugbc/exe/ugbc.d64 /usr/local/bin
+sudo cp $HOME/source/ugbasic/ugbc/exe/ugbc.d64 /usr/local/bin
