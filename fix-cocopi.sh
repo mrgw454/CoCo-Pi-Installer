@@ -124,6 +124,24 @@ else
 fi
 
 
+# check for fix
+fix="fix-20241212-03"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+	cp $HOME/CoCo-Pi-Installer/update/20241212/.mame/CoCoPi-menu-Utilities-Administration.sh $HOME/.mame
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
 echo
 echo
 echo Please reboot as soon as possible so all updates can be applied.  Thank you.
