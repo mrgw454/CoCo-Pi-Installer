@@ -52,15 +52,16 @@ fi
 
 echo
 
-
-# set up symbolic link for fix-cocopi.sh script
+# create new link to fix-cocopi.sh script
 if [ -f $HOME/scripts/fix-cocopi.sh ]; then
         rm $HOME/scripts/fix-cocopi.sh
 fi
 
-if [ ! -L $HOME/scripts/fix-cocopi.sh ]; then
-        ln -s $HOME/CoCo-Pi-Installer/fix-cocopi.sh $HOME/scripts/fix-cocopi.sh
+if [ -L $HOME/scripts/fix-cocopi.sh ]; then
+        rm $HOME/scripts/fix-cocopi.sh
 fi
+
+ln -s $HOME/CoCo-Pi-Installer/fix-cocopi.sh $HOME/scripts/fix-cocopi.sh
 
 
 # set hotfixes file
@@ -102,7 +103,7 @@ else
 
     echo "$fix" >>$file
     echo
-#fi
+fi
 
 
 echo
