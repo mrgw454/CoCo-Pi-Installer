@@ -155,15 +155,33 @@ else
 	cp $HOME/CoCo-Pi-Installer/update/20241217/scripts/start-FujiNet-server-CoCo-Becker.sh $HOME/scripts
 	cp $HOME/CoCo-Pi-Installer/update/20241217/source/make-pi-apps.sh $HOME/source
 	cp $HOME/CoCo-Pi-Installer/update/20241217/.trs80gp/coco2-hdbdos-trs80gp.sh $HOME/.trs80gp
-	
+
 	if [ -f $HOME/Desktop/pi-apps.desktop ]; then
 		rm $HOME/Desktop/pi-apps.desktop
 	fi
-	
+
 	if [ -f /etc/apt/sources.list.d/d-apt.list ]; then
 		sudo rm /etc/apt/sources.list.d/d-apt.list
 		sudo nala update
-	fi	
+	fi
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
+# check for fix
+fix="fix-20241217-02"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+    cp $HOME/CoCo-Pi-Installer/update/20241217/source/make-trs80gp.sh $HOME/source
 
     cd $HOME
 
