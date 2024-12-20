@@ -218,12 +218,12 @@ else
     echo Applying fix $fix...
     echo
 
-    cp $HOME/CoCo-Pi-Installer/update/20241219/.mame/CoCoPi-menu-MC10-XRoar.sh $HOME/.mame
-    cp $HOME/CoCo-Pi-Installer/update/20241219/.xroar/mc-10-128k-xroar.sh $HOME/.xroar
-    cp $HOME/CoCo-Pi-Installer/update/20241219/roms/mcx128.rom /media/share1/roms
+    cp $HOME/CoCo-Pi-Installer/update/20241220/.mame/CoCoPi-menu-MC10-XRoar.sh $HOME/.mame
+    cp $HOME/CoCo-Pi-Installer/update/20241220/.xroar/mc-10-128k-xroar.sh $HOME/.xroar
+    cp $HOME/CoCo-Pi-Installer/update/20241220/roms/mcx128.rom /media/share1/roms
 
-    cp $HOME/CoCo-Pi-Installer/update/20241219/scripts/CoCoPi-menu-Coco2-trs80gp-z2.sh $HOME/scripts
-    cp $HOME/CoCo-Pi-Installer/update/20241219/scripts/CoCoPi-menu-MC10-XRoar-z2.sh $HOME/scripts
+    cp $HOME/CoCo-Pi-Installer/update/20241220/scripts/CoCoPi-menu-Coco2-trs80gp-z2.sh $HOME/scripts
+    cp $HOME/CoCo-Pi-Installer/update/20241220/scripts/CoCoPi-menu-MC10-XRoar-z2.sh $HOME/scripts
 
     cd $HOME
 
