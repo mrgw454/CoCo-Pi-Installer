@@ -209,6 +209,29 @@ else
 fi
 
 
+# check for fix
+fix="fix-20241220-01"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+    cp $HOME/CoCo-Pi-Installer/update/20241219/.mame/CoCoPi-menu-MC10-XRoar.sh $HOME/.mame
+    cp $HOME/CoCo-Pi-Installer/update/20241219/.xroar/mc-10-128k-xroar.sh $HOME/.xroar
+    cp $HOME/CoCo-Pi-Installer/update/20241219/roms/mcx128.rom /media/share1/roms
+
+    cp $HOME/CoCo-Pi-Installer/update/20241219/scripts/CoCoPi-menu-Coco2-trs80gp-z2.sh $HOME/scripts
+    cp $HOME/CoCo-Pi-Installer/update/20241219/scripts/CoCoPi-menu-MC10-XRoar-z2.sh $HOME/scripts
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
 echo
 echo
 echo Please reboot as soon as possible so all updates can be applied.  Thank you.
