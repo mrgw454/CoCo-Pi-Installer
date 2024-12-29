@@ -8,7 +8,8 @@
     "5" "Tandy Color Computer 3 YA-DOS w/6309 & HDD" \
     "6" "Tandy Color Computer 3 YA-DOS w/6309,2MB & NitrOS9 EOU" \
     "7" "Tandy Color Computer 3 HDB-DOS w/6309,2MB,Fuzix & pyDW" \
-    "8" "Return to Main Menu" \
+    "8" "Tandy Color Computer 3 HDB-DOS w/6309,2MB,Fuzix & IDE" \
+    "9" "Return to Main Menu" \
     3>&1 1>&2 2>&3)
 
     # Below you can enter the corresponding commands
@@ -21,6 +22,7 @@
         5) $HOME/.xroar/coco3h-yados-HD-xroar.sh;;
         6) $HOME/.xroar/coco3-yados-nitros9-xroar.sh;;
         7) $HOME/.xroar/coco3-Fuzix-pyDW-xroar.sh;;
-        8) menu;;
+        8) $HOME/.xroar/coco3-Fuzix-IDE-xroar.sh;;
+        9) menu;;
         *) echo "Quitting...";;
     esac
