@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear
 
 cd $HOME/.xroar
@@ -20,7 +22,10 @@ $HOME/pyDriveWire/pyDwCli http://localhost:6800 dw disk insert 1 /media/share1/D
 cd $HOME/.xroar
 
 # hdbdos method
-xroar -c $HOME/.xroar/xroar.conf -default-machine coco3h -ram 2048K -machine-cpu 6309 -machine-cart becker -type '2' $XROARPARM
+#xroar -c $HOME/.xroar/xroar.conf -default-machine coco3h -ram 2048K -machine-cpu 6309 -machine-cart becker $XROARPARM
+
+# IDE method
+xroar -c $HOME/.xroar/xroar.conf -default-machine coco3h -ram 2048K -machine-cpu 6309 -machine-cart ide -load /media/share1/EMU/GORDON/FUZIX/fuzix.dsk -load-hd0 /media/share1/EMU/GORDON/FUZIX/fuzixfs.dsk $XROARPARM
 
 
 # capture XRoar ERRORLEVEL
