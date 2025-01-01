@@ -318,7 +318,7 @@ else
     echo
 
     cp $HOME/CoCo-Pi-Installer/update/20250101/source/* $HOME/source
-    cp $HOME/CoCo-Pi-Installer/update/20250101/.xmame/* $HOME/.xmame
+    cp $HOME/CoCo-Pi-Installer/update/20250101/.xroar/* $HOME/.xroar
 
     cd $HOME
 
