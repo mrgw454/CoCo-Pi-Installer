@@ -9,9 +9,11 @@ clear
 
 cd $HOME/.xroar
 
-# link to proper sdcard.img
-    rm hd0.ide
-    ln -s /media/share1/EMU/VHD/hd0-XRoar-256MB.img hd0.ide
+# link to proper hard drive image
+rm hd0.ide
+
+# create link for headered hard drive image (.ide extension)
+ln -s /media/share1/EMU/VHD/hd0-XRoar-256MB.img hd0.ide
 
 $HOME/pyDriveWire/pyDwCli http://localhost:6800 dw server hdbdos false
 
