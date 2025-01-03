@@ -357,6 +357,7 @@ else
 
     cp $HOME/CoCo-Pi-Installer/update/20250103/source/* $HOME/source
     cp -r $HOME/CoCo-Pi-Installer/update/20250103/Desktop $HOME
+    cp $HOME/CoCo-Pi-Installer/update/20250103/.xroar/* $HOME/.xroar
 
     cd $HOME
 
