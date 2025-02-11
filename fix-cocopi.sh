@@ -450,7 +450,7 @@ else
     cp $HOME/CoCo-Pi-Installer/update/20250210/source/* $HOME/source
     cp $HOME/CoCo-Pi-Installer/update/20250210/scripts/* $HOME/scripts
 
-    sudo apt -y install hexedit wxhexeditor hexyl
+    sudo apt -y install hexedit wxhexeditor hexyl ghex
 
     cd $HOME
 
