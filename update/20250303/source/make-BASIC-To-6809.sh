@@ -13,15 +13,15 @@ echo
 
 cd $HOME/source
 
-# if a previous BASIC-To-6809-git folder exists, move into a date-time named folder
+# if a previous BASIC-To-6809 folder exists, move into a date-time named folder
 
-if [ -d "BASIC-To-6809-git" ]; then
+if [ -d "BASIC-To-6809" ]; then
 
        	foldername=$(date +%Y-%m-%d_%H.%M.%S)
 
-       	mv "BASIC-To-6809-git" "BASIC-To-6809-git-$foldername"
+       	mv "BASIC-To-6809" "BASIC-To-6809-$foldername"
 
-       	echo -e Archiving existing BASIC-To-6809-git folder ["BASIC-To-6809-git"] into backup folder ["BASIC-To-6809-git-$foldername"]
+       	echo -e Archiving existing BASIC-To-6809-git folder ["BASIC-To-6809"] into backup folder ["BASIC-To-6809-$foldername"]
        	echo -e
        	echo -e
 fi
