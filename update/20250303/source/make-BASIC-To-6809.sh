@@ -29,9 +29,9 @@ fi
 # https://nowhereman999.wordpress.com/2024/07/27/coco-basic-to-6809-compiler/
 # https://wordpress.com/post/nowhereman999.wordpress.com/5054
 # https://github.com/nowhereman999/BASIC-To-6809
-git clone https://github.com/nowhereman999/BASIC-To-6809.git BASIC-To-6809-git
+git clone https://github.com/nowhereman999/BASIC-To-6809.git
 
-cd BASIC-To-6809-git
+cd BASIC-To-6809
 
 GITREV=`git rev-parse --short HEAD`
 
