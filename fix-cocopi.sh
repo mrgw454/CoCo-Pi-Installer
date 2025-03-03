@@ -30,6 +30,11 @@ else
         #sudo cp /home/pi/update/config.txt.RPi400 /boot/config.txt
         echo
 
+	fi
+
+        if [ "$RPI" == "500" ]; then
+        #sudo cp /home/pi/update/config.txt.RPi500 /boot/config.txt
+        echo
 
         fi
 
@@ -488,6 +493,24 @@ else
 
     cp $HOME/CoCo-Pi-Installer/update/20250220/source/* $HOME/source
     cp $HOME/CoCo-Pi-Installer/update/20250220/scripts/* $HOME/scripts
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
+# check for fix
+fix="fix-20250303-01"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+    cp $HOME/CoCo-Pi-Installer/update/20250303/.bashrc $HOME
 
     cd $HOME
 
