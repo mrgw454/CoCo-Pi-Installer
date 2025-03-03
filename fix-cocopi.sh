@@ -511,6 +511,7 @@ else
     echo
 
     cp $HOME/CoCo-Pi-Installer/update/20250303/.bashrc $HOME
+    cp $HOME/CoCo-Pi-Installer/update/20250303/source/*.sh $HOME/source
 
     cd $HOME
 
