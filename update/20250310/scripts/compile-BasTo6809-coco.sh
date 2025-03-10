@@ -1,5 +1,32 @@
 #!/bin/bash
 
+# clean up BASIC-To-6809 project files
+function cleanup {
+        echo
+	echo Deleting temporary files and folders...
+	echo
+        rm -rf $workdir/Basic_Includes
+        rm -rf $workdir/Basic_Commands
+
+	# Define an array of additional files to delete
+	files_to_delete=("$workdir/Assembly_Listing.txt" "$workdir/$basefilename.asm" "$workdir/BASIC_Text.bas" \
+		"$workdir/BasicTokenizedB4Pass2.bin" "$workdir/BasicTokenizedB4Pass3.bin" "$workdir/BasicTokenized.bin" \
+		"$workdir/DefFNUsed.txt" "$workdir/DefVarUsed.txt" "$workdir/NumericArrayVarsUsed.txt" "$workdir/NumericCommandsFound.txt" \
+		"$workdir/NumericVariablesUsed.txt" "$workdir/StringArrayVarsUsed.txt" "$workdir/StringCommandsFound.txt" \
+		"$workdir/StringVariablesUsed.txt" "$workdir/FloatingPointVariablesUsed.txt" "$workdir/GeneralCommandsFound.txt" \
+		"$workdir/BasTo6809" "$workdir/BasTo6809.1.Tokenizer" "$workdir/BasTo6809.2.Compile" "$workdir/cc1sl")
+
+	# Loop through the array and delete each file
+	for file in "${files_to_delete[@]}"; do
+		if [[ -f "$file" ]]; then
+		rm "$file"
+	else
+		echo > /dev/null
+	fi
+	done
+	echo
+}
+
 # script to compile BASIC-to-6809 programs for the CoCo.
 
 # syntax example:
@@ -34,6 +61,7 @@ echo filename     : $filename
 echo basefilename : $basefilename
 echo extension    : $extension
 echo
+
 
 # create temporary symbolic links to BasTo6809 project folder
 if [ -d $HOME/source/BASIC-To-6809 ]; then
@@ -79,46 +107,33 @@ fi
 # convert to asm
 echo generating asm file...
 echo
-./BasTo6809 -ascii "$filename"
+#./BasTo6809 -ascii "$filename"
+output=$(./BasTo6809 -ascii "$filename")
+result=$(echo "$output" | grep "Error")
+
+if [[ $? -eq 0 ]]; then
+	echo "generating asm file was NOT successful.  Aborting."
+	echo "$result"
+	cleanup
+	exit 1
+else
+	echo "generating asm file was successful."
+fi
+
 
 # assemble to binary
 echo assembling into binary file...
 echo
-lwasm -9bl -p cd -o./$basefilename.bin $basefilename.asm > ./Assembly_Listing.txt
+output=$(lwasm -9bl -p cd -o./$basefilename.bin $basefilename.asm > ./Assembly_Listing.txt)
+result=$(echo "$output" | grep "ERROR")
 
-echo
-echo
-
-if [ $? -eq 0 ]
-then
-        echo "Compilation was successful."
-        echo
+if [[ $? -eq 0 ]]; then
+        echo "assembling into binary file was NOT successful.  Aborting."
+        echo "$result"
+	cleanup
+	exit 1
 else
-        echo "Compilation was NOT successful.  Aborting."
-        echo
-        exit 1
+        echo "assembling into binary file was successful."
 fi
 
-
-# clean up BASIC-To-6809 project files
-echo
-echo removing temporary files and folders...
-echo
-rm $workdir/BasTo6809
-rm $workdir/BasTo6809.1.Tokenizer
-rm $workdir/BasTo6809.2.Compile
-rm $workdir/cc1sl
-
-rm -rf $workdir/Basic_Includes
-rm -rf $workdir/Basic_Commands
-rm $workdir/Assembly_Listing.txt
-rm $workdir/$basefilename.asm
-
-
-# create DSK image with binary program
-echo
-echo creating DSK image...
-echo
-makeDSK-pyDW.sh
-
-rm $workdir/$basefilename.bin
+cleanup
