@@ -531,6 +531,7 @@ else
 
     cp $HOME/CoCo-Pi-Installer/update/20250310/scripts/*.sh $HOME/scripts
     cp $HOME/CoCo-Pi-Installer/update/20250310/source/*.sh $HOME/source
+    cp $HOME/CoCo-Pi-Installer/update/20250310/.config/geany/filedefs/*.* $HOME/.config/geany/filedefs
 
     cd $HOME
 
