@@ -558,6 +558,27 @@ else
 fi
 
 
+# check for fix
+fix="fix-20250312-01"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+    cp $HOME/CoCo-Pi-Installer/update/20250312/scripts/*.sh $HOME/scripts
+	cp $HOME/CoCo-Pi-Installer/update/20250312/.config/geany/filedefs/*.* $HOME/.config/geany/filedefs
+	
+	sed -i 's|run_in_vte=false|run_in_vte=true|' $HOME/.config/geany/geany.conf
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
 echo
 echo
 echo Please reboot as soon as possible so all updates can be applied.  Thank you.
