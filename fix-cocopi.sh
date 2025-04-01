@@ -614,7 +614,7 @@ else
     	mkdir -p $HOME/.config/geany/colorschemes
     fi
 
-    cp HOME/CoCo-Pi-Installer/update/20250330/.config/geany/colorschemes/*.conf $HOME/.config/geany/colorschemes
+    cp $HOME/CoCo-Pi-Installer/update/20250330/.config/geany/colorschemes/*.conf $HOME/.config/geany/colorschemes
 
     cd $HOME
 
