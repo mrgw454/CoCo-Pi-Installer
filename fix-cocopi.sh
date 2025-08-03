@@ -746,7 +746,25 @@ else
     echo Applying fix $fix...
     echo
 
-    cp $HOME/CoCo-Pi-Installer/update/20250624/source/*.sh $HOME/source
+    cp $HOME/CoCo-Pi-Installer/update/20250701/source/*.sh $HOME/source
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
+# check for fix
+fix="fix-20250803-01"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+
+    cp $HOME/CoCo-Pi-Installer/update/20250803/source/*.sh $HOME/source
 
     cd $HOME
 
