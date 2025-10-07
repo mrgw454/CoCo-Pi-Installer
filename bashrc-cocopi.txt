@@ -7,6 +7,10 @@ if [ -f /proc/device-tree/model ]; then
 
 	RPI=`cat /proc/device-tree/model | cut -c14-16`
 
+	if [[ "$RPI" == "500" ]]; then
+		TITLE="RPi500"
+	fi
+
 	if [[ "$RPI" == "5 M" ]]; then
 		TITLE="RPi5"
 	fi

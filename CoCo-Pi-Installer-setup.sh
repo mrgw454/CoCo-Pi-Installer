@@ -17,7 +17,7 @@ echo "Detected Architecture: $systemtype"
 echo
 echo
 
-if [ "$version_check" != "12 (bookworm)" ]; then
+if [ "$version_check" != "13 (trixie)" ]; then
 
 	if [ "$systemtype" != "amd64" ]; then
 		echo The version of Debian OS is not compatible with this installer.
@@ -25,10 +25,10 @@ if [ "$version_check" != "12 (bookworm)" ]; then
 		echo You must use one of the following versions:
 		echo
 		echo Linux native:
-		echo "https://cdimage.debian.org/debian-cd/current/amd64/bt-dvd/debian-12.4.0-amd64-DVD-1.iso.torrent"
+		echo "https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-13.1.0-amd64-DVD-1.iso"
 		echo
 		echo Linux Subsystem for Windows:
-		echo "https://apps.microsoft.com/detail/9MSVKQC78PK6?hl=en-US&gl=US"
+		echo "https://apps.microsoft.com/detail/9msvkqc78pk6?ocid=webpdpshare"
 		echo Aborting.
 		echo
 		echo
@@ -39,7 +39,7 @@ if [ "$version_check" != "12 (bookworm)" ]; then
 		echo The version of Raspberry Pi OS is not compatible with this installer.
 		echo
 		echo You must use this version:
-		echo "https://downloads.raspberrypi.com/raspios_full_armhf/images/raspios_full_armhf-2023-12-06/2023-12-05-raspios-bookworm-armhf-full.img.xz"
+		echo "https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2025-10-02/2025-10-01-raspios-trixie-arm64-full.img.xz"
 		echo
 		echo Aborting.
 		echo
@@ -272,6 +272,11 @@ if [ "$systemtype" = "arm64" ]; then
 		# detect model of Raspberry Pi
 		RPI=`cat /proc/device-tree/model | cut -c14-16`
 
+		if [ "$RPI" == "500" ]; then
+        		#sudo cp /home/pi/update/config.txt.RPi500 /boot/config.txt
+        		echo
+ 		fi
+
 		if [ "$RPI" == "5 M" ]; then
         		#sudo cp /home/pi/update/config.txt.RPi5 /boot/config.txt
         		echo
@@ -375,7 +380,7 @@ cd $HOME/CoCo-Pi-Installer
 
 # required to allow some pip3 packages to be installed
 if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
-	sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled
+	sudo mv /usr/lib/python3.13/EXTERNALLY-MANAGED /usr/lib/python3.13/EXTERNALLY-MANAGED.disabled
 fi
 
 cd $HOME
