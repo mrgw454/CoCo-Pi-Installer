@@ -176,20 +176,13 @@ if [ $NONCOCOPI -eq 1 ]; then
 	sudo apt -y install re2c libsdl2-dev libsdl2-image-dev libfreetype6-dev libpcap-dev
 
 	# for gsport
-	sudo apt -y install gcc-multilib g++-multilib re2c libsdl2-dev libsdl2-image-dev libfreetype6-dev libpcap0.8-devudo gcc-multilib g++-multilib libx11-dev:i386 libxext-dev:i386 libpcap-dev:i386
+	#sudo apt -y install gcc-multilib g++-multilib re2c libsdl2-dev libsdl2-image-dev libfreetype6-dev libpcap0.8-devudo gcc-multilib g++-multilib libx11-dev:i386 libxext-dev:i386 libpcap-dev:i386
 
 	# for dolphin emulator
 	sudo apt -y install build-essential git cmake ffmpeg libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libevdev-dev libusb-1.0-0-dev libxrandr-dev libxi-dev libpangocairo-1.0-0 qt6-base-private-dev libqt6svg6-dev libbluetooth-dev libasound2-dev libpulse-dev libgl1-mesa-dev libcurl4-openssl-dev
 
 	# for h19term
 	sudo apt -y install python3-serial python3-pip python3-dev python3-setuptools python3-pyaudio
-
-	# for dlang
-	sudo wget https://netcologne.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list
-	sudo apt update --allow-insecure-repositories
-	sudo apt -y --allow-unauthenticated install --reinstall d-apt-keyring
-	sudo apt update && sudo apt-get install dmd-compiler dub
-
 
 	# for Visual Studio Code
         dpkg -l code
