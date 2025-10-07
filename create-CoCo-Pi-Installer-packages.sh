@@ -96,7 +96,13 @@ fi
 
 # create new files
 tar czvf Desktop.tar.gz $HOME/Desktop
-tar czvf Pictures.tar.gz $HOME/Pictures
+
+tar czvf Pictures.tar.gz $HOME/Pictures/*CoCo* $HOME/Pictures/*coco* $HOME/Pictures/*Coco* $HOME/Pictures/*rduino* $HOME/Pictures/BASIC* \
+$HOME/Pictures/CM* $HOME/Pictures/DOS* $HOME/Pictures/dos* $HOME/Pictures/Dragon* $HOME/Pictures/dw4* $HOME/Pictures/flexemu* \
+$HOME/Pictures/Fuji* $HOME/Pictures/fuji* $HOME/Pictures/HxC* $HOME/Pictures/irata* $HOME/Pictures/MAME* $HOME/Pictures/MC-10* \
+$HOME/Pictures/mc-10* $HOME/Pictures/Monitor* $HOME/Pictures/MPI* $HOME/Pictures/NoICE* $HOME/Pictures/online6809* $HOME/Pictures/OVCC* \
+$HOME/Pictures/PuTTY* $HOME/Pictures/pyD* $HOME/Pictures/Realistic* $HOME/Pictures/Tandy* $HOME/Pictures/trs80gp* $HOME/Pictures/VCC* $HOME/Pictures/XRoar* 
+
 tar czvf scripts.tar.gz $HOME/scripts
 tar czvf scripts2.tar.gz $HOME/scripts2
 tar czvf source.tar.gz $HOME/source/new_windows.zip $HOME/source/*.sh $HOME/source/useroptions.mak
