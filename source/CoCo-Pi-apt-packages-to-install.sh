@@ -82,7 +82,7 @@ sudo apt -y install plocate tigervnc-viewer minicom npm diffuse filezilla rhash 
 
 # for xroar
 sudo apt -y install git python3 libsdl2-dev libsdl2-ttf-dev libfontconfig-dev libpulse-dev qtbase5-dev qtbase5-dev-tools qtchooser qt5-qmake
-sudo apt -y install build-essential libsndfile1-dev libgtk2.0-dev libgtkglext1-dev libasound2-dev ddd
+sudo apt -y install build-essential libsndfile1-dev libgtk2.0-dev libasound2-dev ddd
 
 # for gcc6809
 sudo apt -y install libgmp-dev libmpfr-dev libmpc-dev markdown mercurial subversion bison texinfo
