@@ -79,8 +79,8 @@ echo
 ./make-preprocessor.sh
 
 # development librarires
-./make-CROSSLIB.sh
-./make-dynosprite.sh
+#./make-CROSSLIB.sh
+#./make-dynosprite.sh
 
 # IDE editor
 #./make-geany.sh
@@ -92,16 +92,16 @@ echo
 ./make-DriveWire.sh
 ./make-pyDriveWire.sh
 ./make-dload_server.sh
-./make-tnfsd.sh
+#./make-tnfsd.sh
 ./make-lwwire.sh
 ./make-tcpser.sh
-./make-fujinet-apps.sh
+.#/make-fujinet-apps.sh
 
 # terminal programs
 ./make-DwTermMc10.sh
 ./make-DwTerm.sh
 ./make-platotermCoCo.sh
-./make-h19term.sh
+#./make-h19term.sh
 
 # emulators
 ./make-xroar.sh
