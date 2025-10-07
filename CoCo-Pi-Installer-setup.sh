@@ -258,6 +258,15 @@ git fetch --all
 git reset --hard origin/master
 git pull origin master
 
+git checkout debian13
+git branch -a
+
+echo
+echo
+read -p "Press any key to continue or [CTRL-C] to abort..." -n1 -s
+echo
+echo
+
 
 # for Raspberry Pi only
 if [ "$systemtype" = "arm64" ]; then
