@@ -78,7 +78,7 @@ echo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 sudo apt -y install maven default-jdk
 
 # misc
-sudo apt -y install mlocate tigervnc-viewer minicom npm unionfs-fuse diffuse filezilla rhash xclip jstest-gtk exfat-fuse exfatprogs
+sudo apt -y install plocate tigervnc-viewer minicom npm diffuse filezilla rhash xclip jstest-gtk exfat-fuse exfatprogs
 
 # for xroar
 sudo apt -y install git python3 libsdl2-dev libsdl2-ttf-dev libfontconfig-dev libpulse-dev qtbase5-dev qtbase5-dev-tools qtchooser qt5-qmake
@@ -132,7 +132,8 @@ if [ $systemtype = amd64 ] && [ $WSL -eq 1 ]; then
 	echo "Installing CoCo-Pi specific packages (for amd64 with WSL environments only)..."
 	echo
 
-	echo No packages at this time.
+	# for xroar
+	sudo apt -y install libgtkglext1-dev
 
 	echo
 	echo
@@ -145,7 +146,8 @@ if [ $systemtype = amd64 ] && [ $WSL -eq 0 ]; then
 	echo "Installing CoCo-Pi specific packages (for amd64 WITHOUT WSL environments only)..."
 	echo
 
-	echo No packages at this time.
+	# for xroar
+	sudo apt -y install libgtkglext1-dev
 
 	echo
 	echo
@@ -268,6 +270,9 @@ fi
 if [ $NONCOCOPI -eq 1 ] && [ $systemtype = arm64 ] && [ $WSL -eq 0 ] && [KVMQEMU -eq 0 ]; then
         echo "Installing NON CoCo-Pi specific packages (for arm64 environments only)..."
         echo
+
+	# misc
+	sudo apt -y install unionfs-fuse
 
 	# for dlang
         sudo apt -y install gdc
