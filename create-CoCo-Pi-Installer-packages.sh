@@ -1,11 +1,24 @@
 #!/bin/bash
 
+# if a previous CoCo-Pi-Installer-staging folder exists, move into a date-time named folder
 
-if [ ! -d $HOME/CoCo-Pi-Installer ]; then
-	mkdir $HOME/CoCo-Pi-Installer
+if [ -d "CoCo-Pi-Installer-staging" ]; then
+
+	foldername=$(date +%Y-%m-%d_%H.%M.%S)
+
+	mv "CoCo-Pi-Installer-staging" "CoCo-Pi-Installer-staging-$foldername"
+
+	echo -e Archiving existing CoCo-Pi-Installer-staging folder ["CoCo-Pi-Installer-staging"] into backup folder ["CoCo-Pi-Installer-staging-$foldername"]
+	echo
+	echo
 fi
 
-cd $HOME/CoCo-Pi-Installer
+
+if [ ! -d CoCo-Pi-Installer-staging ]; then
+	mkdir CoCo-Pi-Installer-staging
+fi
+
+cd CoCo-Pi-Installer-staging
 
 # remove previous files if they exist
 if [ -f Desktop.tar.gz ]; then
@@ -20,8 +33,16 @@ if [ -f scripts.tar.gz ]; then
 	rm scripts.tar.gz
 fi
 
+if [ -f scripts2.tar.gz ]; then
+        rm scripts2.tar.gz
+fi
+
 if [ -f source.tar.gz ]; then
 	rm source.tar.gz
+fi
+
+if [ -f source-other.tar.gz ]; then
+	rm source-other.tar.gz
 fi
 
 if [ -f fonts.tar.gz ]; then
@@ -74,24 +95,24 @@ fi
 
 
 # create new files
-cd $HOME
+tar czvf Desktop.tar.gz $HOME/Desktop
+tar czvf Pictures.tar.gz $HOME/Pictures
+tar czvf scripts.tar.gz $HOME/scripts
+tar czvf scripts2.tar.gz $HOME/scripts2
+tar czvf source.tar.gz $HOME/source/new_windows.zip $HOME/source/*.sh $HOME/source/useroptions.mak
+tar czvf source-other.tar.gz $HOME/source-other/*.sh
+tar czvf fonts.tar.gz $HOME/.fonts
+tar czvf misc-home-files.tar.gz $HOME/.vim $HOME/.wgetrc .$HOME/irssi $HOME/.config/geany/geany.conf $HOME/.config/geany/filedefs
 
-tar czvf $HOME/CoCo-Pi-Installer/Desktop.tar.gz Desktop
-tar czvf $HOME/CoCo-Pi-Installer/Pictures.tar.gz Pictures
-tar czvf $HOME/CoCo-Pi-Installer/scripts.tar.gz scripts
-tar czvf $HOME/CoCo-Pi-Installer/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak
-tar czvf $HOME/CoCo-Pi-Installer/fonts.tar.gz .fonts
-tar czvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
+tar czvf mame-menus.tar.gz $HOME/.mame
+tar czvf xroar-menus.tar.gz $HOME/.xroar
+tar czvf ovcc-menus.tar.gz $HOME/.ovcc/*.rom $HOME/.ovcc/*.sh $HOME/.ovcc/*.ini $HOME/.ovcc/ini/*
+tar czvf trs80gp-menus.tar.gz $HOME/.trs80gp
 
-tar czvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz .mame
-tar czvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz .xroar
-tar czvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
-tar czvf $HOME/CoCo-Pi-Installer/trs80gp-menus.tar.gz .trs80gp
-
-tar czvf $HOME/CoCo-Pi-Installer/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh
-tar czvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz DriveWire4/*.sh DriveWire4/config.xml
-tar czvf $HOME/CoCo-Pi-Installer/lwwire-files.tar.gz lwwire/*.sh lwwire/serserv lwwire/tcpserv
-tar czvf $HOME/CoCo-Pi-Installer/tcpser-files.tar.gz tcpser/*.sh
+tar czvf pyDriveWire-files.tar.gz $HOME/pyDriveWire/config/pydrivewirerc-daemon $HOME/pyDriveWire/*.sh
+tar czvf DriveWire-files.tar.gz $HOME/DriveWire4/*.sh $HOME/DriveWire4/config.xml
+tar czvf lwwire-files.tar.gz $HOME/lwwire/*.sh $HOME/lwwire/serserv $HOME/lwwire/tcpserv
+tar czvf tcpser-files.tar.gz $HOME/tcpser/*.sh
 
 
 userid=$(whoami)
@@ -100,16 +121,15 @@ if [ ! -d /media/share1 ]; then
 	sudo chown $userid:$userid
 fi
 
-tar czvf $HOME/CoCo-Pi-Installer/media-share1.tar.gz /media/share1/carts /media/share1/source /media/share1/software /media/share1/samples
-tar czvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz /etc/samba/smb.conf
-#tar czvf $HOME/CoCo-Pi-Installer/misc-system-files.tar.gz /etc/samba/smb.conf /etc/network/interfaces
+tar czvf media-share1.tar.gz /media/share1/carts /media/share1/source /media/share1/software/coco* /media/share1/software/dragon* /media/share1/software/mc10* /media/share1/samples
+tar czvf misc-system-files.tar.gz /etc/samba/smb.conf
 
 # capture .bashrc modifications for CoCo-Pi
 grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt
 
 
 if [ -f $HOME/cocopi-release.txt ]; then
-	cp $HOME/cocopi-release.txt $HOME/CoCo-Pi-Installer
+	cp $HOME/cocopi-release.txt ./
 fi
 
 echo
