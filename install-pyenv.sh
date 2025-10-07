@@ -1,19 +1,15 @@
 #!/bin/bash
 
-# using info from https://linuxways.net/debian/how-to-install-python-on-debian-12-bookworm/
+# install required dependencies
+sudo apt install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev curl \
+llvm libncursesw5-dev xz-utils tk-dev libxml2-dev \
+libxmlsec1-dev libffi-dev liblzma-dev git
 
-# install pyenv to add python2 - if needed
 
-# check if .pyenv home folder exists
-if [ ! -d $HOME/.pyenv ]; then
-	echo ~/.pyenv folder does not exist.  Installing pyenv...
-	echo
-	echo git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-else
-	echo ~/.pyenv folder exists.  Skipping...
-	echo
-fi
+# clone the pyenv repository into your home directory:
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+
 
 # check if pyenv entires exist in .bashrc file
 if grep -q PYENV_ROOT $HOME/.bashrc; then
@@ -32,24 +28,14 @@ else
 	source $HOME/.bashrc
 fi
 
-# check if correct version of python2 is installed for pyenv
-if [ -d $HOME/.pyenv/versions/pypy2.7-7.3.11 ]; then
-	echo correct version of python2 exists in ~/.pyenv/versions folder.  Skipping...
-	echo
-else
-	echo correct version of python2 does not exist in ~/.pyenv/versions folder.  Installing...
-	echo
 
-	source $HOME/.bashrc
+# reload your shell
+exec $SHELL
 
-	$HOME/.pyenv/bin/pyenv install pypy2.7-7.3.11
-	echo
-	echo
-	source $HOME/.bashrc
+pyenv --version
 
-fi
-
-$HOME/.pyenv/bin/pyenv global pypy2.7-7.3.11
+echo
+echo
 
 # set up symbolic link for system instgalled python3
 if [ -L /usr/bin/python3 ]; then

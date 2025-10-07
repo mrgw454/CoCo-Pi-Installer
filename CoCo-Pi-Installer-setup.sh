@@ -373,15 +373,10 @@ userid=$(whoami)
 sudo usermod -a -G dialout $userid
 sudo usermod -a -G plugdev $userid
 
-# install pyenv to add python2
-cd $HOME/CoCo-Pi-Installer
-
-./install-pyenv.sh
-
 # required to allow some pip3 packages to be installed
-if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
-	sudo mv /usr/lib/python3.13/EXTERNALLY-MANAGED /usr/lib/python3.13/EXTERNALLY-MANAGED.disabled
-fi
+#if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
+#	sudo mv /usr/lib/python3.13/EXTERNALLY-MANAGED /usr/lib/python3.13/EXTERNALLY-MANAGED.disabled
+#fi
 
 cd $HOME
 
