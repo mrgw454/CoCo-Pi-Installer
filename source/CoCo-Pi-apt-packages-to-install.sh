@@ -160,44 +160,6 @@ if [ $NONCOCOPI -eq 1 ]; then
 	echo "Installing NON CoCo-Pi specific packages (for all architectures and WSL environments)..."
 	echo
 
-	# install Google Chrome
-	dpkg -l google-chrome-stable
-	if [ $? -eq 0 ]
-	then
-		echo "google-chrome-stable package already exists.  Skipping."
-		echo
-	else
-		# add respository for Google Chrome
-		curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg >> /dev/null
-		echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/d
-		sudo apt update
-
-		sudo apt -y install software-properties-common apt-transport-https ca-certificates curl
-		sudo apt -y install google-chrome-stable
-
-		sudo apt -y install apt-transport-https ca-certificates curl software-properties-common fonts-liberation libu2f-udev libvulkan1
-		sudo apt -y install openssh-client network-manager-openvpn-gnome openvpn network-manager-openvpn
-	fi
-
-
-	# install Google Drive
-        dpkg -l google-drive-ocamlfuse
-        if [ $? -eq 0 ]
-        then
-                echo "google-drive-ocamlfuse package already exists.  Skipping."
-                echo
-        else
-		# https://github.com/astrada/google-drive-ocamlfuse/wiki/Installation
-		sudo touch /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
-		sudo echo -e "deb http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu xenial main" > /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
-		sudo echo -e "deb-src http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
-		sudo sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AD5F235DF639B041
-		sudo apt update
-		sudo apt -y install google-drive-ocamlfuse
-		mkdir $HOME/GoogleDrive
-	fi
-
-
 	# for older openvpn client 2.4.12
 	sudo apt -y install liblz4-dev libssl-dev liblzo2-dev libpam0g-dev
 
@@ -346,6 +308,43 @@ if [ $NONCOCOPI -eq 1 ] && [ $systemtype = amd64 ]; then
 	        sudo apt -y --allow-unauthenticated install --reinstall d-apt-keyring
 	        sudo apt update && sudo apt-get install dmd-compiler dub
 	fi
+
+       # install Google Chrome
+        dpkg -l google-chrome-stable
+        if [ $? -eq 0 ]
+        then
+                echo "google-chrome-stable package already exists.  Skipping."
+                echo
+        else
+                # add respository for Google Chrome
+                curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg >> /dev/null
+                echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/d
+                sudo apt update
+
+                sudo apt -y install software-properties-common apt-transport-https ca-certificates curl
+                sudo apt -y install google-chrome-stable
+
+                sudo apt -y install apt-transport-https ca-certificates curl software-properties-common fonts-liberation libu2f-udev libvulkan1
+                sudo apt -y install openssh-client network-manager-openvpn-gnome openvpn network-manager-openvpn
+        fi
+
+        # install Google Drive
+        dpkg -l google-drive-ocamlfuse
+        if [ $? -eq 0 ]
+        then
+                echo "google-drive-ocamlfuse package already exists.  Skipping."
+                echo
+        else
+                # https://github.com/astrada/google-drive-ocamlfuse/wiki/Installation
+                sudo touch /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
+                sudo echo -e "deb http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu xenial main" > /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
+                sudo echo -e "deb-src http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/alessandro-strada-ubuntu-ppa-bionic.list
+                sudo sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AD5F235DF639B041
+                sudo apt update
+                sudo apt -y install google-drive-ocamlfuse
+                mkdir $HOME/GoogleDrive
+        fi
+
 
 	echo
 	echo
