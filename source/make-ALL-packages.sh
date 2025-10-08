@@ -183,9 +183,6 @@ echo
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-
-GOTO_1
-
 ./make-QB64pe.sh
 echo
 read -p "Press any key to continue... " -n1 -s
@@ -243,7 +240,10 @@ echo
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-./make-pyDriveWire.sh
+
+GOTO_1
+
+./make-pyDriveWire-python3.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
