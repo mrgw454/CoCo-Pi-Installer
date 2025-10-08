@@ -20,6 +20,14 @@ fi
 
 cd CoCo-Pi-Installer-staging
 
+stagingfolder=$(pwd)
+echo
+echo stagingfolder: $stagingfolder
+echo
+
+
+read -p "Press any key to continue... " -n1 -s
+
 # remove previous files if they exist
 if [ -f Desktop.tar.gz ]; then
 	rm Desktop.tar.gz
@@ -95,31 +103,46 @@ fi
 
 
 # create new files
-tar czvf Desktop.tar.gz $HOME/Desktop
+cd $HOME
 
-tar czvf Pictures.tar.gz $HOME/Pictures/*CoCo* $HOME/Pictures/*coco* $HOME/Pictures/*Coco* $HOME/Pictures/*rduino* $HOME/Pictures/BASIC* \
-$HOME/Pictures/CM* $HOME/Pictures/DOS* $HOME/Pictures/dos* $HOME/Pictures/Dragon* $HOME/Pictures/dw4* $HOME/Pictures/flexemu* \
-$HOME/Pictures/Fuji* $HOME/Pictures/fuji* $HOME/Pictures/HxC* $HOME/Pictures/irata* $HOME/Pictures/MAME* $HOME/Pictures/MC-10* \
-$HOME/Pictures/mc-10* $HOME/Pictures/Monitor* $HOME/Pictures/MPI* $HOME/Pictures/NoICE* $HOME/Pictures/online6809* $HOME/Pictures/OVCC* \
-$HOME/Pictures/PuTTY* $HOME/Pictures/pyD* $HOME/Pictures/Realistic* $HOME/Pictures/Tandy* $HOME/Pictures/trs80gp* $HOME/Pictures/VCC* $HOME/Pictures/XRoar* 
+tar czvf $stagingfolder/Desktop.tar.gz Desktop/Emulators/CoCoSC* Desktop/Emulators/ddd* Desktop/Emulators/DOSBox* Desktop/Emulators/DragonPy* \
+Desktop/Emulators/DriveWire4* Desktop/Emulators/F256Jr* Desktop/Emulators/Flexemu* Desktop/Emulators/HxC* Desktop/Emulators/MAME* \
+Desktop/Emulators/MC-10* Desktop/Emulators/NoICE* Desktop/Emulators/Online* Desktop/Emulators/OVCC* Desktop/Emulators/pyDriveWire* \
+Desktop/Emulators/RunCPM* Desktop/Emulators/Rusty* Desktop/Emulators/seergdb* Desktop/Emulators/trs80gp* Desktop/Emulators/VCC* \
+Desktop/Emulators/VMC* Desktop/Emulators/XRoar* \
+Desktop/Emulators\ \(Online\)/cocobot* Desktop/Emulators\ \(Online\)/Flex* Desktop/Emulators\ \(Online\)/Get* \
+Desktop/Emulators\ \(Online\)/*Color* Desktop/Emulators\ \(Online\)/*Dragon* Desktop/Emulators\ \(Online\)/MC-10* \
+Desktop/Emulators\ \(Online\)/*Motorola* Desktop/Emulators\ \(Online\)/ugBASIC* Desktop/Emulators\ \(Online\)/XRoar* \
+Desktop/Retro\ Computer\ Forums\ \&\ News/*worldofdragon* Desktop/Retro\ Computer\ Forums\ \&\ News/ColorComputer* \
+Desktop/Retro\ Computer\ Forums\ \&\ News/MAME* Desktop/Retro\ Computer\ Forums\ \&\ News/MC-10* \
+Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo* Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo-Pi* \
+Desktop/Retro\ Computer\ Forums\ \&\ News/*Trash* Desktop/Retro\ Computer\ Forums\ \&\ News/Vintage*
 
-tar czvf scripts.tar.gz $HOME/scripts
-tar czvf scripts2.tar.gz $HOME/scripts2
-tar czvf source.tar.gz $HOME/source/new_windows.zip $HOME/source/*.sh $HOME/source/useroptions.mak
-tar czvf source-other.tar.gz $HOME/source-other/*.sh
-tar czvf fonts.tar.gz $HOME/.fonts
-tar czvf misc-home-files.tar.gz $HOME/.vim $HOME/.wgetrc .$HOME/irssi $HOME/.config/geany/geany.conf $HOME/.config/geany/filedefs
+tar czvf $stagingfolder/Pictures.tar.gz Pictures/*CoCo* Pictures/*coco* Pictures/*Coco* Pictures/*rduino* Pictures/BASIC* \
+Pictures/CM* Pictures/DOS* Pictures/dos* Pictures/Dragon* Pictures/dw4* Pictures/flexemu* \
+Pictures/Fuji* Pictures/fuji* Pictures/HxC* Pictures/irata* Pictures/MAME* Pictures/MC-10* \
+Pictures/mc-10* Pictures/Monitor* Pictures/MPI* Pictures/NoICE* Pictures/online6809* Pictures/OVCC* \
+Pictures/PuTTY* Pictures/pyD* Pictures/Realistic* Pictures/Tandy* Pictures/trs80gp* Pictures/VCC* Pictures/XRoar*
 
-tar czvf mame-menus.tar.gz $HOME/.mame
-tar czvf xroar-menus.tar.gz $HOME/.xroar
-tar czvf ovcc-menus.tar.gz $HOME/.ovcc/*.rom $HOME/.ovcc/*.sh $HOME/.ovcc/*.ini $HOME/.ovcc/ini/*
-tar czvf trs80gp-menus.tar.gz $HOME/.trs80gp
+tar czvf $stagingfolder/scripts.tar.gz scripts
+tar czvf $stagingfolder/scripts2.tar.gz scripts2
+tar czvf $stagingfolder/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak
+tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
+tar czvf $stagingfolder/fonts.tar.gz .fonts
+tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
 
-tar czvf pyDriveWire-files.tar.gz $HOME/pyDriveWire/config/pydrivewirerc-daemon $HOME/pyDriveWire/*.sh
-tar czvf DriveWire-files.tar.gz $HOME/DriveWire4/*.sh $HOME/DriveWire4/config.xml
-tar czvf lwwire-files.tar.gz $HOME/lwwire/*.sh $HOME/lwwire/serserv $HOME/lwwire/tcpserv
-tar czvf tcpser-files.tar.gz $HOME/tcpser/*.sh
+tar czvf $stagingfolder/mame-menus.tar.gz .mame
+tar czvf $stagingfolder/xroar-menus.tar.gz .xroar
+tar czvf $stagingfolder/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
+tar czvf $stagingfolder/trs80gp-menus.tar.gz .trs80gp
 
+tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh
+tar czvf $stagingfolder/DriveWire-files.tar.gz DriveWire4/*.sh DriveWire4/config.xml
+tar czvf $stagingfolder/lwwire-files.tar.gz lwwire/*.sh lwwire/serserv lwwire/tcpserv
+tar czvf $stagingfolder/tcpser-files.tar.gz tcpser/*.sh
+
+
+cd $stagingfolder
 
 userid=$(whoami)
 if [ ! -d /media/share1 ]; then
@@ -127,8 +150,12 @@ if [ ! -d /media/share1 ]; then
 	sudo chown $userid:$userid
 fi
 
-tar czvf media-share1.tar.gz /media/share1/carts /media/share1/source /media/share1/software/coco* /media/share1/software/dragon* /media/share1/software/mc10* /media/share1/samples
-tar czvf misc-system-files.tar.gz /etc/samba/smb.conf
+tar czvf $stagingfolder/media-share1.tar.gz /media/share1/carts /media/share1/software/coco* \
+/media/share1/software/dragon* /media/share1/software/mc10* /media/share1/samples/floppy /media/share1/source/ASM \
+/media/share1/source/BASIC /media/share1/source/BASIC09  /media/share1/source/C /media/share1/source/ugBasic \
+/media/share1/source/MC-10
+
+tar czvf $stagingfolder/misc-system-files.tar.gz /etc/samba/smb.conf
 
 # capture .bashrc modifications for CoCo-Pi
 grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt

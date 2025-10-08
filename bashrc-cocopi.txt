@@ -1,4 +1,4 @@
-# start of Coco-Pi modifications
+# START of CoCo-Pi modifications
 
 systemtype=$(dpkg --print-architecture)
 
@@ -43,7 +43,7 @@ export NCURSES_NO_UTF8_ACS=1
 export SCREENDIR=$HOME/.screen
 
 # path settings
-PATH=$HOME/.local/bin:$PATH:$HOME/.mame:/opt/mame:$HOME/.xroar:$HOME/scripts
+PATH=$HOME/.local/bin:$PATH:$HOME/.mame:/opt/mame:$HOME/.xroar:$HOME/scripts:$HOME/scripts2
 
 # add path for CC6303 compiler
 export PATH=/opt/cc68/bin:$PATH
@@ -58,37 +58,14 @@ export ACLOCAL_PATH=/usr/share/aclocal
 
 # START of non-CoCo related environment variables
 
-# add path for cc65 compiler
-export PATH=$HOME/source/cc65/bin:$PATH
-
-# add tms9900-gcc compiler (for TI-99/4a)
-export PATH=$HOME/source/tms9900-gcc/tms9900-gcc/bin:$PATH
-
-# add libti99 library location (for TI-99/4a)
-export LIBTI99=$HOME/source/libti99
-
-# add path for atari800 emulator
-export PATH=$HOME/.atari800:$PATH
-
-# add path for sdltrs emulator
-export PATH=$HOME/.sdltrs:$PATH
-
-# add path for xa65 assembler
-export PATH=$HOME/source/xa65/xa:$PATH
-
-# add path for xa65 compiler
-export PATH=$HOME/source/xa65/xa:$PATH
-
-# add path for VICE emulator
-export PATH=$HOME/.vice/bin:$PATH
-
-# add path for Coleco emulator
-export PATH=$HOME/.coleco:$PATH
-
 # add z88dk library
 export PATH=${PATH}:${HOME}/source/z88dk/bin
 export ZCCCFG=${HOME}/source/z88dk/lib/config
 eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+
+# for using updated rustc and cargo toolchain
+# https://www.rust-lang.org/tools/install
+. "$HOME/.cargo/env"
 
 # END of non-CoCo related environment variables
 
