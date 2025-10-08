@@ -4,7 +4,7 @@
 # $HOME/compare-package-scripts.sh
 
 # add this as a GOTO type function
-#cat >/dev/null <<GOTO_1
+cat >/dev/null <<GOTO_1
 
 clear
 
@@ -179,11 +179,14 @@ echo
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-./make-qb64.sh
+#./make-qb64.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-./make-qb64pe.sh
+
+GOTO_1
+
+./make-QB64pe.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
