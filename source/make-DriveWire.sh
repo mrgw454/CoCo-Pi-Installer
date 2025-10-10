@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# install prerequsities
-sudo apt install openjdk-21-jdk
-
+# set up some variables
+# determine architecture type
+systemtype=$(dpkg --print-architecture)
 
 # verify java version
 JAVA_MAJOR_VERSION=$(java -version 2>&1 | sed -E -n 's/.* version "([^.-]*).*"/\1/p' | cut -d' ' -f1)
@@ -26,23 +26,9 @@ if [ -d "drivewire4" ]; then
 
         foldername=$(date +%Y-%m-%d_%H.%M.%S)
 
-        # backup config file
-        if [ -f drivewire4/drivewire4_from_source/config.xml ]; then
-                echo Found existing config file.  Backing up to ./config.xml-$foldername
-                echo
-                cp drivewire4/drivewire4_from_source/config.xml ./config.xml-$foldername
-                echo
-        fi
-
-	# backup scripts
-	cp drivewire4/drivewire4_from_source/DW4.sh ./
-	cp drivewire4/drivewire4_from_source/restartDW4.sh ./
-	cp drivewire4/drivewire4_from_source/stopDW4.sh ./
-
-
 	echo Archiving existing drivewire4 folder ["drivewire4"] into backup folder ["drivewire4-$foldername"]
 	echo
-	mv "drivewire4" "drivewrire4-$foldername"
+	mv "drivewire4" "drivewire4-$foldername"
 	echo
 
 fi
@@ -55,75 +41,110 @@ GITREV=`git rev-parse --short HEAD`
 
 cd drivewire4/drivewire4_from_source
 
+# we need this version of the swt library jar file to get things working properly
+wget --content-disposition "https://www.eclipse.org/downloads/download.php?file=/eclipse/downloads/drops4/R-4.33-202409030240/swt-4.33-gtk-linux-aarch64.zip"
+
+if [ $? -eq 0 ]
+then
+        echo "Download of swt-4.33-gtk-linux-aarch64.zip archive was successful."
+        echo
+else
+        echo "Download of swt-4.33-gtk-linux-aarch64.zip archive was NOT successful.  Aborting."
+        echo
+        exit 1
+fi
+
+unzip -o swt-4.33-gtk-linux-aarch64.zip swt.jar -d swt/linux
+unzip -o swt-4.33-gtk-linux-aarch64.zip swt.jar -d swt/linux_arm
+
 ant
 
-if [ -f drivewire4_linux_arm_64 ]; then
-	echo DriveWire4 compilation successful.
-	echo
 
-	# restore backed up config file
-	if [ -f ../../config.xml-$foldername ]; then
-        	echo Found existing config file.  Restoring ../../config.xml-$foldername to ./config.xml
-        	echo
-        	cp ../../config.xml-$foldername ./config.xml
-        	echo
-        	echo
-	else
-	        echo No existing config file.  Copying from CoCo-Pi-Installer...
-        	tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/config.xml -C $HOME/source/drivewire4/drivewire4_from_source
-	        echo
-	        echo
-	fi
+if [ $systemtype = arm64 ]; then
+        if [ -f drivewire4_linux_arm_64 ]; then
+                echo DriveWire4 compilation successful.
+                echo
+        else
+                echo DriveWire4 compilation was NOT successful.
+                echo
+        fi
 
-
-	# restore script files
-
-	if [ -f ../../DW4.sh ]; then
-        	cp ../../DW4.sh ./
-	else
-        	tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/DW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
-	fi
+elif [ $systemtype = amd64 ]; then
+        if [ -f drivewire4_linux_x86_64 ]; then
+                echo DriveWire4 compilation successful.
+                echo
+        else
+                echo DriveWire4 compilation was NOT successful.
+                echo
+        fi
+fi
 
 
-	if [ -f ../../restartDW4.sh ]; then
-        	cp ../../restartDW4.sh ./
-	else
-        	tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/restartDW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
-	fi
-
-
-	if [ -f ../../stopDW4.sh ]; then
-        	cp ../../stopDW4.sh ./
-	else
-        	tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/stopDW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
-	fi
-
-
-	# remove symbolic link if it exists
-	if [ -L $HOME/DriveWire4 ]; then
-        	rm $HOME/DriveWire4
-	fi
-
-	# create new symbolic link to backup folder
-	ln -s $HOME/source/drivewire4/drivewire4_from_source $HOME/DriveWire4
-
-
+#restore backed up config file
+if [ -f $HOME/source/drivewire4-$foldername/drivewire4_from_source/config.xml ]; then
+       	echo Found existing config file.  Restoring $HOME/source/drivewire4-$foldername/drivewire4_from_source/config.xml to ./config.xml
+       	echo
+       	cp $HOME/source/drivewire4-$foldername/drivewire4_from_source/config.xml ./config.xml
+       	echo
+       	echo
 else
+        echo No existing config file.  Copying from CoCo-Pi-Installer...
+       	tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/config.xml -C $HOME/source/drivewire4/drivewire4_from_source
+        echo
+        echo
+fi
 
-	echo DriveWire4 compilation failed.  Installation aborted.
-	echo
-	echo
 
-	# remove symbolic link if it exists
-	if [ -L $HOME/DriveWire4 ]; then
-        	rm $HOME/DriveWire4
-	fi
+# restore script files
+if [ -f $HOME/source/drivewire4-$foldername/drivewire4_from_source/DW4.sh ]; then
+        echo Found existing config file.  Restoring $HOME/source/drivewire4-$foldername/drivewire4_from_source/DW4.sh ./DW4.sh
+        echo
+        cp $HOME/source/drivewire4-$foldername/drivewire4_from_source/DW4.sh ./DW4.sh
+        echo
+        echo
+else
+        echo No existing DW4.sh file.  Copying from CoCo-Pi-Installer...
+        tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/DW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
+        echo
+        echo
+fi
 
-	# create new symbolic link to backup folder
+if [ -f $HOME/source/drivewire4-$foldername/drivewire4_from_source/restartDW4.sh ]; then
+        echo Found existing config file.  Restoring $HOME/source/drivewire4-$foldername/drivewire4_from_source/restartDW4.sh ./restartDW4.sh
+        echo
+        cp $HOME/source/drivewire4-$foldername/drivewire4_from_source/restartDW4.sh ./restartDW4.sh
+        echo
+        echo
+else
+        echo No existing restartDW4.sh file.  Copying from CoCo-Pi-Installer...
+        tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/restartDW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
+        echo
+        echo
+fi
+
+if [ -f $HOME/source/drivewire4-$foldername/drivewire4_from_source/stopDW4.sh ]; then
+        echo Found existing config file.  Restoring $HOME/source/drivewire4-$foldername/drivewire4_from_source/stopDW4.sh ./stopDW4.sh
+        echo
+        cp $HOME/source/drivewire4-$foldername/drivewire4_from_source/stopDW4.sh ./stopDW4.sh
+        echo
+        echo
+else
+        echo No existing stopDW4.sh file.  Copying from CoCo-Pi-Installer...
+        tar zxvf $HOME/CoCo-Pi-Installer/DriveWire-files.tar.gz --strip-components 1 DriveWire4/stopDW4.sh -C $HOME/source/drivewire4/drivewire4_from_source
+        echo
+        echo
+fi
+
+
+
+
+# create new symbolic link to backup folder
+if [ ! -L $HOME/DriveWire4 ]; then
 	ln -s $HOME/source/drivewire4-$foldername/drivewire4_from_source $HOME/DriveWire4
 fi
 
-cd ../..
+cd $HOME/source
+
 
 echo
 echo Done!
