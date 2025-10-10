@@ -39,7 +39,6 @@ sudo apt -y install fastfetch
 # create link to use old neofetch command
 sudo ln -s /usr/bin/fastfetch /usr/bin/neofetch
 
-
 # for file managers
 sudo apt -y install mc doublecmd-gtk
 
@@ -100,7 +99,7 @@ sudo apt -y install git gcc-arm-none-eabi python3-pip srecord stm32flash zip unz
 sudo apt -y install build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
 
 # for DriveWire4
-sudo apt -y install openjdk-21-jdk ant
+sudo apt -y install openjdk-21-jdk ant libswt-gtk-4-java libswt-gtk-4-jni libswt-webkit-gtk-4-jni libharfbuzz-icu0 libhyphen0 libjavascriptcoregtk-4.1-0 libmanette-0.2-0 libwoff1 xdg-dbus-proxy
 
 # additional fonts
 sudo apt-add-repository contrib non-free -y
@@ -119,6 +118,10 @@ echo
 sudo smbpasswd -a $userid
 echo
 echo
+
+# workaround to install wkhtmltopdf package that is not part of Debian 13
+# pending solution
+
 
 # remove uneeded packages
 sudo apt -y autoremove
