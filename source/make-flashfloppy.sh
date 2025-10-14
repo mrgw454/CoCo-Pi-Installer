@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install prerequisites
-sudo apt install git gcc-arm-none-eabi python3-pip srecord stm32flash zip unzip wget python3-intelhex python3-crcmod
+sudo apt -y install git gcc-arm-none-eabi python3-pip srecord stm32flash zip unzip wget python3-intelhex python3-crcmod
 
 cd $HOME/source
 

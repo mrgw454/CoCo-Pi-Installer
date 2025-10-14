@@ -4,7 +4,7 @@
 # $HOME/compare-package-scripts.sh
 
 # add this as a GOTO type function
-cat >/dev/null <<GOTO_1
+#cat >/dev/null <<GOTO_1
 
 clear
 
@@ -207,7 +207,7 @@ echo
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-./make-BASIC-To-6809.sh
+#./make-BASIC-To-6809.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
@@ -236,13 +236,10 @@ read -p "Press any key to continue... " -n1 -s
 echo
 
 # storage emulators
-./make-DriveWire.sh
+#./make-DriveWire.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-
-GOTO_1
-
 ./make-pyDriveWire-python3.sh
 echo
 read -p "Press any key to continue... " -n1 -s
@@ -320,6 +317,14 @@ echo
 read -p "Press any key to continue... " -n1 -s
 echo
 ./make-DragonPy.sh
+echo
+read -p "Press any key to continue... " -n1 -s
+echo
+./make-coco-gorsat.sh
+echo
+read -p "Press any key to continue... " -n1 -s
+echo
+./make-6809-gorsat.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo

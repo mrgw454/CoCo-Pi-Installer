@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install prerequisites
-sudo apt install texlive-latex-base
+sudo apt -y install texlive-latex-base
 
 cd $HOME/source
 
