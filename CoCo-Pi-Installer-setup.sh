@@ -373,8 +373,10 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 
 # disable ssh login warning
-if [ -f /etc/xdg/lxsession/LXDE-pi/sshpwd.sh ]; then
-	sudo rm /etc/xdg/lxsession/LXDE-pi/sshpwd.sh
+if [ -f /etc/profile.d/sshpwd.sh ]; then
+	sudo rm /etc/profile.d/sshpwd.sh
+	sudo touch /etc/profile.d/sshpwd.sh
+	sudo chattr +i /etc/profile.d/sshpwd.sh
 fi
 
 # add user to dialout and plugdev groups

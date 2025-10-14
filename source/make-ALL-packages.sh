@@ -61,7 +61,7 @@ echo
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
-./make-vasm.sh
+./make-vasm6809.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo

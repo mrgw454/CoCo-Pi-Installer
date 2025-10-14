@@ -28,12 +28,6 @@ else
 	source $HOME/.bashrc
 fi
 
-
-# reload your shell
-exec $SHELL
-
-pyenv --version
-
 echo
 echo
 
