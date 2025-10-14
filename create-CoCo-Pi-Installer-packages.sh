@@ -131,25 +131,27 @@ tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
 tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
 
-tar czvf $stagingfolder/mame-menus.tar.gz \
-	--exclude='*adam*' \
-	--exclude='*Adam*' \
-	--exclude='*alice*' \
-	--exclude='*apple*' \
-	--exclude='*Apple*' \
-	--exclude='*aquarius*' \
-	--exclude='*AQUARIUS*' \
-	--exclude='*tari*' \
-	--exclude='*msx*' \
-	--exclude='*nabu*' \
-	--exclude='*NABU*' \
-	--exclude='*99*' \
-	--exclude='*trs80*' \
-	--exclude='*68000*' \
-	--exclude='*c64*' \
-	--exclude='*c128*' \
-	--exclude='*Commodore*' \
-.mame
+
+find .mame \( -type f -o -type d \) \
+    ! -name '*adam*' \
+    ! -name '*Adam*' \
+    ! -name '*alice*' \
+    ! -name '*apple*' \
+    ! -name '*Apple*' \
+    ! -name '*aquarius*' \
+    ! -name '*AQUARIUS*' \
+    ! -name '*tari*' \
+    ! -name '*msx*' \
+    ! -name '*nabu*' \
+    ! -name '*NABU*' \
+    ! -name '*99*' \
+    ! -name '*trs80*' \
+    ! -name '*68000*' \
+    ! -name '*c64*' \
+    ! -name '*c128*' \
+    ! -name '*Commodore*' \
+    | tar -czvf "$stagingfolder/mame-menus.tar.gz" --no-recursion -T -
+
 
 tar czvf $stagingfolder/xroar-menus.tar.gz .xroar
 tar czvf $stagingfolder/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*

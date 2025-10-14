@@ -337,6 +337,16 @@ tar xzvf $HOME/CoCo-Pi-Installer/source.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz -C $HOME
 
 tar xzvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz -C $HOME
+
+if [ ! -L $HOME/.mame/menu ]; then
+	ln -s $HOME/.mame/CoCoPi-menu.sh $HOME/menu
+fi
+
+if [ ! -L $HOME/.mame/utils ]; then
+	ln -s $HOME/.mame/CoCoPi-menu-Utilities.sh $HOME/utils
+fi
+
+
 tar xzvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C $HOME
