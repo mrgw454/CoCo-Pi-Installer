@@ -131,7 +131,26 @@ tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
 tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
 
-tar czvf $stagingfolder/mame-menus.tar.gz .mame
+tar czvf $stagingfolder/mame-menus.tar.gz \
+	--exclude='*adam*' \
+	--exclude='*Adam*' \
+	--exclude='*alice*' \
+	--exclude='*apple*' \
+	--exclude='*Apple*' \
+	--exclude='*aquarius*' \
+	--exclude='*AQUARIUS*' \
+	--exclude='*tari*' \
+	--exclude='*msx*' \
+	--exclude='*nabu*' \
+	--exclude='*NABU*' \
+	--exclude='*99*' \
+	--exclude='*trs80*' \
+	--exclude='*68000*' \
+	--exclude='*c64*' \
+	--exclude='*c128*' \
+	--exclude='*Commodore*' \
+.mame
+
 tar czvf $stagingfolder/xroar-menus.tar.gz .xroar
 tar czvf $stagingfolder/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
 tar czvf $stagingfolder/trs80gp-menus.tar.gz .trs80gp
@@ -139,7 +158,7 @@ tar czvf $stagingfolder/trs80gp-menus.tar.gz .trs80gp
 tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh
 tar czvf $stagingfolder/DriveWire-files.tar.gz DriveWire4/*.sh DriveWire4/config.xml
 tar czvf $stagingfolder/lwwire-files.tar.gz lwwire/*.sh lwwire/serserv lwwire/tcpserv
-tar czvf $stagingfolder/tcpser-files.tar.gz tcpser/*.sh
+tar czvf $stagingfolder/tcpser-files.tar.gz tcpser/start_tcpser.sh tcpser/stop_tcpser.sh
 
 
 cd $stagingfolder
