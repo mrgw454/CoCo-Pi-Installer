@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt -y install cargo libsdl2-dev libsdl2-ttf-dev
+sudo apt -y install libsdl2-dev libsdl2-ttf-dev
 
 cd $HOME/source
 
