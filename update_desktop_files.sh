@@ -4,7 +4,7 @@
 USER_HOME="$HOME"
 
 # Define the base directory to search (adjust if needed)
-SEARCH_DIR="$USER_HOME"
+SEARCH_DIR="$USER_HOME/Desktop"
 
 # Find all .desktop files under the user's home directory
 find "$SEARCH_DIR" -type f -name "*.desktop" | while read -r desktop_file; do
