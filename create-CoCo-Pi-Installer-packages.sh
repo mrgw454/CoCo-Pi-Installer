@@ -175,7 +175,7 @@ fi
 tar czvf $stagingfolder/media-share1.tar.gz /media/share1/carts /media/share1/software/coco* \
 /media/share1/software/dragon* /media/share1/software/mc10* /media/share1/samples/floppy /media/share1/source/ASM \
 /media/share1/source/BASIC /media/share1/source/BASIC09  /media/share1/source/C /media/share1/source/ugBasic \
-/media/share1/source/MC-10
+/media/share1/source/MC-10 /media/share1/HDBDOS
 
 tar czvf $stagingfolder/misc-system-files.tar.gz /etc/samba/smb.conf
 
