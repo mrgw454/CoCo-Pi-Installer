@@ -23,44 +23,50 @@ cd $HOME/source/QB64pe
 ./setup_lnx.sh
 
 if [ -f qb64pe ]; then
-	sudo ln -s $HOME/source/QB64pe/qb64pe /usr/local/bin/qb64pe
+    if [ ! -L /usr/local/bin/qb64pe ]; then
+        sudo ln -s "$HOME/source/QB64pe/qb64pe" /usr/local/bin/qb64pe
+    else
+        echo "Symbolic link /usr/local/bin/qb64pe already exists. Skipping link creation."
+    fi
 else
-	echo
-	echo qb64pe binary not found.  Aborting.
-	echo
-	exit 1
+    echo
+    echo "qb64pe binary not found. Aborting."
+    echo
+    exit 1
 fi
-
-
-
-
 
 
 systemtype=$(dpkg --print-architecture)
 echo architecture = $systemtype
 
+
 if [[ $systemtype =~ arm64 ]];then
+	echo
+	echo building some missing items to run tests...
+	echo
+
 	cd tests/compile_tests/declare_library_static
 	gcc -c lib.c -o lib.o
 	ar rcs liblib-linux.a lib.o
 
+	echo
 	file liblib-linux.a
+	echo
 
 	ar x liblib-linux.a
+	echo
 	file lib.o
+	echo
 
-
-
-	g++ -c lib.cpp -o lib.o
-	ar rcs liblib-linux.a lib.o
-
+	echo
+	#read -p "Press any key to continue... " -n1 -s
+	echo
 fi
-
 
 cd ~/source/QB64pe
 
 # optional run tests
-# ./tests/run_tests.sh
+#./tests/run_tests.sh
 
 
 cd $HOME/source
