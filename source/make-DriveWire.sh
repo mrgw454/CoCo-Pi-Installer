@@ -44,18 +44,32 @@ cd drivewire4
 
 GITREV=`git rev-parse --short HEAD`
 
+# Set your github username and repo name
+repo="qbancoffee/drivewire4"
+
+# Get latest release info
+release=$(curl --silent -m 10 --connect-timeout 5 \
+    "https://api.github.com/repos/$repo/releases/latest")
+
+# Release version
+vtag=$(echo "$release" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+echo
+echo current version = $vtag
+echo
+
 mkdir release
 cd release
 
 if [ $systemtype = arm64 ]; then
-	wget https://github.com/qbancoffee/drivewire4/releases/download/4.3.4p_linux_aarch64/drivewire4_java21_linux_arm_64.zip
+	wget https://github.com/qbancoffee/drivewire4/releases/download/${vtag}_linux_aarch64/drivewire4_${vtag}_java21_linux_arm_64.zip
 
 
-
-        if [ -f drivewire4_java21_linux_arm_64.zip ]; then
+        if [ -f drivewire4_${vtag}_java21_linux_arm_64.zip ]; then
                 echo DriveWire4 archive found.  Unzipping.
                 echo
-		unzip drivewire4_java21_linux_arm_64.zip
+		unzip drivewire4_${vtag}_java21_linux_arm_64.zip
+		cd drivewire4_${vtag}_java21_linux_arm_64
 		echo
         else
                 echo DriveWire4 archive not found.  Aborting.
@@ -64,12 +78,13 @@ if [ $systemtype = arm64 ]; then
         fi
 
 elif [ $systemtype = amd64 ]; then
-	wget https://github.com/qbancoffee/drivewire4/releases/download/4.3.4p_linux_x86_64/drivewire4_java21_linux_x86_64.zip
+	wget https://github.com/qbancoffee/drivewire4/releases/download/${vtag}_linux_x86_64/drivewire4_${vtag}_java21_linux_x86_64.zip
 
-        if [ -f drivewire4_java21_linux_x86_64.zip ]; then
+        if [ -f drivewire4_${vtag}_java21_linux_x86_64.zip ]; then
                 echo DriveWire4 archive found.  Unzipping.
                 echo
-		unzip drivewire4_java21_linux_x86_64.zip
+		unzip drivewire4_${vtag}_java21_linux_x86_64.zip
+		cd drivewire4_${vtag}_java21_linux_x86_64
 		echo
         else
                 echo DriveWire4 archive not found.  Aborting.
@@ -80,6 +95,7 @@ fi
 
 
 sed -i 's|INSTALLDIR="$HOME/drive_wire_4_java"|INSTALLDIR="$HOME/DriveWire4"|' install_linux
+
 chmod a+x install_linux
 ./install_linux
 
