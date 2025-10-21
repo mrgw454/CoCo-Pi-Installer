@@ -2,169 +2,143 @@
 # tag: language BASIC
 
 # install prerequisites
-echo NOTE!  You need to make sure the following projects are already built and installed:
+echo NOTE! You need to make sure the following projects are already built and installed:
 echo
 echo QB64pe
 echo lwasm
 echo
-echo
-echo
 read -p "Press any key to continue... " -n1 -s
 echo
 
+sudo apt -y install libglew-dev freeglut3-dev libgl1-mesa-dev
+
 cd $HOME/source
 
-# if a previous BASIC-To-6809 folder exists, move into a date-time named folder
-
+# Archive previous clone if it exists
 if [ -d "BASIC-To-6809" ]; then
-
-       	foldername=$(date +%Y-%m-%d_%H.%M.%S)
-
-       	mv "BASIC-To-6809" "BASIC-To-6809-$foldername"
-
-       	echo -e Archiving existing BASIC-To-6809-git folder ["BASIC-To-6809"] into backup folder ["BASIC-To-6809-$foldername"]
-       	echo -e
-       	echo -e
+    foldername=$(date +%Y-%m-%d_%H.%M.%S)
+    mv "BASIC-To-6809" "BASIC-To-6809-$foldername"
+    echo -e "Archived existing BASIC-To-6809 folder into backup: BASIC-To-6809-$foldername"
+    echo
 fi
 
-# https://nowhereman999.wordpress.com/2024/07/27/coco-basic-to-6809-compiler/
-# https://wordpress.com/post/nowhereman999.wordpress.com/5054
-# https://github.com/nowhereman999/BASIC-To-6809
+# Clone fresh copy
 git clone https://github.com/nowhereman999/BASIC-To-6809.git
-
 cd BASIC-To-6809
+GITREV=$(git rev-parse --short HEAD)
 
-GITREV=`git rev-parse --short HEAD`
-
-if [ ! -f $HOME/source/QB64pe/qb64pe ]; then
-	echo
-	echo qb64pe compiler missing.  Aborting.
-	echo
-	exit 1
+# Check for QB64pe
+QB64="$HOME/source/QB64pe/qb64pe"
+if [ ! -f "$QB64" ]; then
+    echo
+    echo "QB64pe compiler missing. Aborting."
+    echo
+    exit 1
 fi
 
+# Set Clang and memory-friendly flags
+export CXX=clang++
+export CXXFLAGS="-O0 -fno-exceptions -std=gnu++17"
+export LDFLAGS="-lGLEW -lGL -lglut -lm -lpthread"
+
 echo
-echo Building all necessary tools can take a few moments.  Please be patient.
+echo "Building all necessary tools. Please be patient..."
 echo
 
-
-# compile Tokenizer
-$HOME/source/QB64pe/qb64pe -c BasTo6809.1.Tokenizer.bas -o BasTo6809.1.Tokenizer
-
+# Compile Tokenizer
+"$QB64" -c -x BasTo6809.1.Tokenizer.bas -o BasTo6809.1.Tokenizer
 if [ ! -f BasTo6809.1.Tokenizer ]; then
-	echo
-	echo Compiling of Tokenizer tool failed.  Aborting.
-	echo
-	cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-	echo
-	dmesg | grep -i 'killed process'
-	echo
-	exit 1
+    echo
+    echo "Compiling Tokenizer failed. Aborting."
+    echo
+    exit 1
 fi
 
-
-# compile Compiler
-$HOME/source/QB64pe/qb64pe -c BasTo6809.2.Compile.bas -o BasTo6809.2.Compile
+# Compile Compiler with fallback to manual Clang++ if needed
+echo
+echo "Compiling BasTo6809.2.Compile.bas..."
+"$QB64" -c -x BasTo6809.2.Compile.bas -o BasTo6809.2.Compile
 
 if [ ! -f BasTo6809.2.Compile ]; then
+    echo
+    echo "QB64pe compilation failed. Attempting manual Clang++ fallback..."
+
+    cd $HOME/source/QB64pe
+
+    if [ ! -f internal/c/qbx.cpp ]; then
         echo
-        echo Compiling of Compiler tool failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
+        echo "qbx.cpp not found. Aborting."
         echo
         exit 1
+    fi
+
+    clang++ -O0 -fno-exceptions -std=gnu++17 \
+        -I./internal/c/libqb/include \
+        -I./internal/c/parts/core/freeglut/include \
+        -I./internal/c/parts/core/glew/include \
+        internal/c/qbx.cpp internal/c/*.o \
+        -lGLEW -lGL -lglut -lm -lpthread \
+        -o $OLDPWD/BasTo6809.2.Compile
+
+    cd $OLDPWD
+
+    if [ ! -f BasTo6809.2.Compile ]; then
+        echo
+        echo "Manual Clang++ compilation failed. Aborting."
+        echo
+        exit 1
+    fi
 fi
 
-
-# compile main program
-$HOME/source/QB64pe/qb64pe -c BasTo6809.bas -o BasTo6809
-
+# Compile main program
+"$QB64" -c -x BasTo6809.bas -o BasTo6809
 if [ ! -f BasTo6809 ]; then
-        echo
-        echo Compiling of BasTo6809 tool failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
-        echo
-        exit 1
+    echo
+    echo "Compiling BasTo6809 failed. Aborting."
+    echo
+    exit 1
 fi
 
-
-# compile main program for large programs
-$HOME/source/QB64pe/qb64pe -c cc1sl.bas -o cc1sl
-
+# Compile large program variant
+"$QB64" -c -x cc1sl.bas -o cc1sl
 if [ ! -f cc1sl ]; then
-        echo
-        echo Compiling of cc1sl tool failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
-        echo
-        exit 1
+    echo
+    echo "Compiling cc1sl failed. Aborting."
+    echo
+    exit 1
 fi
 
-
-# compile IDE
+# Compile IDE
 cd IDE
-
-$HOME/source/QB64pe/qb64pe -c -o SDECB SDECB.bas
-
+"$QB64" -c -x -o SDECB SDECB.bas
 if [ ! -f SDECB ]; then
-        echo
-        echo Compiling of SDECB IDE failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
-        echo
-        exit 1
+    echo
+    echo "Compiling SDECB IDE failed. Aborting."
+    echo
+    exit 1
 fi
-
 cd ..
 
-
-# compile PNGtoCC3Playfield tool
-$HOME/source/QB64pe/qb64pe -c -o PNGtoCC3Playfield PNGtoCC3Playfield.bas
-
+# Compile PNG tools
+"$QB64" -c -x -o PNGtoCC3Playfield PNGtoCC3Playfield.bas
 if [ ! -f PNGtoCC3Playfield ]; then
-        echo
-        echo Compiling of PNGtoCC3Playfield tool failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
-        echo
-        exit 1
+    echo
+    echo "Compiling PNGtoCC3Playfield failed. Aborting."
+    echo
+    exit 1
 fi
 
-
-
-# compile PNGtoCCSB tool
-$HOME/source/QB64pe/qb64pe -c -o PNGtoCCSB PNGtoCCSB.bas
-
+"$QB64" -c -x -o PNGtoCCSB PNGtoCCSB.bas
 if [ ! -f PNGtoCCSB ]; then
-        echo
-        echo Compiling of PNGtoCCSB.bas tool failed.  Aborting.
-        echo
-        cat $HOME/source/QB64pe/internal/temp/compilelog.txt
-        echo
-        dmesg | grep -i 'killed process'
-        echo
-        exit 1
+    echo
+    echo "Compiling PNGtoCCSB failed. Aborting."
+    echo
+    exit 1
 fi
 
-
-# get manual
-# https://github.com/pwillard/basto6809Manual
-wget https://github.com/pwillard/basto6809Manual/blob/main/basto6809.pdf
-
+# Download manual
+wget -O basto6809.pdf https://github.com/pwillard/basto6809Manual/raw/main/basto6809.pdf
 
 cd $HOME/source
-
-
 echo
-echo Done!
+echo "✅ Done! BASIC-To-6809 build complete."
