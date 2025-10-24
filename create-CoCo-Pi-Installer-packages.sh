@@ -127,7 +127,7 @@ Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 
 tar czvf $stagingfolder/scripts.tar.gz scripts
 tar czvf $stagingfolder/scripts2.tar.gz scripts2
-tar czvf $stagingfolder/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak ovcc-patch-package-cc936b2.tar.gz
+tar czvf $stagingfolder/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak ovcc-patch-package-cc936b2.tar.gz source/coco3-jaggies-patches.zip
 tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
 tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
