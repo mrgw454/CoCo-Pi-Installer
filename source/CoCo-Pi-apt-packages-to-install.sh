@@ -77,7 +77,7 @@ echo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 sudo apt -y install maven default-jdk
 
 # misc
-sudo apt -y install plocate tigervnc-viewer minicom npm diffuse filezilla rhash xclip jstest-gtk exfat-fuse exfatprogs
+sudo apt -y install plocate tigervnc-viewer minicom npm diffuse filezilla rhash xclip jstest-gtk exfat-fuse exfatprogs irssi
 
 # for xroar
 sudo apt -y install git python3 libsdl2-dev libsdl2-ttf-dev libfontconfig-dev libpulse-dev qtbase5-dev qtbase5-dev-tools qtchooser qt5-qmake
@@ -120,7 +120,7 @@ echo
 echo
 
 # workaround to install wkhtmltopdf package that is not part of Debian 13
-# pending solution
+sudo apt -y install weasyprint
 
 
 # remove uneeded packages
@@ -167,7 +167,7 @@ if [ $NONCOCOPI -eq 1 ]; then
 	sudo apt -y install liblz4-dev libssl-dev liblzo2-dev libpam0g-dev
 
 	# for hardware statitics utilities
-	sudo apt -y install atop dstat sysstat nmon nvtop psensor lm-sensors hardinfo smartmontools gsmartcontrol nvme-cli baobab lshw-gtk libusb-1.0-0-dev libudev-dev pulseview net-tools
+	sudo apt -y install atop dstat sysstat nmon nvtop psensor lm-sensors hardinfo smartmontools gsmartcontrol nvme-cli baobab lshw-gtk libusb-1.0-0-dev libudev-dev pulseview net-tools iperf3 bmon ethtool arp-scan nmap
 
 	# for benchmark and stress test programs
 	sudo apt -y install sysbench stress-ng stress s-tui
@@ -276,7 +276,7 @@ if [ $NONCOCOPI -eq 1 ] && [ $systemtype = amd64 ] && [ $WSL -eq 0 ] && [KVMQEMU
 	wget https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-guest-tools.exe
 
 	# OBS Studio
-	sudo apt-y install obs-studio v4l2loopback-dkms v4l2loopback-utils
+	sudo apt -y install obs-studio v4l2loopback-dkms v4l2loopback-utils
 
 	echo
 	echo
@@ -302,7 +302,7 @@ if [ $NONCOCOPI -eq 1 ] && [ $systemtype = amd64 ]; then
 	        sudo wget https://netcologne.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list
         	sudo apt update --allow-insecure-repositories
 	        sudo apt -y --allow-unauthenticated install --reinstall d-apt-keyring
-	        sudo apt update && sudo apt-get install dmd-compiler dub
+	        sudo apt update && sudo apt -y install dmd-compiler dub
 	fi
 
        # install Google Chrome

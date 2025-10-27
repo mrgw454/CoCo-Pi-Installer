@@ -236,7 +236,7 @@ read -p "Press any key to continue... " -n1 -s
 echo
 
 # storage emulators
-#./make-DriveWire.sh
+./make-DriveWire.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
@@ -478,7 +478,7 @@ echo
 #./make-FUZIX-coco3.sh
 
 # backup software
-./make-rpi-clone.sh
+#./make-rpi-clone.sh
 echo
 read -p "Press any key to continue... " -n1 -s
 echo
