@@ -30,12 +30,19 @@ On Raspberry Pi platforms, the file system on SD card will automatically be expa
    `./CoCo-Pi-Installer-setup.sh`<br/>
    When this part is complete, REBOOT.<br/>
 
-10. Log back into OS, open a terminal and type the following commands:<br/>
+10. Log back into OS, change directories to $HOME/CoCo-Pi-Installer and type the following commands:<br/>
+    `./update_desktop_files.sh`<br/>
+    `./install-pyenv.sh`<br/>
+    `./install-python2-pyenv.sh`<br/>
+    `./install-rust.sh`<br/>
+    When this part is complete, REBOOT.<br/>
+
+11. Log back into OS, open a terminal and type the following commands:<br/>
     `cd $HOME/source`<br/>
     `./CoCo-Pi-apt-packages-to-install.sh`<br/>
     When this part is complete, REBOOT.<br/>
 
-11. Log back into OS, open a terminal and type the following command:<br/>
+12. Log back into OS, open a terminal and type the following command:<br/>
     `select-project-build.sh`<br/><br/>
     A menu of projects to compile and install will be presented.  I suggest starting with lwtools, toolshed and gcc6809.  Having these projects installed first will allow successful building of other projects.  There is a make-ALL-projects.sh script availavble to help automate building multiple projects.<br/><br/>
 
