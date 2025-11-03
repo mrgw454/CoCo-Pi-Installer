@@ -125,13 +125,29 @@ Pictures/mc-10* Pictures/Monitor* Pictures/MPI* Pictures/NoICE* Pictures/online6
 Pictures/PuTTY* Pictures/pyD* Pictures/Realistic* Pictures/Tandy* Pictures/trs80gp* Pictures/VCC* Pictures/XRoar* \
 Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 
-tar czvf $stagingfolder/scripts.tar.gz scripts
+#tar czvf $stagingfolder/scripts.tar.gz scripts
+find scripts \( -type f -o -type d \) \
+    ! -iname '*adam*' \
+    ! -iname '*alice*' \
+    ! -iname '**altirra*' \
+    ! -iname '*apple*' \
+    ! -iname '*aquarius*' \
+    ! -iname '*atari*' \
+    ! -iname '*msx*' \
+    ! -iname '*nabu*' \
+    ! -iname '*99*' \
+    ! -iname '*trs80*' \
+    ! -iname '*68000*' \
+    ! -iname '*c64*' \
+    ! -iname '*c128*' \
+    ! -iname '*commodore*' \
+    | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
+
 tar czvf $stagingfolder/scripts2.tar.gz scripts2
 tar czvf $stagingfolder/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak source/ovcc-patch-package-cc936b2.tar.gz source/coco3-jaggies-patches.zip
 tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
 tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
-
 
 find .mame \( -type f -o -type d \) \
     ! -name '*adam*' \
@@ -191,4 +207,3 @@ echo
 echo
 echo Done!
 echo
-
