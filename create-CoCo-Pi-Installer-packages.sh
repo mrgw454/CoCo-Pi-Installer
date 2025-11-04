@@ -129,7 +129,7 @@ Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 find scripts \( -type f -o -type d \) \
     ! -iname '*adam*' \
     ! -iname '*alice*' \
-    ! -iname '**altirra*' \
+    ! -iname '*altirra*' \
     ! -iname '*apple*' \
     ! -iname '*aquarius*' \
     ! -iname '*atari*' \
@@ -141,15 +141,37 @@ find scripts \( -type f -o -type d \) \
     ! -iname '*c64*' \
     ! -iname '*c128*' \
     ! -iname '*commodore*' \
+    ! -iname '*coleco*' \
+    ! -name 'recursive-convert-2mg-to-PO.sh' \
+    ! -name 'recursive-convert-DSK-to-PO.sh' \
+    ! -name 'recursive-convert-WOZ-to-PO.sh' \
+    ! -name 'recursive-copy-PO-and-HDV-and-DSK.sh' \
+    ! -name 'recursive-copy-PO-and-HDV.sh' \
+    ! -name 'recursive-verify-appleii-diskimages.sh' \
     | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
 
+
 tar czvf $stagingfolder/scripts2.tar.gz scripts2
-tar czvf $stagingfolder/source.tar.gz source/new_windows.zip source/*.sh source/useroptions.mak source/ovcc-patch-package-cc936b2.tar.gz source/coco3-jaggies-patches.zip
+
+tar czvf $stagingfolder/source.tar.gz \
+    --exclude='source/pdd.sh' \
+    source/new_windows.zip \
+    source/*.sh \
+    source/useroptions.mak \
+    source/ovcc-patch-package-cc936b2.tar.gz \
+    source/coco3-jaggies-patches.zip
+
 tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
 tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
 
+
 find .mame \( -type f -o -type d \) \
+    ! -path '.mame/Nvram' \
+    ! -path '.mame/Nvram/*' \
+    ! -path '.mame/snap' \
+    ! -path '.mame/snap/*' \
+    ! -name '.optional_mame_parameters_*.txt' \
     ! -name '*adam*' \
     ! -name '*Adam*' \
     ! -name '*alice*' \
@@ -167,6 +189,15 @@ find .mame \( -type f -o -type d \) \
     ! -name '*c64*' \
     ! -name '*c128*' \
     ! -name '*Commodore*' \
+    ! -path '.mame/cfg/*' \
+    -o -path '.mame/cfg/coco*' \
+    -o -path '.mame/cfg/dragon*' \
+    -o -path '.mame/cfg/mc10*' \
+    -o -path '.mame/cfg/cp400*' \
+    -o -path '.mame/cfg/agvision*' \
+    -o -path '.mame/cfg/trsvidtx*' \
+    -o -path '.mame/cfg/d64*' \
+    -o -path '.mame/cfg/mcx*' \
     | tar -czvf "$stagingfolder/mame-menus.tar.gz" --no-recursion -T -
 
 
@@ -188,10 +219,22 @@ if [ ! -d /media/share1 ]; then
 	sudo chown $userid:$userid
 fi
 
-tar czvf $stagingfolder/media-share1.tar.gz /media/share1/carts /media/share1/software/coco* \
-/media/share1/software/dragon* /media/share1/software/mc10* /media/share1/samples/floppy /media/share1/source/ASM \
-/media/share1/source/BASIC /media/share1/source/BASIC09  /media/share1/source/C /media/share1/source/ugBasic \
-/media/share1/source/MC-10 /media/share1/HDBDOS
+
+tar czvf $stagingfolder/media-share1.tar.gz \
+    --exclude='/media/share1/source/*/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9][0-9].[0-9][0-9].[0-9][0-9]' \
+    /media/share1/carts \
+    /media/share1/software/coco* \
+    /media/share1/software/dragon* \
+    /media/share1/software/mc10* \
+    /media/share1/samples/floppy \
+    /media/share1/source/ASM \
+    /media/share1/source/BASIC \
+    /media/share1/source/BASIC09 \
+    /media/share1/source/C \
+    /media/share1/source/ugBasic \
+    /media/share1/source/MC-10 \
+    /media/share1/HDBDOS
+
 
 tar czvf $stagingfolder/misc-system-files.tar.gz /etc/samba/smb.conf
 
