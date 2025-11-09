@@ -172,24 +172,22 @@ find .mame \( -type f -o -type d \) \
     ! -path '.mame/snap' \
     ! -path '.mame/snap/*' \
     ! -name '.optional_mame_parameters_*.txt' \
-    ! -name '*adam*' \
-    ! -name '*Adam*' \
-    ! -name '*alice*' \
-    ! -name '*apple*' \
-    ! -name '*Apple*' \
-    ! -name '*aquarius*' \
-    ! -name '*AQUARIUS*' \
-    ! -name '*tari*' \
-    ! -name '*msx*' \
-    ! -name '*nabu*' \
-    ! -name '*NABU*' \
-    ! -name '*99*' \
-    ! -name '*trs80*' \
-    ! -name '*68000*' \
-    ! -name '*c64*' \
-    ! -name '*c128*' \
-    ! -name '*Commodore*' \
-    ! -path '.mame/cfg/*' \
+    ! -iname '*adam*' \
+    ! -iname '*alice*' \
+    ! -iname '*apple*' \
+    ! -iname '*aquarius*' \
+    ! -iname '*atari*' \
+    ! -iname '*msx*' \
+    ! -iname '*nabu*' \
+    ! -iname '*99*' \
+    ! -iname '*68000*' \
+    ! -iname '*c64*' \
+    ! -iname '*c128*' \
+    ! -iname '*commodore*' \
+    ! -iname '*coleco*' \
+    -o -name 'CoCoPi-menu-*.sh' \
+    -o -name 'CoCoPi-menu-Coco2-trs80gp.sh' \
+    -o -name 'CoCoPi-menu-MC10-trs80gp.sh' \
     -o -path '.mame/cfg/coco*' \
     -o -path '.mame/cfg/dragon*' \
     -o -path '.mame/cfg/mc10*' \
@@ -198,6 +196,7 @@ find .mame \( -type f -o -type d \) \
     -o -path '.mame/cfg/trsvidtx*' \
     -o -path '.mame/cfg/d64*' \
     -o -path '.mame/cfg/mcx*' \
+    | sort -u \
     | tar -czvf "$stagingfolder/mame-menus.tar.gz" --no-recursion -T -
 
 
@@ -205,7 +204,7 @@ tar czvf $stagingfolder/xroar-menus.tar.gz .xroar
 tar czvf $stagingfolder/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
 tar czvf $stagingfolder/trs80gp-menus.tar.gz .trs80gp
 
-tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh
+tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh pyDriveWire/pyDwCli*.* pyDriveWire/pyDwCli
 tar czvf $stagingfolder/DriveWire-files.tar.gz DriveWire4/*.sh DriveWire4/config.xml
 tar czvf $stagingfolder/lwwire-files.tar.gz lwwire/*.sh lwwire/serserv lwwire/tcpserv
 tar czvf $stagingfolder/tcpser-files.tar.gz tcpser/start_tcpser.sh tcpser/stop_tcpser.sh
