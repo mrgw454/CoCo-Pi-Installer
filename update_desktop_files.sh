@@ -15,4 +15,3 @@ find "$SEARCH_DIR" -type f -name "*.desktop" | while read -r desktop_file; do
 done
 
 echo "Update complete."
-
