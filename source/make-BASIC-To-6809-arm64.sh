@@ -3,7 +3,7 @@
 systemtype=$(dpkg --print-architecture)
 echo architecture = $systemtype
 
-if [[ $systemtype != amd64 ]];then
+if [[ $systemtype != arm64 ]];then
         echo This project is not compatible with your device platform.  Aborting.
         echo
         echo
@@ -40,7 +40,6 @@ GITREV=$(git rev-parse --short HEAD)
 
 cd Source_Code
 
-
 # Check for QB64pe
 QB64="$HOME/source/QB64pe/qb64pe"
 if [ ! -f "$QB64" ]; then
@@ -49,6 +48,11 @@ if [ ! -f "$QB64" ]; then
     echo
     exit 1
 fi
+
+# Set Clang and memory-friendly flags
+export CXX=clang++
+export CXXFLAGS="-O0 -fno-exceptions -std=gnu++17"
+export LDFLAGS="-lGLEW -lGL -lglut -lm -lpthread"
 
 echo
 echo "Building all necessary tools. Please be patient..."
@@ -63,14 +67,40 @@ if [ ! -f BasTo6809.1.Tokenizer ]; then
     exit 1
 fi
 
-# Compile Compiler
+# Compile Compiler with fallback to manual Clang++ if needed
+echo
 echo "Compiling BasTo6809.2.Compile.bas..."
 "$QB64" -c -x BasTo6809.2.Compile.bas -o BasTo6809.2.Compile
+
 if [ ! -f BasTo6809.2.Compile ]; then
-echo
-    echo "Manual Clang++ compilation failed. Aborting."
     echo
-    exit 1
+    echo "QB64pe compilation failed. Attempting manual Clang++ fallback..."
+
+    cd $HOME/source/QB64pe
+
+    if [ ! -f internal/c/qbx.cpp ]; then
+        echo
+        echo "qbx.cpp not found. Aborting."
+        echo
+        exit 1
+    fi
+
+    clang++ -O0 -fno-exceptions -std=gnu++17 \
+        -I./internal/c/libqb/include \
+        -I./internal/c/parts/core/freeglut/include \
+        -I./internal/c/parts/core/glew/include \
+        internal/c/qbx.cpp internal/c/*.o \
+        -lGLEW -lGL -lglut -lm -lpthread \
+        -o $OLDPWD/BasTo6809.2.Compile
+
+    cd $OLDPWD
+
+    if [ ! -f BasTo6809.2.Compile ]; then
+        echo
+        echo "Manual Clang++ compilation failed. Aborting."
+        echo
+        exit 1
+    fi
 fi
 
 # Compile main program
