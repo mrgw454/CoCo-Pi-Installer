@@ -168,6 +168,8 @@ if [ $NONCOCOPI -eq 1 ]; then
 
 	# for hardware statitics utilities
 	sudo apt -y install atop dstat sysstat nmon nvtop psensor lm-sensors hardinfo smartmontools gsmartcontrol nvme-cli baobab lshw-gtk libusb-1.0-0-dev libudev-dev pulseview net-tools iperf3 bmon ethtool arp-scan nmap
+	sudo apt -y install iotop inotify-tools ioping grc netperf btop
+
 
 	# for benchmark and stress test programs
 	sudo apt -y install sysbench stress-ng stress s-tui
@@ -201,7 +203,7 @@ if [ $NONCOCOPI -eq 1 ]; then
 		sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 		rm -f packages.microsoft.gpg
 		sudo apt update
-		sudo apt -y install apt-transport-https libmedstl-dev python3-jinja2
+		sudo apt -y install apt-transport-https libmbedtls-dev python3-jinja2
 		sudo apt -y install code
 	fi
 
@@ -380,8 +382,8 @@ if [ $NVIDIA -eq 1 ] && [ $systemtype = amd64 ]; then
 	echo
 fi
 
-sudo apt -y autoremove
 
+sudo apt -y autoremove
 
 echo
 echo
