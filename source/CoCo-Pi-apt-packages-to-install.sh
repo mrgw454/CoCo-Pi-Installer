@@ -46,7 +46,7 @@ sudo apt -y install mc doublecmd-gtk
 sudo apt -y install p7zip p7zip-full unrar unace-nonfree
 
 # for media player
-sudo apt -y install vlc
+sudo apt -y install vlc timidity sidplayfp
 
 # par utilities
 sudo apt -y install par2 parchive

@@ -26,12 +26,40 @@ git clone https://github.com/FujiNetWIFI/fujinet-firmware.git fujinet-pc-CoCo
 cd fujinet-pc-CoCo
 
 # select a commit that still works
+#git checkout 1.5.0
 
-# use this for a working BECKER port
-#git checkout 6960d909
+# Fetch all tags to ensure we have the full tag list
+git fetch --tags >/dev/null 2>&1
 
-# use this for working SERIAL ports
-#git checkout 97061f9
+echo
+echo "Retrieving the 10 most recent tags..."
+echo
+
+# Get the 10 most recent tags by creation date
+mapfile -t TAGS < <(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags | head -n 10)
+
+# Display menu
+i=1
+for tag in "${TAGS[@]}"; do
+    echo "  $i) $tag"
+    ((i++))
+done
+
+echo
+read -p "Select a tag number to check out: " choice
+
+# Validate input
+if ! [[ "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#TAGS[@]} )); then
+    echo "Invalid selection. Aborting."
+    exit 1
+fi
+
+SELECTED="${TAGS[$((choice-1))]}"
+
+echo
+echo "Checking out tag: $SELECTED"
+git checkout "$SELECTED"
+echo
 
 GITREV=`git rev-parse --short HEAD`
 
@@ -40,22 +68,6 @@ if [ ! -f platformio.ini ]; then
 fi
 
 mkdir build
-
-# Check if abimap is installed
-python3 -c "import abimap" 2>/dev/null
-
-if [[ $? -eq 0 ]]; then
-        echo "abimap is already installed."
-        echo
-else
-        echo "abimap not found. Installing..."
-        pip install abimap
-        echo
-fi
-
-
-sed -i '/#!\/usr\/bin\/env bash/a PATH=\/usr\/bin:$PATH' build.sh
-sed -i 's/strlcpy/strncpy/' lib/device/drivewire/fuji.cpp
 
 ./build.sh -b -p COCO
 

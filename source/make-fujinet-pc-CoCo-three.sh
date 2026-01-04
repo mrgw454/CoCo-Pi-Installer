@@ -5,7 +5,7 @@
 # adjust for your specific configuration
 
 # install prerequisites
-sudo apt -y install python3-venv python3-distutils python3-jinja2 libexpat1-dev libmbedtls-dev libbsd-dev python3-importlib-resources python3-importlib-metadata doxygen graphviz libargtable2-dev
+sudo apt -y install python3-venv python3-distutils-extra python3-jinja2 libexpat1-dev libmbedtls-dev libbsd-dev python3-importlib-resources python3-importlib-metadata doxygen graphviz libargtable2-dev
 
 cd $HOME/source
 
@@ -27,9 +27,40 @@ git clone https://github.com/FujiNetWIFI/fujinet-firmware.git fujinet-pc-CoCo-th
 cd fujinet-pc-CoCo-three
 
 # select a commit that still works
+#git checkout 1.5.0
 
-# use this for a working BECKER port
-#git checkout 6960d909
+# Fetch all tags to ensure we have the full tag list
+git fetch --tags >/dev/null 2>&1
+
+echo
+echo "Retrieving the 10 most recent tags..."
+echo
+
+# Get the 10 most recent tags by creation date
+mapfile -t TAGS < <(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags | head -n 10)
+
+# Display menu
+i=1
+for tag in "${TAGS[@]}"; do
+    echo "  $i) $tag"
+    ((i++))
+done
+
+echo
+read -p "Select a tag number to check out: " choice
+
+# Validate input
+if ! [[ "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#TAGS[@]} )); then
+    echo "Invalid selection. Aborting."
+    exit 1
+fi
+
+SELECTED="${TAGS[$((choice-1))]}"
+
+echo
+echo "Checking out tag: $SELECTED"
+git checkout "$SELECTED"
+echo
 
 GITREV=`git rev-parse --short HEAD`
 
@@ -39,26 +70,7 @@ fi
 
 mkdir build
 
-# this allows python3 to be found in PATH first
-PATH=/usr/bin:$PATH
-
-
-if [ ! -f /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled ]; then
-        sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled
-fi
-
-pip3 install abimap
-
-if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled ]; then
-        sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED.disabled /usr/lib/python3.11/EXTERNALLY-MANAGED
-fi
-
-
-sed -i '/#!\/usr\/bin\/env bash/a PATH=\/usr\/bin:$PATH' build.sh
-sed -i 's/strlcpy/strncpy/' lib/device/drivewire/fuji.cpp
-
 ./build.sh -b -p COCO
-
 
 if [ -f $HOME/source/fujinet-pc-CoCo-three/build/dist/fujinet ]; then
 	echo fujinet binary exists.
