@@ -55,9 +55,10 @@ eval "$(pyenv init -)"
 
 export ACLOCAL_PATH=/usr/share/aclocal
 
-# aliases for the new python disk image builder and emulator launcher
-alias build_dsk='python ~/scripts/launcher/tools/build_dsk.py'
-alias launcher='python ~/scripts/launcher/launcher.py'
+# run new launcher menu from anywhere in a shell
+launcher() {
+    python3 "$HOME/scripts/launcher/launcher.py" "$@"
+}
 
 # START of non-CoCo related environment variables
 
