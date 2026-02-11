@@ -1,4 +1,3 @@
-# START of CoCo-Pi modifications
 
 systemtype=$(dpkg --print-architecture)
 
@@ -60,18 +59,7 @@ launcher() {
     python3 "$HOME/scripts/launcher/launcher.py" "$@"
 }
 
-# START of non-CoCo related environment variables
 
-# add z88dk library
-export PATH=${PATH}:${HOME}/source/z88dk/bin
-export ZCCCFG=${HOME}/source/z88dk/lib/config
-eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-
-# for using updated rustc and cargo toolchain
-# https://www.rust-lang.org/tools/install
-. "$HOME/.cargo/env"
-
-# END of non-CoCo related environment variables
 
 
 # launch CoCo-Pi menu if on local console only
@@ -82,6 +70,9 @@ else
   echo
   neofetch
 fi
+
+# opam configuration
+test -r /home/ron/.opam/opam-init/init.sh && . /home/ron/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 # START of WSL2 specific
 kernel=$(uname -a)
@@ -101,59 +92,7 @@ if echo "$kernel" | grep -q "WSL"; then
         PS1="$(echo "[${WSL_DISTRO_NAME}]") ${PS1} "
 
 fi
-OUTPUT_FILE="$HOME/session_status.log"
 
-{
-    # Show session environment details
-    if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_TTY" ]; then
-        echo -e "\033[1;36m[REMOTE SESSION INFO]\033[0m"
-        REMOTE_IP=$(echo $SSH_CONNECTION | awk '{print $1}')
-        REMOTE_PORT=$(echo $SSH_CONNECTION | awk '{print $2}')
-        LOCAL_IP=$(echo $SSH_CONNECTION | awk '{print $3}')
-        LOCAL_PORT=$(echo $SSH_CONNECTION | awk '{print $4}')
-
-        echo -e "   Remote IP:     \033[1;33m$REMOTE_IP\033[0m"
-        echo -e "   Remote Port:   \033[1;33m$REMOTE_PORT\033[0m"
-        echo -e "   Local IP:      \033[1;32m$LOCAL_IP\033[0m"
-        echo -e "   Local Port:    \033[1;32m$LOCAL_PORT\033[0m"
-        echo -e "   TERM:          \033[1;35m$TERM\033[0m"
-    else
-        echo -e "\033[1;36m[LOCAL SESSION INFO]\033[0m"
-        echo -e "   TERM:          \033[1;35m$TERM\033[0m"
-    fi
-
-    echo -e "   XDG_SESSION_TYPE:     \033[1;33m$XDG_SESSION_TYPE\033[0m"
-    echo -e "   XDG_CURRENT_DESKTOP:  \033[1;32m$XDG_CURRENT_DESKTOP\033[0m"
-    echo -e "   DESKTOP_SESSION:      \033[1;35m$DESKTOP_SESSION\033[0m"
-    echo
-
-    ###############################################
-    # USER-LEVEL SERVICE CHECKS (correct for x11vnc)
-    ###############################################
-
-    # Check x11vnc user service
-    if systemctl --user is-active --quiet x11vnc.service 2>/dev/null; then
-        echo -e "\033[1;31m[SECURITY NOTICE]\033[0m x11vnc (user service) is \033[1;32mRUNNING\033[0m."
-        echo -e "   Use: \033[1;33msystemctl --user stop x11vnc.service\033[0m to shut it down."
-        echo
-    else
-        echo -e "\033[1;34m[INFO]\033[0m x11vnc (user service) is \033[1;31mNOT running\033[0m."
-        echo
-    fi
-
-    ###############################################
-    # SYSTEM-LEVEL XRDP CHECKS
-    ###############################################
-
-    for svc in xrdp xrdp-sesman; do
-        if systemctl is-active --quiet "$svc" 2>/dev/null; then
-            echo -e "\033[1;31m[SECURITY NOTICE]\033[0m $svc service is \033[1;32mRUNNING\033[0m."
-            echo -e "   Use: \033[1;33msudo systemctl stop $svc\033[0m to shut it down."
-        else
-            echo -e "\033[1;34m[INFO]\033[0m $svc service is \033[1;31mNOT running\033[0m."
-        fi
-    done
-
-    echo
-} | tee "$OUTPUT_FILE"
+# Run Windows CMD inside the Linux terminal (no wineconsole)
+alias winecmd='WINEDLLOVERRIDES="wineconsole.exe=d" wine cmd'
 

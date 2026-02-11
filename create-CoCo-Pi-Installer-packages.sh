@@ -164,7 +164,7 @@ tar czvf $stagingfolder/source.tar.gz \
 
 tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
-tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs
+tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs .config/Code/User/tasks.json
 
 
 find .mame \( -type f -o -type d \) \
@@ -239,7 +239,17 @@ tar czvf $stagingfolder/media-share1.tar.gz \
 tar czvf $stagingfolder/misc-system-files.tar.gz /etc/samba/smb.conf
 
 # capture .bashrc modifications for CoCo-Pi
-grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt
+#grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt
+
+awk '
+  /# START of CoCo-Pi modifications/ { in_coco=1; next }
+  /# END of CoCo-Pi modifications/   { in_coco=0 }
+
+  /# START of non-CoCo related environment variables/ { in_skip=1; next }
+  /# END of non-CoCo related environment variables/   { in_skip=0; next }
+
+  in_coco && !in_skip
+' ~/.bashrc > ./bashrc-cocopi.txt
 
 
 if [ -f $HOME/cocopi-release.txt ]; then
