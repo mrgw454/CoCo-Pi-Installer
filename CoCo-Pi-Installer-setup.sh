@@ -25,7 +25,7 @@ if [ "$version_check" != "13 (trixie)" ]; then
 		echo You must use one of the following versions:
 		echo
 		echo Linux native:
-		echo "https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-13.1.0-amd64-DVD-1.iso"
+		echo "https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-13.3.0-amd64-DVD-1.iso"
 		echo
 		echo Linux Subsystem for Windows:
 		echo "https://apps.microsoft.com/detail/9msvkqc78pk6?ocid=webpdpshare"
@@ -39,7 +39,7 @@ if [ "$version_check" != "13 (trixie)" ]; then
 		echo The version of Raspberry Pi OS is not compatible with this installer.
 		echo
 		echo You must use this version:
-		echo "https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2025-10-02/2025-10-01-raspios-trixie-arm64-full.img.xz"
+		echo "https://downloads.raspberrypi.com/raspios_full_arm64/images/raspios_full_arm64-2025-12-04/2025-12-04-raspios-trixie-arm64-full.img.xz"
 		echo
 		echo Aborting.
 		echo
@@ -319,16 +319,6 @@ if [ "$systemtype" = "arm64" ]; then
 fi
 
 
-# for amd64 platforms only
-if [ "$systemtype" = "amd64" ]; then
-	# enable RDP support
-	# use Remmina for RDP client in Linux
-	# must be logged out of local workstation to remotely connect
-	sudo apt -y install xrdp tigervnc-standalone-server
-	systemctl enable xrdp
-fi
-
-
 # extract core CoCo-Pi scripts and menus
 tar xzvf $HOME/CoCo-Pi-Installer/Desktop.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/Pictures.tar.gz -C $HOME
@@ -393,11 +383,6 @@ fi
 userid=$(whoami)
 sudo usermod -a -G dialout $userid
 sudo usermod -a -G plugdev $userid
-
-# required to allow some pip3 packages to be installed
-#if [ -f /usr/lib/python3.11/EXTERNALLY-MANAGED ]; then
-#	sudo mv /usr/lib/python3.13/EXTERNALLY-MANAGED /usr/lib/python3.13/EXTERNALLY-MANAGED.disabled
-#fi
 
 cd $HOME
 

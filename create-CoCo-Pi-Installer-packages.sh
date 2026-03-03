@@ -41,16 +41,8 @@ if [ -f scripts.tar.gz ]; then
 	rm scripts.tar.gz
 fi
 
-if [ -f scripts2.tar.gz ]; then
-        rm scripts2.tar.gz
-fi
-
 if [ -f source.tar.gz ]; then
 	rm source.tar.gz
-fi
-
-if [ -f source-other.tar.gz ]; then
-	rm source-other.tar.gz
 fi
 
 if [ -f fonts.tar.gz ]; then
@@ -105,19 +97,14 @@ fi
 # create new files
 cd $HOME
 
-tar czvf $stagingfolder/Desktop.tar.gz Desktop/Emulators/CoCoSC* Desktop/Emulators/ddd* Desktop/Emulators/DOSBox* Desktop/Emulators/DragonPy* \
-Desktop/Emulators/DriveWire4* Desktop/Emulators/F256Jr* Desktop/Emulators/Flexemu* Desktop/Emulators/HxC* Desktop/Emulators/MAME* \
-Desktop/Emulators/MC-10* Desktop/Emulators/NoICE* Desktop/Emulators/Online* Desktop/Emulators/OVCC* Desktop/Emulators/pyDriveWire* \
-Desktop/Emulators/RunCPM* Desktop/Emulators/Rusty* Desktop/Emulators/seergdb* Desktop/Emulators/trs80gp* Desktop/Emulators/VCC* \
-Desktop/Emulators/VMC* Desktop/Emulators/XRoar* \
-Desktop/Emulators\ \(Online\)/cocobot* Desktop/Emulators\ \(Online\)/Flex* Desktop/Emulators\ \(Online\)/Get* \
+tar czvf $stagingfolder/Desktop.tar.gz Desktop/Emulators\ \(Online\)/cocobot* Desktop/Emulators\ \(Online\)/Flex* Desktop/Emulators\ \(Online\)/Get* \
 Desktop/Emulators\ \(Online\)/*Color* Desktop/Emulators\ \(Online\)/*Dragon* Desktop/Emulators\ \(Online\)/MC-10* \
 Desktop/Emulators\ \(Online\)/*Motorola* Desktop/Emulators\ \(Online\)/ugBASIC* Desktop/Emulators\ \(Online\)/XRoar* \
 Desktop/Retro\ Computer\ Forums\ \&\ News/*worldofdragon* Desktop/Retro\ Computer\ Forums\ \&\ News/ColorComputer* \
 Desktop/Retro\ Computer\ Forums\ \&\ News/MAME* Desktop/Retro\ Computer\ Forums\ \&\ News/MC-10* \
 Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo* Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo-Pi* \
 Desktop/Retro\ Computer\ Forums\ \&\ News/*Trash* Desktop/Retro\ Computer\ Forums\ \&\ News/Vintage* \
-Desktop/coco-launcher*
+Desktop/CoCo*
 
 tar czvf $stagingfolder/Pictures.tar.gz Pictures/*CoCo* Pictures/*coco* Pictures/*Coco* Pictures/*rduino* Pictures/BASIC* \
 Pictures/CM* Pictures/DOS* Pictures/dos* Pictures/Dragon* Pictures/dw4* Pictures/flexemu* \
@@ -151,9 +138,6 @@ find scripts \( -type f -o -type d \) \
     ! -name 'recursive-verify-appleii-diskimages.sh' \
     | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
 
-
-tar czvf $stagingfolder/scripts2.tar.gz scripts2
-
 tar czvf $stagingfolder/source.tar.gz \
     --exclude='source/pdd.sh' \
     source/new_windows.zip \
@@ -162,9 +146,8 @@ tar czvf $stagingfolder/source.tar.gz \
     source/ovcc-patch-package-cc936b2.tar.gz \
     source/coco3-jaggies-patches.zip
 
-tar czvf $stagingfolder/source-other.tar.gz source-other/*.sh
 tar czvf $stagingfolder/fonts.tar.gz .fonts
-tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/geany/geany.conf .config/geany/filedefs .config/Code/User/tasks.json
+tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/Code/User/tasks.json
 
 
 find .mame \( -type f -o -type d \) \
@@ -239,8 +222,6 @@ tar czvf $stagingfolder/media-share1.tar.gz \
 tar czvf $stagingfolder/misc-system-files.tar.gz /etc/samba/smb.conf
 
 # capture .bashrc modifications for CoCo-Pi
-#grep -A500 -m1 -e 'modifications' $HOME/.bashrc > ./bashrc-cocopi.txt
-
 awk '
   /# START of CoCo-Pi modifications/ { in_coco=1; next }
   /# END of CoCo-Pi modifications/   { in_coco=0 }
