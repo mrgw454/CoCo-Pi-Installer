@@ -1,11 +1,30 @@
 #!/bin/bash
 set -e
 
-echo "=== Multi‑Python pyenv Environment Builder ==="
+echo "=== Multi‑Python pyenv Environment Builder (Hardened) ==="
 echo
 
 # ------------------------------------------------------------
-# 0. Install system dependencies for building Python
+# 0. Force a clean pyenv environment inside this script
+# ------------------------------------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+
+# Ignore any local .python-version files
+unset PYENV_VERSION
+
+# Initialize pyenv shims and hooks (no .bashrc needed)
+if [ -f "$PYENV_ROOT/bin/pyenv" ]; then
+    eval "$($PYENV_ROOT/bin/pyenv init -)"
+fi
+
+PYENV="$PYENV_ROOT/bin/pyenv"
+
+echo "pyenv initialized inside script."
+echo
+
+# ------------------------------------------------------------
+# 1. Install system dependencies
 # ------------------------------------------------------------
 echo "Installing system build dependencies..."
 sudo apt install -y \
@@ -16,25 +35,22 @@ sudo apt install -y \
 echo
 
 # ------------------------------------------------------------
-# 1. Install pyenv if missing (no .bashrc modification)
+# 2. Install pyenv if missing
 # ------------------------------------------------------------
-if [ ! -d "$HOME/.pyenv" ]; then
+if [ ! -d "$PYENV_ROOT" ]; then
     echo "Cloning pyenv..."
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
 else
     echo "pyenv already installed."
 fi
 echo
 
-PYENV="$HOME/.pyenv/bin/pyenv"
-PYENV_ROOT="$HOME/.pyenv"
-
 # ------------------------------------------------------------
-# 2. Ensure Python versions exist
+# 3. Ensure Python versions exist
 # ------------------------------------------------------------
 for VER in 2.7.18 3.11.2 3.12.1; do
     if ! $PYENV versions --bare | grep -q "^$VER$"; then
-        echo "Python $VER not found in pyenv. Installing..."
+        echo "Python $VER not found. Installing..."
         $PYENV install "$VER"
     else
         echo "Python $VER already installed."
@@ -43,7 +59,16 @@ done
 echo
 
 # ------------------------------------------------------------
-# 3. Define interpreters explicitly
+# 4. Set global versions (critical!)
+# ------------------------------------------------------------
+echo "Setting global Python versions..."
+$PYENV global 3.11.2 3.12.1
+$PYENV rehash
+echo "Global versions set to: 3.11.2 (default), 3.12.1 (tools)"
+echo
+
+# ------------------------------------------------------------
+# 5. Define interpreters explicitly
 # ------------------------------------------------------------
 PY27="$PYENV_ROOT/versions/2.7.18/bin/python"
 PIP27="$PYENV_ROOT/versions/2.7.18/bin/pip"
@@ -60,7 +85,7 @@ echo "Python 3.12.1 interpreter: $PY312"
 echo
 
 # ------------------------------------------------------------
-# 4. Upgrade pip in Python 3.x interpreters
+# 6. Upgrade pip in Python 3.x
 # ------------------------------------------------------------
 echo "Upgrading pip in 3.11.2..."
 $PIP311 install --upgrade pip
@@ -70,7 +95,7 @@ echo "Upgrading pip in 3.12.1..."
 $PIP312 install --upgrade pip
 echo
 
-# Python 2 pip bootstrap (safe)
+# Python 2 pip bootstrap
 if [ ! -x "$PIP27" ]; then
     echo "Bootstrapping pip for Python 2.7.18..."
     curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py
@@ -82,7 +107,7 @@ fi
 echo
 
 # ------------------------------------------------------------
-# 5. Install general modules into Python 3.11.2
+# 7. Install general modules into Python 3.11.2
 # ------------------------------------------------------------
 install_311() {
     PKG="$1"
@@ -106,7 +131,7 @@ install_311 setuptools
 install_311 wheel
 
 # ------------------------------------------------------------
-# Install playsound using manual setup.py (idempotent)
+# 8. Install playsound manually (3.11.2)
 # ------------------------------------------------------------
 echo "Checking playsound installation in 3.11.2..."
 
@@ -114,9 +139,9 @@ if $PY311 - <<EOF 2>/dev/null
 import playsound
 EOF
 then
-    echo "playsound already installed in 3.11.2."
+    echo "playsound already installed."
 else
-    echo "Installing playsound into 3.11.2 using legacy setup.py..."
+    echo "Installing playsound using legacy setup.py..."
 
     TMPDIR=$(mktemp -d)
     cd "$TMPDIR"
@@ -127,25 +152,18 @@ else
 
     $PY311 setup.py install
 
-    echo "Verifying playsound import under Python 3.11.2..."
-    if $PY311 - <<EOF 2>/dev/null
+    echo "Verifying playsound import..."
+    $PY311 - <<EOF
 import playsound
 EOF
-    then
-        echo "playsound installed successfully in 3.11.2."
-    else
-        echo "ERROR: playsound failed to import under 3.11.2."
-        exit 1
-    fi
 
     cd /
     rm -rf "$TMPDIR"
 fi
-
 echo
 
 # ------------------------------------------------------------
-# 6. Install PlatformIO into Python 3.12.1
+# 9. Install PlatformIO into Python 3.12.1
 # ------------------------------------------------------------
 echo "=== Installing PlatformIO into Python 3.12.1 ==="
 
@@ -153,8 +171,7 @@ PENV="$HOME/.platformio/penv"
 
 if [ -d "$PENV" ]; then
     if ! "$PENV/bin/python3" -c "import platformio" 2>/dev/null; then
-        echo "WARNING: PlatformIO venv is corrupted."
-        echo "Rebuilding PlatformIO venv..."
+        echo "WARNING: PlatformIO venv corrupted. Rebuilding..."
         rm -rf "$PENV"
         $PIP312 install --upgrade platformio
         $PYENV exec pio system info >/dev/null
@@ -169,7 +186,7 @@ fi
 echo
 
 # ------------------------------------------------------------
-# 7. Final verification
+# 10. Final verification
 # ------------------------------------------------------------
 echo "Final verification:"
 echo "python2.7:  $PY27"
