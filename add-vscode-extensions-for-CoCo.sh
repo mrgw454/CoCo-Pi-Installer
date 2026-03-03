@@ -1,6 +1,6 @@
 #!/bin/bash
 
-@ for CoCo
+# for CoCo
 code --install-extension ssorrrell.ecb2vscode
 code --install-extension Tandy.color-basic
 code --install-extension blairleduc.6x09-assembly
