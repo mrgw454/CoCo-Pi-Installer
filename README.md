@@ -33,7 +33,6 @@ On Raspberry Pi platforms, the file system on SD card will automatically be expa
 10. Log back into OS, change directories to $HOME/CoCo-Pi-Installer and type the following commands:<br/>
     `./update_desktop_files.sh`<br/>
     `./install-pyenv.sh`<br/>
-    `./install-python2-pyenv.sh`<br/>
     `./install-rust.sh`<br/>
     When this part is complete, REBOOT.<br/>
 
