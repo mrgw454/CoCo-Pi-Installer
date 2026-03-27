@@ -271,43 +271,33 @@ echo
 # for Raspberry Pi only
 if [ "$systemtype" = "arm64" ]; then
 
-	if [ -f "$HOME/update/.fix-cocopi-skip-config-clobber" ]; then
-		echo "Skipping update of /boot/config.txt for Raspberry Pi (arm64) platforms."
-		echo "If you want to override this, go to the Utilities -> Administration menu and select Toggle Raspberry PI config.txt updates."
-		echo
-		read -p "Press any key to continue... " -n1 -s
-		echo
-	else
-		# detect model of Raspberry Pi
-		RPI=`cat /proc/device-tree/model | cut -c14-16`
+	# detect model of Raspberry Pi
+	RPI=`cat /proc/device-tree/model | cut -c14-16`
 
-		if [ "$RPI" == "500" ]; then
-        		#sudo cp /home/pi/update/config.txt.RPi500 /boot/config.txt
-        		echo
- 		fi
-
-		if [ "$RPI" == "5 M" ]; then
-        		#sudo cp /home/pi/update/config.txt.RPi5 /boot/config.txt
-        		echo
- 		fi
-
-		if [ "$RPI" == "400" ]; then
-        		#sudo cp /home/pi/update/config.txt.RPi400 /boot/config.txt
-        		echo
-		fi
-
-		if [ "$RPI" == "4 M" ]; then
-		        #sudo cp /home/pi/update/config.txt.RPi4 /boot/config.txt
-		        echo
-		fi
-
-		if [ "$RPI" == "3 M" ]; then
-		        #sudo cp /home/pi/update/config.txt.RPi3 /boot/config.txt
-        		echo
-		fi
-
+	if [ "$RPI" == "500" ]; then
+       		#sudo cp /home/pi/update/config.txt.RPi500 /boot/config.txt
+       		echo
 	fi
 
+	if [ "$RPI" == "5 M" ]; then
+       		#sudo cp /home/pi/update/config.txt.RPi5 /boot/config.txt
+       		echo
+	fi
+
+	if [ "$RPI" == "400" ]; then
+       		#sudo cp /home/pi/update/config.txt.RPi400 /boot/config.txt
+       		echo
+	fi
+
+	if [ "$RPI" == "4 M" ]; then
+	        #sudo cp /home/pi/update/config.txt.RPi4 /boot/config.txt
+	        echo
+	fi
+
+	if [ "$RPI" == "3 M" ]; then
+	        #sudo cp /home/pi/update/config.txt.RPi3 /boot/config.txt
+       		echo
+	fi
 
 	# set backgroup wallpaper for CoCo-Pi
 
@@ -327,15 +317,6 @@ tar xzvf $HOME/CoCo-Pi-Installer/source.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz -C $HOME
 
 tar xzvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz -C $HOME
-
-if [ ! -L $HOME/.mame/menu ]; then
-	ln -s $HOME/.mame/CoCoPi-menu.sh $HOME/.mame/menu
-fi
-
-if [ ! -L $HOME/.mame/utils ]; then
-	ln -s $HOME/.mame/CoCoPi-menu-Utilities.sh $HOME/.mame/utils
-fi
-
 
 tar xzvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz -C $HOME

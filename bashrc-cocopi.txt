@@ -42,7 +42,7 @@ export NCURSES_NO_UTF8_ACS=1
 export SCREENDIR=$HOME/.screen
 
 # path settings
-PATH=$HOME/.local/bin:$PATH:$HOME/.mame:/opt/mame:$HOME/.xroar:$HOME/.trs80gp/$HOME/scripts:$HOME/scripts/launcher:$HOME/scripts2
+PATH=$HOME/.local/bin:$PATH:$HOME/.mame:/opt/mame:$HOME/.xroar:$HOME/.trs80gp:$HOME/scripts:$HOME/scripts/launcher:$HOME/scripts2
 
 # add path for CC6303 compiler
 export PATH=/opt/cc68/bin:$PATH
