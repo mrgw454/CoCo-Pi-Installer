@@ -41,17 +41,23 @@ On Raspberry Pi platforms, the file system on SD card will automatically be expa
     `./CoCo-Pi-apt-packages-to-install.sh`<br/>
     When this part is complete, REBOOT.<br/>
 
-12. Log back into OS, open a terminal and type the following command:<br/>
+12. Log back into OS, open a terminal and type the following commands:<br/>
+    `cd $HOME/CoCo-Pi-Installer`<br/>
+    `./update-wf-panel-system.sh`<br/>
+    `exit`<br/>
+
+13. Open a terminal and type the following commands:<br/>
+    `cd $HOME/source`<br/>
     `./make-ALL-packages.sh`<br/>
     This will install multiple programs used by the CoCo-Pi environment.<br/>
-    When this part is complete, REBOOT.<br/><br/>
+    When this part is complete, REBOOT.<br/>
 
-13. Log back into OS, open a terminal and type the following command:<br/>
+14. Log back into OS, open a terminal and type the following command:<br/>
     `cd $HOME/scripts/launcher`<br/>
     `./create-launcher-shortcut.sh`<br/>
-    This will create a new Launcher icon on the desktop.  This is the new menu system used by CoCo-Pi.<br/><br/>
+    This will create a new Launcher icon on the desktop.  This is the new menu system used by CoCo-Pi.<br/>
 
-14. To complete VS Code setup, open a terminal and type the following command:<br/>
+15. To complete VS Code setup, open a terminal and type the following command:<br/>
     `cd $HOME/scripts/launcher/vscode-extension`<br/>
     `./vscode-ext-sync.sh --import extensions.txt`<br/>
     This will add CoCo-Pi required extensions to VS Code.<br/><br/>
