@@ -42,10 +42,19 @@ On Raspberry Pi platforms, the file system on SD card will automatically be expa
     When this part is complete, REBOOT.<br/>
 
 12. Log back into OS, open a terminal and type the following command:<br/>
-    `select-project-build.sh`<br/><br/>
-    A menu of projects to compile and install will be presented.  I suggest starting with lwtools, toolshed and gcc6809.  Having these projects installed first will allow successful building of other projects.  There is a make-ALL-projects.sh script availavble to help automate building multiple projects.<br/><br/>
+    `./make-ALL-packages.sh`<br/>
+    This will install multiple programs used by the CoCo-Pi environment.<br/>
+    When this part is complete, REBOOT.<br/><br/>
 
-The rest of this should be familiar.  The same CoCo-Pi Menus are there (for launching emulators, downloading software, etc.).  I'm sure you will encounter issues/bugs.
+13. Log back into OS, open a terminal and type the following command:<br/>
+    `cd $HOME/scripts/launcher`<br/>
+    `./create-launcher-shortcut.sh`<br/>
+    This will create a new Launcher icon on the desktop.  This is the new menu system used by CoCo-Pi.<br/><br/>
+
+14. To complete VS Code setup, open a terminal and type the following command:<br/>
+    `cd $HOME/scripts/launcher/vscode-extension`<br/>
+    `./vscode-ext-sync.sh --import extensions.txt`<br/>
+    This will add CoCo-Pi required extensions to VS Code.<br/><br/>
 
 This method of obtaining and using CoCo-Pi is a big departure from a "ready to go" SD card image.  Due to nature of OS versions (and the packages / settings they use) this method of installing CoCo-Pi may still need to be tied specific version(s) of Debian based OS's.
 
