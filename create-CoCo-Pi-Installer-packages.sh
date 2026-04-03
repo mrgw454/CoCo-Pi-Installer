@@ -53,20 +53,20 @@ if [ -f misc-home-files.tar.gz ]; then
 	rm misc-home-files.tar.gz
 fi
 
-if [ -f mame-menus.tar.gz ]; then
-	rm mame-menus.tar.gz
+if [ -f mame.tar.gz ]; then
+	rm mame.tar.gz
 fi
 
-if [ -f xroar-menus.tar.gz ]; then
-	rm xroar-menus.tar.gz
+if [ -f xroar.tar.gz ]; then
+	rm xroar.tar.gz
 fi
 
-if [ -f ovcc-menus.tar.gz ]; then
-	rm ovcc-menus.tar.gz
+if [ -f ovcc.tar.gz ]; then
+	rm ovcc.tar.gz
 fi
 
-if [ -f trs80gp-menus.tar.gz ]; then
-	rm trs80gp-menus.tar.gz
+if [ -f trs80gp.tar.gz ]; then
+	rm trs80gp.tar.gz
 fi
 
 if [ -f pyDriveWire-files.tar.gz ]; then
@@ -75,10 +75,6 @@ fi
 
 if [ -f DriveWire-files.tar.gz ]; then
 	rm DriveWire-files.tar.gz
-fi
-
-if [ -f lwwire-files.tar.gz ]; then
-	rm lwwire-files.tar.gz
 fi
 
 if [ -f tcpser-files.tar.gz ]; then
@@ -115,6 +111,7 @@ Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 
 #tar czvf $stagingfolder/scripts.tar.gz scripts
 find scripts \( -type f -o -type d \) \
+    ! -iname '*.ps1' \
     ! -iname '*adam*' \
     ! -iname '*alice*' \
     ! -iname '*altirra*' \
@@ -146,15 +143,17 @@ tar czvf $stagingfolder/source.tar.gz \
     source/ovcc-patch-package-cc936b2.tar.gz \
     source/coco3-jaggies-patches.zip
 
-tar czvf $stagingfolder/fonts.tar.gz .fonts
-tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/Code/User/tasks.json
+tar czvf $stagingfolder/fonts.tar.gz .fonts/HotCoCo*.* .fonts/AnotherMansTreasure*.* .fonts/PixelTandysoft*.* .fonts/*Tandy1K*.*
 
+tar czvf $stagingfolder/misc-home-files.tar.gz .vim .wgetrc .irssi .config/Code/User/tasks.json
 
 find .mame \( -type f -o -type d \) \
     ! -path '.mame/Nvram' \
     ! -path '.mame/Nvram/*' \
     ! -path '.mame/snap' \
     ! -path '.mame/snap/*' \
+    ! -path '.mame/history/*' \
+    ! -path '.mame/ui/*' \
     ! -name '.optional_mame_parameters_*.txt' \
     ! -iname '*adam*' \
     ! -iname '*alice*' \
@@ -169,9 +168,9 @@ find .mame \( -type f -o -type d \) \
     ! -iname '*c128*' \
     ! -iname '*commodore*' \
     ! -iname '*coleco*' \
-    -o -name 'CoCoPi-menu-*.sh' \
-    -o -name 'CoCoPi-menu-Coco2-trs80gp.sh' \
-    -o -name 'CoCoPi-menu-MC10-trs80gp.sh' \
+    ! -iname 'plugin.ini' \
+    ! -iname 'ui.ini' \
+    ! -iname '*.backup' \
     -o -path '.mame/cfg/coco*' \
     -o -path '.mame/cfg/dragon*' \
     -o -path '.mame/cfg/mc10*' \
@@ -181,16 +180,15 @@ find .mame \( -type f -o -type d \) \
     -o -path '.mame/cfg/d64*' \
     -o -path '.mame/cfg/mcx*' \
     | sort -u \
-    | tar -czvf "$stagingfolder/mame-menus.tar.gz" --no-recursion -T -
+    | tar -czvf "$stagingfolder/mame.tar.gz" --no-recursion -T -
 
 
-tar czvf $stagingfolder/xroar-menus.tar.gz .xroar
-tar czvf $stagingfolder/ovcc-menus.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
-tar czvf $stagingfolder/trs80gp-menus.tar.gz .trs80gp
+tar czvf $stagingfolder/xroar.tar.gz .xroar
+tar czvf $stagingfolder/ovcc.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
+tar czvf $stagingfolder/trs80gp.tar.gz .trs80gp
 
 tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh pyDriveWire/pyDwCli*.* pyDriveWire/pyDwCli
 tar czvf $stagingfolder/DriveWire-files.tar.gz DriveWire4/*.sh DriveWire4/config.xml
-tar czvf $stagingfolder/lwwire-files.tar.gz lwwire/*.sh lwwire/serserv lwwire/tcpserv
 tar czvf $stagingfolder/tcpser-files.tar.gz tcpser/start_tcpser.sh tcpser/stop_tcpser.sh
 
 
@@ -201,7 +199,6 @@ if [ ! -d /media/share1 ]; then
 	sudo mkdir -p /media/share1
 	sudo chown $userid:$userid
 fi
-
 
 tar czvf $stagingfolder/media-share1.tar.gz \
     --exclude='/media/share1/source/*/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9][0-9].[0-9][0-9].[0-9][0-9]' \

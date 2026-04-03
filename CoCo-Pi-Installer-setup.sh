@@ -316,13 +316,12 @@ tar xzvf $HOME/CoCo-Pi-Installer/scripts.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/source.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/misc-home-files.tar.gz -C $HOME
 
-tar xzvf $HOME/CoCo-Pi-Installer/mame-menus.tar.gz -C $HOME
+tar xzvf $HOME/CoCo-Pi-Installer/mame.tar.gz -C $HOME
 
-tar xzvf $HOME/CoCo-Pi-Installer/xroar-menus.tar.gz -C $HOME
-tar xzvf $HOME/CoCo-Pi-Installer/ovcc-menus.tar.gz -C $HOME
-tar xzvf $HOME/CoCo-Pi-Installer/trs80gp-menus.tar.gz -C $HOME
+tar xzvf $HOME/CoCo-Pi-Installer/xroar.tar.gz -C $HOME
+tar xzvf $HOME/CoCo-Pi-Installer/ovcc.tar.gz -C $HOME
+tar xzvf $HOME/CoCo-Pi-Installer/trs80gp.tar.gz -C $HOME
 
-tar xzvf $HOME/CoCo-Pi-Installer/lwwire-files.tar.gz -C $HOME
 tar xzvf $HOME/CoCo-Pi-Installer/tcpser-files.tar.gz -C $HOME
 
 # install additional fonts related to CoCo-Pi
