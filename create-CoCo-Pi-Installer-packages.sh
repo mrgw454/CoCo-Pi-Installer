@@ -112,27 +112,14 @@ Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 #tar czvf $stagingfolder/scripts.tar.gz scripts
 find scripts \( -type f -o -type d \) \
     ! -iname '*.ps1' \
-    ! -iname '*adam*' \
-    ! -iname '*alice*' \
     ! -iname '*altirra*' \
     ! -iname '*apple*' \
-    ! -iname '*aquarius*' \
     ! -iname '*atari*' \
     ! -iname '*msx*' \
-    ! -iname '*nabu*' \
     ! -iname '*99*' \
-    ! -iname '*trs80*' \
-    ! -iname '*68000*' \
-    ! -iname '*c64*' \
-    ! -iname '*c128*' \
-    ! -iname '*commodore*' \
-    ! -iname '*coleco*' \
-    ! -name 'recursive-convert-2mg-to-PO.sh' \
-    ! -name 'recursive-convert-DSK-to-PO.sh' \
-    ! -name 'recursive-convert-WOZ-to-PO.sh' \
-    ! -name 'recursive-copy-PO-and-HDV-and-DSK.sh' \
-    ! -name 'recursive-copy-PO-and-HDV.sh' \
-    ! -name 'recursive-verify-appleii-diskimages.sh' \
+    ! -iname '*trs80[^g]*' \
+    ! -path '*/.claude' \
+    ! -path '*/.claude/*' \
     | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
 
 tar czvf $stagingfolder/source.tar.gz \
@@ -202,6 +189,8 @@ fi
 
 tar czvf $stagingfolder/media-share1.tar.gz \
     --exclude='/media/share1/source/*/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9][0-9].[0-9][0-9].[0-9][0-9]' \
+    --exclude='*/.claude' \
+    --exclude='*/.claude/*' \
     /media/share1/carts \
     /media/share1/software/coco* \
     /media/share1/software/dragon* \
