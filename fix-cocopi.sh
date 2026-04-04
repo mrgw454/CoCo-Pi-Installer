@@ -102,6 +102,31 @@ else
 fi
 
 
+# check for fix
+fix="fix-20260404-02"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+    bashrc="$HOME/.bashrc"
+    marker='[ "$(uname -m)" = "aarch64" ] && export GDK_BACKEND=x11'
+    if grep -qF "$marker" "$bashrc"; then
+        echo "GDK_BACKEND fix already present in $bashrc, skipping."
+    else
+        echo "" >> "$bashrc"
+        echo "# fix needed to get XRoar working properly when Wayland is the default" >> "$bashrc"
+        echo '[ "$(uname -m)" = "aarch64" ] && export GDK_BACKEND=x11' >> "$bashrc"
+        echo "Added GDK_BACKEND fix to $bashrc"
+    fi
+    echo
+
+    echo "$fix" >>$file
+    echo
+fi
+
+
 echo
 echo
 echo Please reboot as soon as possible so all updates can be applied.  Thank you.
