@@ -1,0 +1,36 @@
+{
+  "title": "Maintenance: Update Utilities",
+  "items": [
+    {
+      "label": "Update CCHDD",
+      "emulator": "utility",
+      "args": ["python3", "{HOME}/scripts/launcher/maintenance/update_cchdd.py"]
+    },
+    {
+      "label": "Update EOU-IDE",
+      "emulator": "utility",
+      "args": ["python3", "{HOME}/scripts/launcher/maintenance/update_eou_ide.py"]
+    },
+    {
+      "label": "Update JIMG (MC-10)",
+      "emulator": "utility",
+      "args": ["python3", "{HOME}/scripts/launcher/maintenance/update_jimg.py"]
+    },
+    {
+      "label": "Update RonD Gallery",
+      "emulator": "utility",
+      "args": ["python3", "{HOME}/scripts/launcher/maintenance/update_rond.py"]
+    },
+    {
+      "label": "Update JimG OS9",
+      "emulator": "utility",
+      "args": ["python3", "{HOME}/scripts/launcher/maintenance/update_jimg_os9.py"]
+    },
+    {
+      "label": "Update CoCo-Pi-Installer + Apply Fixes",
+      "emulator": "utility",
+      "hidden_when_not_rpi": true,
+      "args": ["bash", "-c", "cd {HOME}/CoCo-Pi-Installer && git pull && bash {HOME}/CoCo-Pi-Installer/fix-cocopi.sh"]
+    }
+  ]
+}
