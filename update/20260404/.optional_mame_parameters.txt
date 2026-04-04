@@ -1,0 +1,2 @@
+-ui_active -skip_gameinfo -window -resolution 1024x768
+

@@ -57,18 +57,6 @@ fi
 
 echo
 
-# create new link to fix-cocopi.sh script
-if [ -f $HOME/scripts/fix-cocopi.sh ]; then
-        rm $HOME/scripts/fix-cocopi.sh
-fi
-
-if [ -L $HOME/scripts/fix-cocopi.sh ]; then
-        rm $HOME/scripts/fix-cocopi.sh
-fi
-
-ln -s $HOME/CoCo-Pi-Installer/fix-cocopi.sh $HOME/scripts/fix-cocopi.sh
-
-
 # set hotfixes file
 file="$HOME/update/cocopi-fixes.txt"
 # create the file if it doesn't exist
@@ -93,6 +81,25 @@ touch $file
 #    echo "$fix" >>$file
 #    echo
 #fi
+
+
+# check for fix
+fix="fix-20260404-01"
+if grep -q "$fix" $file; then
+    echo fix $fix already complete.
+    echo
+else
+    echo Applying fix $fix...
+    echo
+    cp $HOME/CoCo-Pi-Installer/update/20260404/.optional_mame_parameters.txt $HOME/.mame
+    cp $HOME/CoCo-Pi-Installer/update/20260404/.optional_xroar_parameters.txt $HOME/.xroar
+    cp $HOME/CoCo-Pi-Installer/update/20260404/.optional_trs80gp_parameters.txt $HOME/.trs80gp
+
+    cd $HOME
+
+    echo "$fix" >>$file
+    echo
+fi
 
 
 echo
