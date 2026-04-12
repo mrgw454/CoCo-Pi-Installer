@@ -26,7 +26,6 @@ if [ -f /proc/device-tree/model ]; then
 		TITLE="RPi3"
 	fi
 
-	# fix needed to get XRoar working properly when Wayland is the default
 	[ "$(uname -m)" = "aarch64" ] && export GDK_BACKEND=x11
 
 else
