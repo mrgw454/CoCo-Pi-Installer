@@ -51,13 +51,11 @@ git push
 
 Also captures:
 - `bashrc-cocopi.txt` — CoCo-Pi section of `~/.bashrc` (between START/END markers, skipping non-CoCo env vars)
-- `cocopi-release.txt` — copied from `~/cocopi-release.txt` if present
-
 Also freshens `~/scripts/launcher/git_info.txt` from the CoCo-Pi-Launcher repo HEAD
 before building `scripts.tar.gz` — ensures Pi users see the correct launcher git rev.
 
-`fix-cocopi.sh` and `cocopi-release.txt` are edited **manually** — the script
-does not overwrite them.
+`fix-cocopi.sh` and `cocopi-release.txt` are edited **manually** and are not
+touched by the harvest script.
 
 ---
 
@@ -93,13 +91,12 @@ the script is idempotent and safe to re-run.
 
 Pi users update via the **Maintenance: Update Utilities** launcher menu:
 
-1. **Update CoCo-Pi-Installer** — `git pull` on `~/CoCo-Pi-Installer`
-2. **Update Launcher** — extracts `scripts.tar.gz` to `~/`
-3. **Apply CoCo-Pi Fixes** — runs `fix-cocopi.sh`
+1. **Update Launcher** — `git pull` on `~/CoCo-Pi-Installer`, then extracts `scripts.tar.gz`
+   to `~/` in one atomic step (prevents stale git rev from running steps out of order)
+2. **Apply CoCo-Pi Fixes** — runs `fix-cocopi.sh`
 
-**Bootstrap (first time / old launcher without menu items):**
+**Bootstrap (first time / old launcher without the combined menu item):**
 
 ```bash
-cd ~/CoCo-Pi-Installer && git pull
-tar xzf ~/CoCo-Pi-Installer/scripts.tar.gz -C ~/
+cd ~/CoCo-Pi-Installer && git pull && tar xzf ~/CoCo-Pi-Installer/scripts.tar.gz -C ~/
 ```

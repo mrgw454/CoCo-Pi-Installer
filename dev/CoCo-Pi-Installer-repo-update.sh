@@ -221,13 +221,5 @@ awk '
     && echo "  [OK] bashrc-cocopi.txt" \
     || echo "  [SKIP] bashrc-cocopi.txt"
 
-# ------------------------------------------------------------
-# cocopi-release.txt
-# ------------------------------------------------------------
-if [[ -f "$HOME/cocopi-release.txt" ]]; then
-    cp "$HOME/cocopi-release.txt" "$REPO_ROOT/"
-    echo "  [OK] cocopi-release.txt"
-fi
-
 echo ""
 echo "=== Installer repo update complete. Review changes and commit. ==="
