@@ -95,6 +95,9 @@ if echo "$kernel" | grep -q "WSL"; then
 
 fi
 
+# fix needed to get XRoar working properly when Wayland is the default
+[ "$(uname -m)" = "aarch64" ] && export GDK_BACKEND=x11
+
 # Run Windows CMD inside the Linux terminal (no wineconsole)
 alias winecmd='WINEDLLOVERRIDES="wineconsole.exe=d" wine cmd'
 
