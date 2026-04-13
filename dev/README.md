@@ -33,26 +33,28 @@ git push
 
 | Tarball | Source |
 |---|---|
-| `scripts.tar.gz` | `~/scripts/` — launcher + all supporting scripts |
-| `Desktop.tar.gz` | `~/Desktop` |
-| `Pictures.tar.gz` | `~/Pictures` |
-| `fonts.tar.gz` | `~/.fonts` |
-| `misc-home-files.tar.gz` | `.vim`, `.wgetrc`, `.irssi`, geany config |
-| `mame-menus.tar.gz` | `~/.mame` |
-| `xroar-menus.tar.gz` | `~/.xroar` |
-| `trs80gp-menus.tar.gz` | `~/.trs80gp` |
-| `ovcc-menus.tar.gz` | `~/.ovcc` (skipped if absent) |
+| `scripts.tar.gz` | `~/scripts/` — launcher + all supporting scripts (CoCo/retro only, excludes .ps1/atari/apple/etc) |
+| `Desktop.tar.gz` | `~/Desktop` — CoCo/retro-related shortcuts only |
+| `Pictures.tar.gz` | `~/Pictures` — CoCo/retro-related images only |
+| `fonts.tar.gz` | `~/.fonts` — CoCo/retro fonts only |
+| `misc-home-files.tar.gz` | `.vim`, `.wgetrc`, `.irssi`, VS Code `tasks.json` |
+| `mame.tar.gz` | `~/.mame` — excludes non-CoCo systems, snap, nvram |
+| `xroar.tar.gz` | `~/.xroar` |
+| `trs80gp.tar.gz` | `~/.trs80gp` |
+| `ovcc.tar.gz` | `~/.ovcc` (skipped if absent) |
 | `pyDriveWire-files.tar.gz` | `~/pyDriveWire/` config and scripts |
 | `DriveWire-files.tar.gz` | `~/DriveWire4/` config and scripts |
-| `lwwire-files.tar.gz` | `~/lwwire/` scripts and binaries |
 | `tcpser-files.tar.gz` | `~/tcpser/` scripts |
-| `source.tar.gz` | `~/source/` — new_windows.zip, *.sh, useroptions.mak |
-| `media-share1.tar.gz` | `/media/share1/` carts, source, software, samples |
+| `source.tar.gz` | `~/source/` — new_windows.zip, *.sh, useroptions.mak, ovcc patch, coco3 patches |
+| `media-share1.tar.gz` | `/media/share1/` — specific CoCo/retro subdirs only; excludes dated backup dirs |
 | `misc-system-files.tar.gz` | `/etc/samba/smb.conf` |
 
 Also captures:
-- `bashrc-cocopi.txt` — CoCo-Pi section of `~/.bashrc`
+- `bashrc-cocopi.txt` — CoCo-Pi section of `~/.bashrc` (between START/END markers, skipping non-CoCo env vars)
 - `cocopi-release.txt` — copied from `~/cocopi-release.txt` if present
+
+Also freshens `~/scripts/launcher/git_info.txt` from the CoCo-Pi-Launcher repo HEAD
+before building `scripts.tar.gz` — ensures Pi users see the correct launcher git rev.
 
 `fix-cocopi.sh` and `cocopi-release.txt` are edited **manually** — the script
 does not overwrite them.
