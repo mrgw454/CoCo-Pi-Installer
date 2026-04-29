@@ -191,6 +191,7 @@ tar czvf $stagingfolder/media-share1.tar.gz \
     --exclude='/media/share1/source/*/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9][0-9].[0-9][0-9].[0-9][0-9]' \
     --exclude='*/.claude' \
     --exclude='*/.claude/*' \
+    --exclude='*/CCGOTCHI/*' \
     /media/share1/carts \
     /media/share1/software/coco* \
     /media/share1/software/dragon* \
