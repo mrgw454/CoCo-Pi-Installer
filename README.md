@@ -1,6 +1,14 @@
 # CoCo-Pi-Installer
 Experimental installer for the CoCo-Pi (64 bit) distribution
 
+For a shareable introduction to how CoCo-Pi, the Installer, SD-card
+distribution, Launcher, VS Code, emulators, development tools, and original
+hardware support fit together, see
+[COCO_PI_ECOSYSTEM_OVERVIEW.md](COCO_PI_ECOSYSTEM_OVERVIEW.md). Focused
+introductions are available in
+[COCO_PI_PROJECT_OVERVIEW.md](COCO_PI_PROJECT_OVERVIEW.md) and
+[DEBIAN13_INSTALLER_OVERVIEW.md](DEBIAN13_INSTALLER_OVERVIEW.md).
+
 The CoCo-Pi Installer will add the CoCo-Pi components (i.e. menus, launch scripts, emulators, development tools, etc.) to Raspberry Pi 3 B+, 4, 400, 5 or 500 platforms.  In addition, it's been expanded to allow installation
 on X86_64 (amd64) based systems (including WSL2).
 
