@@ -31,7 +31,7 @@ On Raspberry Pi platforms, the file system on SD card will automatically be expa
 
 7. Log into OS.
 8. DO NOT CLONE this repository.  You only need to download a single file (Downloads folder is fine):<br/>
-    https://github.com/mrgw454/CoCo-Pi-Installer/blob/master/CoCo-Pi-Installer-setup.sh
+    https://github.com/mrgw454/CoCo-Pi-Installer/blob/debian13/CoCo-Pi-Installer-setup.sh
 
 9. Open a terminal, change directories to where you downloaded the file and type the following commands:<br/>
    `chmod a+x CoCo-Pi-Installer-setup.sh`<br/>

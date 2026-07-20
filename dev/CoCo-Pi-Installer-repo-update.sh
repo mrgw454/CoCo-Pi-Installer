@@ -51,26 +51,20 @@ run_tar() {
 echo ""
 echo "--- Generating tarballs ---"
 
-# Desktop — CoCo/retro-related items only
-run_tar Desktop.tar.gz \
-    "Desktop/Emulators (Online)/cocobot"* \
-    "Desktop/Emulators (Online)/Flex"* \
-    "Desktop/Emulators (Online)/Get"* \
-    "Desktop/Emulators (Online)/"*Color* \
-    "Desktop/Emulators (Online)/"*Dragon* \
-    "Desktop/Emulators (Online)/MC-10"* \
-    "Desktop/Emulators (Online)/"*Motorola* \
-    "Desktop/Emulators (Online)/ugBASIC"* \
-    "Desktop/Emulators (Online)/XRoar"* \
-    "Desktop/Retro Computer Forums & News/"*worldofdragon* \
-    "Desktop/Retro Computer Forums & News/ColorComputer"* \
-    "Desktop/Retro Computer Forums & News/MAME"* \
-    "Desktop/Retro Computer Forums & News/MC-10"* \
-    "Desktop/Retro Computer Forums & News/"*CoCo* \
-    "Desktop/Retro Computer Forums & News/"*CoCo-Pi* \
-    "Desktop/Retro Computer Forums & News/"*Trash* \
-    "Desktop/Retro Computer Forums & News/Vintage"* \
-    Desktop/CoCo*
+# Desktop — CoCo/retro-related items only. A file list preserves names that
+# contain literal backslashes, which tar otherwise treats as escape sequences.
+{
+    find "Desktop/Emulators (Online)" -maxdepth 1 -type f \
+        \( -name 'cocobot*' -o -name 'Flex*' -o -name 'Get*' -o -name '*Color*' \
+        -o -name '*Dragon*' -o -name 'MC-10*' -o -name '*Motorola*' \
+        -o -name 'ugBASIC*' -o -name 'XRoar*' \)
+    find "Desktop/Retro Computer Forums & News" -maxdepth 1 -type f \
+        \( -name '*worldofdragon*' -o -name 'ColorComputer*' -o -name 'MAME*' \
+        -o -name 'MC-10*' -o -name '*CoCo*' -o -name '*CoCo-Pi*' \
+        -o -name '*Trash*' -o -name 'Vintage*' \)
+    find Desktop -maxdepth 1 -type f -name 'CoCo*'
+} | sort -u | tar -czf "$REPO_ROOT/Desktop.tar.gz" \
+    --verbatim-files-from --no-recursion -T -
 
 # Pictures — CoCo/retro-related items only
 run_tar Pictures.tar.gz \
@@ -85,6 +79,9 @@ run_tar Pictures.tar.gz \
 echo -n "  scripts.tar.gz ... "
 find scripts \( -type f -o -type d \) \
     ! -iname '*.ps1' \
+    ! -iname '*.pyc' \
+    ! -iname '*.bak' \
+    ! -iname '*.backup' \
     ! -iname '*altirra*' \
     ! -iname '*apple*' \
     ! -iname '*atari*' \
@@ -93,6 +90,16 @@ find scripts \( -type f -o -type d \) \
     ! -iname '*trs80[^g]*' \
     ! -path '*/.claude' \
     ! -path '*/.claude/*' \
+    ! -path '*/.agents' \
+    ! -path '*/.agents/*' \
+    ! -path '*/.codex' \
+    ! -path '*/.codex/*' \
+    ! -path '*/.git' \
+    ! -path '*/.git/*' \
+    ! -path '*/__pycache__' \
+    ! -path '*/__pycache__/*' \
+    ! -path '*/.pytest_cache' \
+    ! -path '*/.pytest_cache/*' \
     | tar -czf "$REPO_ROOT/scripts.tar.gz" --no-recursion -T - 2>/dev/null \
     && echo "[OK]" || echo "[WARN]"
 

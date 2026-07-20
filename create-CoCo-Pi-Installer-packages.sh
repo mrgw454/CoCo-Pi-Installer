@@ -93,14 +93,18 @@ fi
 # create new files
 cd $HOME
 
-tar czvf $stagingfolder/Desktop.tar.gz Desktop/Emulators\ \(Online\)/cocobot* Desktop/Emulators\ \(Online\)/Flex* Desktop/Emulators\ \(Online\)/Get* \
-Desktop/Emulators\ \(Online\)/*Color* Desktop/Emulators\ \(Online\)/*Dragon* Desktop/Emulators\ \(Online\)/MC-10* \
-Desktop/Emulators\ \(Online\)/*Motorola* Desktop/Emulators\ \(Online\)/ugBASIC* Desktop/Emulators\ \(Online\)/XRoar* \
-Desktop/Retro\ Computer\ Forums\ \&\ News/*worldofdragon* Desktop/Retro\ Computer\ Forums\ \&\ News/ColorComputer* \
-Desktop/Retro\ Computer\ Forums\ \&\ News/MAME* Desktop/Retro\ Computer\ Forums\ \&\ News/MC-10* \
-Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo* Desktop/Retro\ Computer\ Forums\ \&\ News/*CoCo-Pi* \
-Desktop/Retro\ Computer\ Forums\ \&\ News/*Trash* Desktop/Retro\ Computer\ Forums\ \&\ News/Vintage* \
-Desktop/CoCo*
+{
+	find "Desktop/Emulators (Online)" -maxdepth 1 -type f \
+		\( -name 'cocobot*' -o -name 'Flex*' -o -name 'Get*' -o -name '*Color*' \
+		-o -name '*Dragon*' -o -name 'MC-10*' -o -name '*Motorola*' \
+		-o -name 'ugBASIC*' -o -name 'XRoar*' \)
+	find "Desktop/Retro Computer Forums & News" -maxdepth 1 -type f \
+		\( -name '*worldofdragon*' -o -name 'ColorComputer*' -o -name 'MAME*' \
+		-o -name 'MC-10*' -o -name '*CoCo*' -o -name '*CoCo-Pi*' \
+		-o -name '*Trash*' -o -name 'Vintage*' \)
+	find Desktop -maxdepth 1 -type f -name 'CoCo*'
+} | sort -u | tar -czvf "$stagingfolder/Desktop.tar.gz" \
+	--verbatim-files-from --no-recursion -T -
 
 tar czvf $stagingfolder/Pictures.tar.gz Pictures/*CoCo* Pictures/*coco* Pictures/*Coco* Pictures/*rduino* Pictures/BASIC* \
 Pictures/CM* Pictures/DOS* Pictures/dos* Pictures/Dragon* Pictures/dw4* Pictures/flexemu* \
@@ -112,6 +116,9 @@ Pictures/seergdb* Pictures/F256Jr* Pictures/RunCPM*
 #tar czvf $stagingfolder/scripts.tar.gz scripts
 find scripts \( -type f -o -type d \) \
     ! -iname '*.ps1' \
+    ! -iname '*.pyc' \
+    ! -iname '*.bak' \
+    ! -iname '*.backup' \
     ! -iname '*altirra*' \
     ! -iname '*apple*' \
     ! -iname '*atari*' \
@@ -120,6 +127,16 @@ find scripts \( -type f -o -type d \) \
     ! -iname '*trs80[^g]*' \
     ! -path '*/.claude' \
     ! -path '*/.claude/*' \
+    ! -path '*/.agents' \
+    ! -path '*/.agents/*' \
+    ! -path '*/.codex' \
+    ! -path '*/.codex/*' \
+    ! -path '*/.git' \
+    ! -path '*/.git/*' \
+    ! -path '*/__pycache__' \
+    ! -path '*/__pycache__/*' \
+    ! -path '*/.pytest_cache' \
+    ! -path '*/.pytest_cache/*' \
     | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
 
 tar czvf $stagingfolder/source.tar.gz \

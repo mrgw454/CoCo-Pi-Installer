@@ -33,7 +33,7 @@ git push
 
 | Tarball | Source |
 |---|---|
-| `scripts.tar.gz` | `~/scripts/` — launcher + all supporting scripts (CoCo/retro only, excludes .ps1/atari/apple/etc) |
+| `scripts.tar.gz` | `~/scripts/` — launcher + all supporting scripts (CoCo/retro only; excludes .ps1, non-CoCo platforms, agent metadata, Git metadata, and Python caches) |
 | `Desktop.tar.gz` | `~/Desktop` — CoCo/retro-related shortcuts only |
 | `Pictures.tar.gz` | `~/Pictures` — CoCo/retro-related images only |
 | `fonts.tar.gz` | `~/.fonts` — CoCo/retro fonts only |

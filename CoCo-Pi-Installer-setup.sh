@@ -249,16 +249,9 @@ sudo apt -y install git
 cd $HOME/CoCo-Pi-Installer
 git init
 git remote add origin https://github.com/mrgw454/CoCo-Pi-Installer.git
-git fetch
-git reset --hard origin/master
-git pull origin master
+git fetch origin debian13
+git checkout -B debian13 origin/debian13
 git config --global pull.ff only
-
-git fetch --all
-git reset --hard origin/master
-git pull origin master
-
-git checkout debian13
 git branch -a
 
 echo
