@@ -262,10 +262,8 @@ awk '
 ' ~/.bashrc > ./bashrc-cocopi.txt
 
 
-if [ -f $HOME/cocopi-release.txt ]; then
-	sed 's/Developer Edition/Community Edition/g' \
-		"$HOME/cocopi-release.txt" > ./cocopi-release.txt
-fi
+expected_release="CoCo-Pi - Community Edition $(date +%Y)"
+printf '%s\n' "$expected_release" > ./cocopi-release.txt
 
 echo
 echo
@@ -312,17 +310,11 @@ else
 	echo "[OK] scripts.tar.gz contains no excluded development artifacts"
 fi
 
-if [ ! -s "$stagingfolder/cocopi-release.txt" ]; then
-	echo "[ERROR] Missing or empty: cocopi-release.txt"
-	validation_failed=1
-elif grep -q 'Developer Edition' "$stagingfolder/cocopi-release.txt"; then
-	echo "[ERROR] cocopi-release.txt still contains a Developer Edition label"
-	validation_failed=1
-elif ! grep -q 'Community Edition' "$stagingfolder/cocopi-release.txt"; then
-	echo "[ERROR] cocopi-release.txt does not contain a Community Edition label"
+if [ "$(cat "$stagingfolder/cocopi-release.txt" 2>/dev/null)" != "$expected_release" ]; then
+	echo "[ERROR] cocopi-release.txt must contain exactly: $expected_release"
 	validation_failed=1
 else
-	echo "[OK] cocopi-release.txt is normalized for the Community Edition"
+	echo "[OK] cocopi-release.txt is normalized for the current Community Edition year"
 fi
 
 if [ "$validation_failed" -ne 0 ]; then

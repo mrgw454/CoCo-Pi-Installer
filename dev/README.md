@@ -31,8 +31,9 @@ After harvesting, the script:
    metadata as package changes.
 4. Writes `CoCo-Pi-Installer-staging/PROMOTION-REPORT.txt`, classifying each
    package as `NEW`, `CHANGED`, or `UNCHANGED` and listing content differences.
-5. Normalizes a live `Developer Edition` release label to `Community Edition`,
-   validates the result, and reports plain-file changes separately.
+5. Generates the release label as `CoCo-Pi - Community Edition YYYY` using
+   the current system year, validates that exact value, and reports plain-file
+   changes separately.
 
 Review the report and promote only intended content into the repository root.
 For example:
@@ -86,10 +87,10 @@ Before harvesting, deploy the intended Launcher revision with the Launcher's
 canonical sync script. The Installer harvest packages the deployed
 `~/scripts/launcher/` tree; it does not modify or synchronize that tree.
 
-`fix-cocopi.sh` is edited manually. The harvest captures the live
-`~/cocopi-release.txt`, but always changes `Developer Edition` to
-`Community Edition` in the staged copy. Developer labels must never be
-promoted into the public Installer package.
+`fix-cocopi.sh` is edited manually. The harvest does not copy the live release
+label. It always generates `CoCo-Pi - Community Edition YYYY` in staging,
+where `YYYY` is the current year reported by the development machine. A stale
+year or Developer Edition label cannot pass validation.
 
 ---
 
