@@ -4,28 +4,58 @@ Files in this directory are for the **repo maintainer only** — not for end use
 
 ---
 
-## Updating the Installer Repo
+## Updating the Installer repository
 
 After making changes to the live system (scripts, launcher, config, etc.) that
-should be packaged for Pi end users, regenerate the tarballs from the primary
-development machine (Debian 13 x570):
+should be packaged for Pi end users, run the canonical staged harvest from the
+primary development machine (Debian 13 x570):
 
 ```bash
 cd ~/source-CoCo-Pi/CoCo-Pi-Installer
-bash dev/CoCo-Pi-Installer-repo-update.sh
+./create-CoCo-Pi-Installer-packages.sh
 ```
 
-The script must be run from the repo root — it validates the working directory
-and exits if run from anywhere else.
+The script must be run from the repository root. It archives an existing
+`CoCo-Pi-Installer-staging/` directory under a timestamped, ignored name and
+creates a fresh staging directory. It does not overwrite tracked packages,
+stage Git changes, commit, or push.
 
-After running:
+After harvesting, the script:
+
+1. Checks that every expected archive exists, is nonempty, and passes gzip
+   integrity validation.
+2. Rejects agent metadata, Git metadata, Python caches, bytecode, and backup
+   files in `scripts.tar.gz`.
+3. Extracts the staged and tracked archives into temporary directories and
+   compares their contents. This avoids treating gzip timestamps or tar
+   metadata as package changes.
+4. Writes `CoCo-Pi-Installer-staging/PROMOTION-REPORT.txt`, classifying each
+   package as `NEW`, `CHANGED`, or `UNCHANGED` and listing content differences.
+5. Reports changes to `bashrc-cocopi.txt` and `cocopi-release.txt` separately;
+   the release label remains a manual decision.
+
+Review the report and promote only intended content into the repository root.
+For example:
 
 ```bash
-git diff --stat          # review what changed
-git add -p               # stage selectively
-git commit -m "message"
-git push
+less CoCo-Pi-Installer-staging/PROMOTION-REPORT.txt
+cp CoCo-Pi-Installer-staging/scripts.tar.gz ./
+cp CoCo-Pi-Installer-staging/source.tar.gz ./
 ```
+
+Then review and publish manually:
+
+```bash
+git diff --stat
+git diff --check
+git add -p
+git commit -m "message"
+git push origin debian13
+```
+
+Keeping promotion and Git publication manual is intentional. The live
+workstation is package input and evidence, but it can also contain local-only
+state that must not become part of a public release.
 
 ---
 
@@ -49,13 +79,16 @@ git push
 | `media-share1.tar.gz` | `/media/share1/` — specific CoCo/retro subdirs only; excludes dated backup dirs |
 | `misc-system-files.tar.gz` | `/etc/samba/smb.conf` |
 
-Also captures:
-- `bashrc-cocopi.txt` — CoCo-Pi section of `~/.bashrc` (between START/END markers, skipping non-CoCo env vars)
-Also freshens `~/scripts/launcher/git_info.txt` from the CoCo-Pi-Launcher repo HEAD
-before building `scripts.tar.gz` — ensures Pi users see the correct launcher git rev.
+Also captures `bashrc-cocopi.txt`, the CoCo-Pi section of `~/.bashrc` between
+its START/END markers while skipping non-CoCo environment variables.
 
-`fix-cocopi.sh` and `cocopi-release.txt` are edited **manually** and are not
-touched by the harvest script.
+Before harvesting, deploy the intended Launcher revision with the Launcher's
+canonical sync script. The Installer harvest packages the deployed
+`~/scripts/launcher/` tree; it does not modify or synchronize that tree.
+
+`fix-cocopi.sh` is edited manually. The harvest captures the live
+`~/cocopi-release.txt` in staging for comparison, but it must be promoted only
+when intentionally changing the public release label.
 
 ---
 

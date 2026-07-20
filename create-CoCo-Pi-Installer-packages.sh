@@ -1,5 +1,14 @@
 #!/bin/bash
 
+set -euo pipefail
+
+repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+if [ "$(pwd)" != "$repo_root" ]; then
+	echo "ERROR: Run this script from the repository root: $repo_root" >&2
+	exit 1
+fi
+
 # if a previous CoCo-Pi-Installer-staging folder exists, move into a date-time named folder
 
 if [ -d "CoCo-Pi-Installer-staging" ]; then
@@ -139,13 +148,17 @@ find scripts \( -type f -o -type d \) \
     ! -path '*/.pytest_cache/*' \
     | tar -czvf "$stagingfolder/scripts.tar.gz" --no-recursion -T -
 
-tar czvf $stagingfolder/source.tar.gz \
-    --exclude='source/pdd.sh' \
-    source/new_windows.zip \
-    source/*.sh \
-    source/useroptions.mak \
-    source/ovcc-patch-package-cc936b2.tar.gz \
-    source/coco3-jaggies-patches.zip
+source_files=(
+	source/new_windows.zip
+	source/*.sh
+	source/ovcc-patch-package-cc936b2.tar.gz
+	source/coco3-jaggies-patches.zip
+)
+if [ -f source/useroptions.mak ]; then
+	source_files+=(source/useroptions.mak)
+fi
+tar czvf "$stagingfolder/source.tar.gz" \
+	--exclude='source/pdd.sh' "${source_files[@]}"
 
 tar czvf $stagingfolder/fonts.tar.gz .fonts/HotCoCo*.* .fonts/AnotherMansTreasure*.* .fonts/PixelTandysoft*.* .fonts/*Tandy1K*.*
 
@@ -188,7 +201,19 @@ find .mame \( -type f -o -type d \) \
 
 
 tar czvf $stagingfolder/xroar.tar.gz .xroar
-tar czvf $stagingfolder/ovcc.tar.gz .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*
+ovcc_files=()
+for pattern in .ovcc/*.rom .ovcc/*.sh .ovcc/*.ini .ovcc/ini/*; do
+	for ovcc_file in $pattern; do
+		if [ -e "$ovcc_file" ]; then
+			ovcc_files+=("$ovcc_file")
+		fi
+	done
+done
+if [ "${#ovcc_files[@]}" -eq 0 ]; then
+	echo "ERROR: No OVCC package files found" >&2
+	exit 1
+fi
+tar czvf "$stagingfolder/ovcc.tar.gz" "${ovcc_files[@]}"
 tar czvf $stagingfolder/trs80gp.tar.gz .trs80gp
 
 tar czvf $stagingfolder/pyDriveWire-files.tar.gz pyDriveWire/config/pydrivewirerc-daemon pyDriveWire/*.sh pyDriveWire/pyDwCli*.* pyDriveWire/pyDwCli
@@ -201,7 +226,7 @@ cd $stagingfolder
 userid=$(whoami)
 if [ ! -d /media/share1 ]; then
 	sudo mkdir -p /media/share1
-	sudo chown $userid:$userid
+	sudo chown "$userid:$userid" /media/share1
 fi
 
 tar czvf $stagingfolder/media-share1.tar.gz \
@@ -243,5 +268,99 @@ fi
 
 echo
 echo
+echo Validating staged packages...
+echo
+
+expected_archives=(
+	Desktop.tar.gz
+	DriveWire-files.tar.gz
+	Pictures.tar.gz
+	fonts.tar.gz
+	mame.tar.gz
+	media-share1.tar.gz
+	misc-home-files.tar.gz
+	misc-system-files.tar.gz
+	ovcc.tar.gz
+	pyDriveWire-files.tar.gz
+	scripts.tar.gz
+	source.tar.gz
+	tcpser-files.tar.gz
+	trs80gp.tar.gz
+	xroar.tar.gz
+)
+
+validation_failed=0
+for archive in "${expected_archives[@]}"; do
+	if [ ! -s "$stagingfolder/$archive" ]; then
+		echo "[ERROR] Missing or empty: $archive"
+		validation_failed=1
+	elif ! gzip -t "$stagingfolder/$archive"; then
+		echo "[ERROR] Invalid gzip archive: $archive"
+		validation_failed=1
+	else
+		echo "[OK] $archive"
+	fi
+done
+
+unwanted_pattern='(^|/)(\.agents|\.codex|\.claude|\.git|__pycache__|\.pytest_cache)(/|$)|\.pyc$|\.(bak|backup)$'
+if tar tzf "$stagingfolder/scripts.tar.gz" | grep -Eiq "$unwanted_pattern"; then
+	echo "[ERROR] scripts.tar.gz contains excluded development artifacts:"
+	tar tzf "$stagingfolder/scripts.tar.gz" | grep -Ei "$unwanted_pattern"
+	validation_failed=1
+else
+	echo "[OK] scripts.tar.gz contains no excluded development artifacts"
+fi
+
+if [ "$validation_failed" -ne 0 ]; then
+	echo
+	echo "Validation failed. Nothing should be copied into the repository root." >&2
+	exit 1
+fi
+
+comparison_dir=$(mktemp -d)
+trap 'rm -rf "$comparison_dir"' EXIT
+report="$stagingfolder/PROMOTION-REPORT.txt"
+: > "$report"
+
+echo >> "$report"
+echo "Content comparison against repository packages" >> "$report"
+echo "================================================" >> "$report"
+
+for archive in "${expected_archives[@]}"; do
+	if [ ! -f "$repo_root/$archive" ]; then
+		echo "NEW       $archive" | tee -a "$report"
+		continue
+	fi
+
+	mkdir "$comparison_dir/root" "$comparison_dir/staged"
+	tar xzf "$repo_root/$archive" -C "$comparison_dir/root" 2>/dev/null
+	tar xzf "$stagingfolder/$archive" -C "$comparison_dir/staged" 2>/dev/null
+	if diff -qr "$comparison_dir/root" "$comparison_dir/staged" >/dev/null; then
+		echo "UNCHANGED $archive" | tee -a "$report"
+	else
+		echo "CHANGED   $archive" | tee -a "$report"
+		diff -qr "$comparison_dir/root" "$comparison_dir/staged" \
+			| sed 's/^/          /' >> "$report" || true
+	fi
+	rm -rf "$comparison_dir/root" "$comparison_dir/staged"
+done
+
+for staged_file in bashrc-cocopi.txt cocopi-release.txt; do
+	if [ ! -f "$stagingfolder/$staged_file" ]; then
+		echo "MISSING   $staged_file" | tee -a "$report"
+	elif [ ! -f "$repo_root/$staged_file" ]; then
+		echo "NEW       $staged_file" | tee -a "$report"
+	elif cmp -s "$repo_root/$staged_file" "$stagingfolder/$staged_file"; then
+		echo "UNCHANGED $staged_file" | tee -a "$report"
+	else
+		echo "CHANGED   $staged_file (manual release decision)" | tee -a "$report"
+		diff -u "$repo_root/$staged_file" "$stagingfolder/$staged_file" \
+			>> "$report" || true
+	fi
+done
+
+echo
+echo "Validation passed. Review: $report"
+echo "Copy only NEW or CHANGED content that belongs in the public package."
 echo Done!
 echo
