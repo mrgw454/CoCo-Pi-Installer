@@ -263,7 +263,8 @@ awk '
 
 
 if [ -f $HOME/cocopi-release.txt ]; then
-	cp $HOME/cocopi-release.txt ./
+	sed 's/Developer Edition/Community Edition/g' \
+		"$HOME/cocopi-release.txt" > ./cocopi-release.txt
 fi
 
 echo
@@ -311,6 +312,19 @@ else
 	echo "[OK] scripts.tar.gz contains no excluded development artifacts"
 fi
 
+if [ ! -s "$stagingfolder/cocopi-release.txt" ]; then
+	echo "[ERROR] Missing or empty: cocopi-release.txt"
+	validation_failed=1
+elif grep -q 'Developer Edition' "$stagingfolder/cocopi-release.txt"; then
+	echo "[ERROR] cocopi-release.txt still contains a Developer Edition label"
+	validation_failed=1
+elif ! grep -q 'Community Edition' "$stagingfolder/cocopi-release.txt"; then
+	echo "[ERROR] cocopi-release.txt does not contain a Community Edition label"
+	validation_failed=1
+else
+	echo "[OK] cocopi-release.txt is normalized for the Community Edition"
+fi
+
 if [ "$validation_failed" -ne 0 ]; then
 	echo
 	echo "Validation failed. Nothing should be copied into the repository root." >&2
@@ -353,7 +367,7 @@ for staged_file in bashrc-cocopi.txt cocopi-release.txt; do
 	elif cmp -s "$repo_root/$staged_file" "$stagingfolder/$staged_file"; then
 		echo "UNCHANGED $staged_file" | tee -a "$report"
 	else
-		echo "CHANGED   $staged_file (manual release decision)" | tee -a "$report"
+		echo "CHANGED   $staged_file" | tee -a "$report"
 		diff -u "$repo_root/$staged_file" "$stagingfolder/$staged_file" \
 			>> "$report" || true
 	fi
